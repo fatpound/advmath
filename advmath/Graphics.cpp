@@ -330,7 +330,7 @@ void Graphics::DrawLine(Vef2 p0, Vef2 p1, Color color)
         if (p0.x > p1.x)
         {
             std::swap(p0, p1);
-            // we want to draw pixels from left to right
+            // we want to loop and draw pixels from LEFT to RIGHT
             // so we swap if the p0.x is farther to the right
         }
 
@@ -356,7 +356,7 @@ void Graphics::DrawLine(Vef2 p0, Vef2 p1, Color color)
         if (p0.y > p1.y)
         {
             std::swap(p0, p1);
-            // we want to draw pixels from LOWER to HIGHER
+            // we want to loop and draw pixels from LOWER to HIGHER
             // so we swap if the p0.y is higher
         }
 
@@ -379,6 +379,15 @@ void Graphics::DrawLine(Vef2 p0, Vef2 p1, Color color)
     }
 }
 
+void Graphics::DrawClosedPolyLine(const std::vector<Vef2>& vertices, Color color)
+{
+    for (auto it = vertices.cbegin(); it != std::prev(vertices.cend()); ++it)
+    {
+        DrawLine(*it, *std::next(it), color);
+    }
+
+    DrawLine(vertices.back(), vertices.front(), color);
+}
 
 //////////////////////////////////////////////////
 //           Graphics Exception

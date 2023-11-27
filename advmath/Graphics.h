@@ -26,6 +26,8 @@
 #include "Color.h"
 #include "Vec2.hpp"
 
+#include <vector>
+
 using fatpound::color::Color;
 using namespace fatpound;
 
@@ -62,6 +64,7 @@ public:
 	}
 	void PutPixel( int x,int y,Color c );
     void DrawLine(Vef2 p0, Vef2 p1, Color color);
+    void DrawClosedPolyLine(const std::vector<Vef2>& vertices, Color color);
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;
