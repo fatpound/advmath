@@ -273,6 +273,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundEffect.h" />
+    <ClInclude Include="Star.hpp" />
     <ClInclude Include="Vec2.hpp" />
     <ClInclude Include="Vec3.hpp" />
   </ItemGroup>

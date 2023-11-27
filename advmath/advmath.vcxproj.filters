@@ -75,6 +75,9 @@
     <ClInclude Include="FatTimer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Star.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">
