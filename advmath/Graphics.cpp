@@ -325,7 +325,7 @@ void Graphics::DrawLine(Vef2 p0, Vef2 p1, Color color)
         in_m = (p1.y - p0.y) / (p1.x - p0.x);
     }
 
-    if (p1.x != p0.x && in_m <= 1.0f) // horizontal bias line
+    if (p1.x != p0.x && std::fabs(in_m) <= 1.0f) // horizontal bias line
     {
         if (p0.x > p1.x)
         {
