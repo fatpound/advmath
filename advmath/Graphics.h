@@ -24,6 +24,7 @@
 #include <wrl.h>
 #include "ChiliException.h"
 #include "Color.h"
+#include "Vec2.hpp"
 
 using fatpound::color::Color;
 using namespace fatpound;
@@ -60,6 +61,7 @@ public:
 		PutPixel( x,y,{ unsigned char( r ),unsigned char( g ),unsigned char( b ) } );
 	}
 	void PutPixel( int x,int y,Color c );
+    void DrawLine(Vef2 p0, Vef2 p1, Color color);
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;

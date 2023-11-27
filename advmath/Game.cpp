@@ -69,5 +69,8 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-    
+    if (wnd.mouse.LeftIsPressed())
+    {
+        gfx.DrawLine(Vef2{100.0f, 100.0f}, wnd.mouse.GetPosVef2(), color::Green);
+    }
 }

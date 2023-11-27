@@ -19,11 +19,16 @@
  *	along with The Chili DirectX Framework.  If not, see <http://www.gnu.org/licenses/>.  *
  ******************************************************************************************/
 #include "Mouse.h"
-
+#include "Vec2.hpp"
 
 std::pair<int,int> Mouse::GetPos() const
 {
 	return { x,y };
+}
+
+Vef2 Mouse::GetPosVef2() const
+{
+    return Vef2{ static_cast<float>(x), static_cast<float>(y) };
 }
 
 int Mouse::GetPosX() const

@@ -316,6 +316,33 @@ void Graphics::PutPixel( int x,int y,Color c )
 	pSysBuffer[Graphics::ScreenWidth * y + x] = c;
 }
 
+void Graphics::DrawLine(Vef2 p0, Vef2 p1, Color color)
+{
+    if (p0.x > p1.x)
+    {
+        std::swap(p0, p1);
+        // we want to draw pixels from left to right
+        // so we swap if the p0.x is farther to the right
+    }
+
+    // y = mx + b
+
+    const float m = (p1.y - p0.y) / (p1.x - p0.x);
+    const float b = p0.y - m * p0.x;
+
+    for (int x = static_cast<int>(p0.x); x <= static_cast<int>(p1.x); ++x)
+    {
+        const float y = m * static_cast<float>(x) + b;
+
+        const int yi = static_cast<int>(y);
+
+        if (x >= 0 && x < ScreenWidth && yi >= 0 && yi < ScreenHeight)
+        {
+            PutPixel(x, yi, color);
+        }
+    }
+}
+
 
 //////////////////////////////////////////////////
 //           Graphics Exception
