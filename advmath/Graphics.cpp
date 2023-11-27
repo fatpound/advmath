@@ -318,27 +318,63 @@ void Graphics::PutPixel( int x,int y,Color c )
 
 void Graphics::DrawLine(Vef2 p0, Vef2 p1, Color color)
 {
-    if (p0.x > p1.x)
+    float in_m = 0.0f;
+
+    if (p1.x != p0.x)
     {
-        std::swap(p0, p1);
-        // we want to draw pixels from left to right
-        // so we swap if the p0.x is farther to the right
+        in_m = (p1.y - p0.y) / (p1.x - p0.x);
     }
 
-    // y = mx + b
-
-    const float m = (p1.y - p0.y) / (p1.x - p0.x);
-    const float b = p0.y - m * p0.x;
-
-    for (int x = static_cast<int>(p0.x); x <= static_cast<int>(p1.x); ++x)
+    if (p1.x != p0.x && in_m <= 1.0f) // horizontal bias line
     {
-        const float y = m * static_cast<float>(x) + b;
-
-        const int yi = static_cast<int>(y);
-
-        if (x >= 0 && x < ScreenWidth && yi >= 0 && yi < ScreenHeight)
+        if (p0.x > p1.x)
         {
-            PutPixel(x, yi, color);
+            std::swap(p0, p1);
+            // we want to draw pixels from left to right
+            // so we swap if the p0.x is farther to the right
+        }
+
+        // y = mx + b
+
+        const float m = (p1.y - p0.y) / (p1.x - p0.x);
+        const float b = p0.y - m * p0.x;
+
+        for (int x = static_cast<int>(p0.x); x <= static_cast<int>(p1.x); ++x)
+        {
+            const float y = m * static_cast<float>(x) + b;
+
+            const int yi = static_cast<int>(y);
+
+            if (x >= 0 && x < ScreenWidth && yi >= 0 && yi < ScreenHeight)
+            {
+                PutPixel(x, yi, color);
+            }
+        }
+    }
+    else // vertical bias line if m <= 1.0f
+    {
+        if (p0.y > p1.y)
+        {
+            std::swap(p0, p1);
+            // we want to draw pixels from LOWER to HIGHER
+            // so we swap if the p0.y is higher
+        }
+
+        // x = wy + p
+
+        const float w = (p1.x - p0.x) / (p1.y - p0.y);
+        const float p = p0.x - w * p0.y;
+
+        for (int y = static_cast<int>(p0.y); y <= static_cast<int>(p1.y); ++y)
+        {
+            const float x = w * static_cast<float>(y) + p;
+
+            const int xi = static_cast<int>(x);
+
+            if (xi >= 0 && xi < ScreenWidth && y >= 0 && y < ScreenHeight)
+            {
+                PutPixel(xi, y, color);
+            }
         }
     }
 }
