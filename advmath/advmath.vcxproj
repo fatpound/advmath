@@ -245,6 +245,7 @@
   <ItemGroup>
     <ClCompile Include="COMInitializer.cpp" />
     <ClCompile Include="DXErr.cpp" />
+    <ClCompile Include="FatTimer.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Keyboard.cpp" />
@@ -259,6 +260,7 @@
     <ClInclude Include="Color.h" />
     <ClInclude Include="COMInitializer.h" />
     <ClInclude Include="DXErr.h" />
+    <ClInclude Include="FatTimer.hpp" />
     <ClInclude Include="FatWin.hpp" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Graphics.h" />
