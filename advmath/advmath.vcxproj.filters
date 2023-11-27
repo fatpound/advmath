@@ -63,6 +63,15 @@
     <ClInclude Include="Vec2.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RectF.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mat3.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vec3.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">
@@ -90,6 +99,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="COMInitializer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RectF.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
