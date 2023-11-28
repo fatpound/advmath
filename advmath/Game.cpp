@@ -66,12 +66,29 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+    const float movingSpeed = 3.0f;
 
+    if (wnd.kbd.KeyIsPressed('W'))
+    {
+        offset.y -= movingSpeed;
+    }
+    if (wnd.kbd.KeyIsPressed('A'))
+    {
+        offset.x -= movingSpeed;
+    }
+    if (wnd.kbd.KeyIsPressed('S'))
+    {
+        offset.y += movingSpeed;
+    }
+    if (wnd.kbd.KeyIsPressed('D'))
+    {
+        offset.x += movingSpeed;
+    }
 }
 
 void Game::ComposeFrame()
 {
-    Entity entity(Star::Make(100.0f, 20.0f), Vef2{0.0f, 0.0f}, color::Yellow);
+    Entity entity(Star::Make(100.0f, 20.0f), offset, color::Yellow);
 
     entity.GetDrawable().Render(gfx);
 }
