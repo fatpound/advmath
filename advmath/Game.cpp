@@ -29,15 +29,16 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-    coordinateTransformer( gfx )
+    coordinateTransformer( gfx ),
+    camera( coordinateTransformer )
 {
     std::default_random_engine drng(std::random_device{}());
 
     const std::array<Color, 6> colors = { color::Red, color::Green, color::Blue, color::Cyan, color::Yellow, color::Magenta };
     std::uniform_int_distribution<size_t> colorDist(0ui64, 5ui64);
 
-    std::uniform_real_distribution<float> xDist(-worldWidth / 2.0, worldWidth / 2.0);
-    std::uniform_real_distribution<float> yDist(-worldWidth / 2.0, worldWidth / 2.0);
+    std::uniform_real_distribution<float> xDist(-worldWidth / 2.0f, worldWidth / 2.0f);
+    std::uniform_real_distribution<float> yDist(-worldWidth / 2.0f, worldWidth / 2.0f);
 
     std::normal_distribution<float> radiusDist(meanStarRadius, devStarRadius);
     std::normal_distribution<float> ratioDist(meanStarInnerRatio, devStarInnerRatio);
@@ -96,44 +97,48 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-    const float movingSpeed = 3.0f;
+    Vef2 cameraOffset = { 0.0f, 0.0f };
+
+    while ( ! wnd.mouse.IsEmpty() )
+    {
+        const auto e = wnd.mouse.Read();
+
+        if (e.GetType() == Mouse::Event::Type::WheelUp)
+        {
+            camera.SetScale(camera.GetScale() * 1.05f);
+        }
+        else if (e.GetType() == Mouse::Event::Type::WheelDown)
+        {
+            camera.SetScale(camera.GetScale() * 0.95f);
+        }
+    }
+
+    static constexpr float movingSpeed = 5.0f;
 
     if (wnd.kbd.KeyIsPressed('W'))
     {
-        offset.y += movingSpeed;
+        cameraOffset.y += movingSpeed;
     }
     if (wnd.kbd.KeyIsPressed('A'))
     {
-        offset.x -= movingSpeed;
+        cameraOffset.x -= movingSpeed;
     }
     if (wnd.kbd.KeyIsPressed('S'))
     {
-        offset.y -= movingSpeed;
+        cameraOffset.y -= movingSpeed;
     }
     if (wnd.kbd.KeyIsPressed('D'))
     {
-        offset.x += movingSpeed;
+        cameraOffset.x += movingSpeed;
     }
 
-    if ( ! wnd.mouse.IsEmpty() )
-    {
-        auto eventType = wnd.mouse.Read().GetType();
-
-        if (eventType == Mouse::Event::Type::WheelUp)
-        {
-            scale *= 1.05f;
-        }
-        else if (eventType == Mouse::Event::Type::WheelDown)
-        {
-            scale *= 0.95f;
-        }
-    }
+    camera.MoveTo(camera.GetPos() + cameraOffset);
 }
 
 void Game::ComposeFrame()
 {
-    for (auto& star : stars)
+    for (const auto& star : stars)
     {
-        coordinateTransformer.Draw(star.GetDrawable());
+        camera.Draw(star.GetDrawable());
     }
 }

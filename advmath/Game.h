@@ -25,6 +25,7 @@
 #include "Graphics.h"
 #include "Star.hpp"
 #include "CoordinateTransformer.hpp"
+#include "Camera.hpp"
 
 class Game
 {
@@ -51,12 +52,12 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
-    static constexpr size_t starCount = 10ui64;
+    static constexpr size_t starCount = 100ui64;
     static constexpr size_t maxFlareCount = 10;
     static constexpr size_t minFlareCount = 3;
 
-    static constexpr float worldWidth = 1200.0f;
-    static constexpr float worldHeight = 800.0f;
+    static constexpr float worldWidth = 3000.0f;
+    static constexpr float worldHeight = 1000.0f;
 
     static constexpr float meanFlares = 6.5f;
     static constexpr float devFlares = 2.0f;
@@ -74,8 +75,6 @@ private:
     std::vector<Star> stars;
 
     CoordinateTransformer coordinateTransformer;
-
-    Vef2 offset = { 0.0f, 0.0f };
-    float scale = 1.0f;
+    Camera camera;
 	/********************************/
 };

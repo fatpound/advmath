@@ -256,6 +256,7 @@
     <ClCompile Include="Sound.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.hpp" />
     <ClInclude Include="ChiliException.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="COMInitializer.h" />
