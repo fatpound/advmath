@@ -259,7 +259,9 @@
     <ClInclude Include="ChiliException.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="COMInitializer.h" />
+    <ClInclude Include="Drawable.hpp" />
     <ClInclude Include="DXErr.h" />
+    <ClInclude Include="Entity.hpp" />
     <ClInclude Include="FatTimer.hpp" />
     <ClInclude Include="FatWin.hpp" />
     <ClInclude Include="Game.h" />

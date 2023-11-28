@@ -21,6 +21,7 @@
 #include "MainWindow.h"
 #include "Game.h"
 #include "Star.hpp"
+#include "Entity.hpp"
 
 Game::Game( MainWindow& wnd )
 	:
@@ -70,5 +71,7 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-    gfx.DrawClosedPolyLine(Star::Make(100.0f, 20.0f), color::Yellow);
+    Entity entity(Star::Make(100.0f, 20.0f), Vef2{0.0f, 0.0f}, color::Yellow);
+
+    entity.GetDrawable().Render(gfx);
 }

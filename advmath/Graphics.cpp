@@ -389,6 +389,23 @@ void Graphics::DrawClosedPolyLine(const std::vector<Vef2>& vertices, Color color
     DrawLine(vertices.back(), vertices.front(), color);
 }
 
+void Graphics::DrawClosedPolyLine(const std::vector<Vef2>& vertices, Maf3 transform, Color c)
+{
+    const Vef2 front = transform * vertices.front();
+    Vef2 current = front;
+
+    for (auto it = vertices.begin(); it != std::prev(vertices.end()); ++it)
+    {
+        const Vef2 next = transform * *std::next(it);
+
+        DrawLine(current, next, c);
+
+        current = next;
+    }
+
+    DrawLine(current, front, c);
+}
+
 //////////////////////////////////////////////////
 //           Graphics Exception
 Graphics::Exception::Exception( HRESULT hr,const std::wstring& note,const wchar_t* file,unsigned int line )

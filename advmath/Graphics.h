@@ -25,6 +25,7 @@
 #include "ChiliException.h"
 #include "Color.h"
 #include "Vec2.hpp"
+#include "Mat3.hpp"
 
 #include <vector>
 
@@ -65,6 +66,7 @@ public:
 	void PutPixel( int x,int y,Color c );
     void DrawLine(Vef2 p0, Vef2 p1, Color color);
     void DrawClosedPolyLine(const std::vector<Vef2>& vertices, Color color);
+    void DrawClosedPolyLine(const std::vector<Vef2>& vertices, Maf3 transform, Color c);
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;
