@@ -17,6 +17,10 @@ public:
 
 
 public:
+    void ApplyTransformation(const Maf3& transformer)
+    {
+        transformation = transformer * transformation;
+    }
     void Render(Graphics& gfx) const
     {
         gfx.DrawClosedPolyLine(*model, transformation, c);
