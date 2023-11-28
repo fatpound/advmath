@@ -23,6 +23,7 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
+#include "Entity.hpp"
 
 class Game
 {
@@ -49,6 +50,9 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
+    std::vector<Entity> stars;
+
     Vef2 offset = { 0.0f, 0.0f };
+    float scale = 1.0f;
 	/********************************/
 };

@@ -21,14 +21,15 @@
 #include "MainWindow.h"
 #include "Game.h"
 #include "Star.hpp"
-#include "Entity.hpp"
 
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd )
 {
-
+    stars.emplace_back(Star::Make(200.0f, 100.0f), offset, color::Red);
+    stars.emplace_back(Star::Make(150.0f,  75.0f), offset, color::Green);
+    stars.emplace_back(Star::Make(100.0f,  50.0f), offset, color::Blue);
 }
 
 void Game::Go()
@@ -84,11 +85,29 @@ void Game::UpdateModel()
     {
         offset.x += movingSpeed;
     }
+
+    if ( ! wnd.mouse.IsEmpty() )
+    {
+        auto eventType = wnd.mouse.Read().GetType();
+
+        if (eventType == Mouse::Event::Type::WheelUp)
+        {
+            scale *= 1.05f;
+        }
+        else if (eventType == Mouse::Event::Type::WheelDown)
+        {
+            scale *= 0.95f;
+        }
+    }
 }
 
 void Game::ComposeFrame()
 {
-    Entity entity(Star::Make(100.0f, 20.0f), offset, color::Yellow);
+    for (auto& star : stars)
+    {
+        star.SetPos(offset);
+        star.SetScale(scale);
 
-    entity.GetDrawable().Render(gfx);
+        star.GetDrawable().Render(gfx);
+    }
 }
