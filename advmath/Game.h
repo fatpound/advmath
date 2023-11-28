@@ -24,6 +24,7 @@
 #include "Mouse.h"
 #include "Graphics.h"
 #include "Entity.hpp"
+#include "CoordinateTransformer.hpp"
 
 class Game
 {
@@ -51,6 +52,8 @@ private:
 	/********************************/
 	/*  User Variables              */
     std::vector<Entity> stars;
+
+    CoordinateTransformer coordinateTransformer;
 
     Vef2 offset = { 0.0f, 0.0f };
     float scale = 1.0f;

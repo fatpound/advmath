@@ -25,7 +25,8 @@
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
-	gfx( wnd )
+	gfx( wnd ),
+    coordinateTransformer( gfx )
 {
     stars.emplace_back(Star::Make(200.0f, 100.0f), offset, color::Red);
     stars.emplace_back(Star::Make(150.0f,  75.0f), offset, color::Green);
@@ -71,7 +72,7 @@ void Game::UpdateModel()
 
     if (wnd.kbd.KeyIsPressed('W'))
     {
-        offset.y -= movingSpeed;
+        offset.y += movingSpeed;
     }
     if (wnd.kbd.KeyIsPressed('A'))
     {
@@ -79,7 +80,7 @@ void Game::UpdateModel()
     }
     if (wnd.kbd.KeyIsPressed('S'))
     {
-        offset.y += movingSpeed;
+        offset.y -= movingSpeed;
     }
     if (wnd.kbd.KeyIsPressed('D'))
     {
@@ -108,6 +109,6 @@ void Game::ComposeFrame()
         star.SetPos(offset);
         star.SetScale(scale);
 
-        star.GetDrawable().Render(gfx);
+        coordinateTransformer.Draw(star.GetDrawable());
     }
 }

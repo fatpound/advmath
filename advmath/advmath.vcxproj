@@ -259,6 +259,7 @@
     <ClInclude Include="ChiliException.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="COMInitializer.h" />
+    <ClInclude Include="CoordinateTransformer.hpp" />
     <ClInclude Include="Drawable.hpp" />
     <ClInclude Include="DXErr.h" />
     <ClInclude Include="Entity.hpp" />
