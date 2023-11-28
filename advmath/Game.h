@@ -23,7 +23,7 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
-#include "Entity.hpp"
+#include "Star.hpp"
 #include "CoordinateTransformer.hpp"
 
 class Game
@@ -51,7 +51,27 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
-    std::vector<Entity> stars;
+    static constexpr size_t starCount = 10ui64;
+    static constexpr size_t maxFlareCount = 10;
+    static constexpr size_t minFlareCount = 3;
+
+    static constexpr float worldWidth = 1200.0f;
+    static constexpr float worldHeight = 800.0f;
+
+    static constexpr float meanFlares = 6.5f;
+    static constexpr float devFlares = 2.0f;
+
+    static constexpr float meanStarRadius = 160.0f;
+    static constexpr float devStarRadius = 90.0f;
+    static constexpr float maxStarRadius = 300.0f;
+    static constexpr float minStarRadius = 40.0f;
+
+    static constexpr float meanStarInnerRatio = 0.4f;
+    static constexpr float devStarInnerRatio = 0.25f;
+    static constexpr float maxStarInnerRatio = 0.8f;
+    static constexpr float minStarInnerRatio = 0.15f;
+
+    std::vector<Star> stars;
 
     CoordinateTransformer coordinateTransformer;
 

@@ -1,12 +1,21 @@
 #pragma once
 
-#include "Vec2.hpp"
+#include "Entity.hpp"
 
-#include <vector>
 #include <numbers>
 
-class Star
+class Star : public Entity
 {
+public:
+    Star(Vef2 pos, float outerRadius, float innerRatio, size_t flareCount, Color color)
+        :
+        Entity(Make(outerRadius, outerRadius * innerRatio), pos, color),
+        radius(outerRadius)
+    {
+
+    }
+
+
 public:
 	static std::vector<Vef2> Make(float outerRadius, float innerRadius, size_t nFlares = 5)
 	{
@@ -33,4 +42,13 @@ public:
 
 		return star;
 	}
+
+    float GetRadius() const
+    {
+        return radius;
+    }
+
+
+private:
+    float radius;
 };

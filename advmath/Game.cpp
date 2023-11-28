@@ -22,15 +22,43 @@
 #include "Game.h"
 #include "Star.hpp"
 
+#include <random>
+#include <array>
+
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
     coordinateTransformer( gfx )
 {
-    stars.emplace_back(Star::Make(200.0f, 100.0f), offset, color::Red);
-    stars.emplace_back(Star::Make(150.0f,  75.0f), offset, color::Green);
-    stars.emplace_back(Star::Make(100.0f,  50.0f), offset, color::Blue);
+    std::default_random_engine drng(std::random_device{}());
+
+    const std::array<Color, 6> colors = { color::Red, color::Green, color::Blue, color::Cyan, color::Yellow, color::Magenta };
+    std::uniform_int_distribution<size_t> colorDist(0ui64, 5ui64);
+
+    std::uniform_real_distribution<float> xDist(-worldWidth / 2.0, worldWidth / 2.0);
+    std::uniform_real_distribution<float> yDist(-worldWidth / 2.0, worldWidth / 2.0);
+
+    std::normal_distribution<float> radiusDist(meanStarRadius, devStarRadius);
+    std::normal_distribution<float> ratioDist(meanStarInnerRatio, devStarInnerRatio);
+    std::normal_distribution<float> flareCountDist(meanFlares, devFlares);
+
+    while (stars.size() < starCount)
+    {
+        const Vef2 position = { xDist(drng), yDist(drng) };
+        const float radius = std::clamp(radiusDist(drng), minStarRadius, maxStarRadius);
+
+        if (std::any_of(stars.cbegin(), stars.cend(), [&](const Star& existingStar) {return (existingStar.GetPos() - position).Len() < (radius + existingStar.GetRadius()); }))
+        {
+            continue;
+        }
+
+        const Color color = colors[colorDist(drng)];
+        const float ratio = std::clamp(ratioDist(drng), minStarInnerRatio, maxStarInnerRatio);
+        const size_t flareCount = std::clamp(static_cast<size_t>(flareCountDist(drng)), minFlareCount, maxFlareCount);
+
+        stars.emplace_back(position, radius, ratio, flareCount, color);
+    }
 }
 
 void Game::Go()
@@ -106,9 +134,6 @@ void Game::ComposeFrame()
 {
     for (auto& star : stars)
     {
-        star.SetPos(offset);
-        star.SetScale(scale);
-
         coordinateTransformer.Draw(star.GetDrawable());
     }
 }

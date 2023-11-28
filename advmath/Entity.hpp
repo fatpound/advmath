@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Vec2.hpp"
 #include "Drawable.hpp"
 
 class Entity
