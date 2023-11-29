@@ -43,6 +43,8 @@ void CameraController::Update(float deltaTime)
         const Vef2 currentPosition = mouse.GetPosVef2();
         Vef2 deltaPosition = currentPosition - lastPosition;
 
+        deltaPosition.x = -deltaPosition.x;
+
         camera.MoveBy(deltaPosition);
 
         lastPosition = currentPosition;
