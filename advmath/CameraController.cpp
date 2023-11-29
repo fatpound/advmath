@@ -45,7 +45,7 @@ void CameraController::Update(float deltaTime)
 
         deltaPosition.x = -deltaPosition.x;
 
-        camera.MoveBy(deltaPosition);
+        camera.MoveBy(deltaPosition / camera.GetScale());
 
         lastPosition = currentPosition;
     }
