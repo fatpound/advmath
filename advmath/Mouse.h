@@ -78,6 +78,10 @@ public:
 		{
 			return{ x,y };
 		}
+        Vef2 GetPosVef2() const
+        {
+            return Vef2{ static_cast<float>(x), static_cast<float>(y) };
+        }
 		int GetPosX() const
 		{
 			return x;

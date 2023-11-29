@@ -30,7 +30,8 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
     coordinateTransformer( gfx ),
-    camera( coordinateTransformer )
+    camera( coordinateTransformer ),
+    cameraCtrl( wnd.mouse, camera )
 {
     std::default_random_engine drng(std::random_device{}());
 
@@ -97,42 +98,11 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-    Vef2 cameraOffset = { 0.0f, 0.0f };
+    const float deltaTime = frameTimer.Mark();
 
-    while ( ! wnd.mouse.IsEmpty() )
-    {
-        const auto e = wnd.mouse.Read();
+    totalTime += deltaTime;
 
-        if (e.GetType() == Mouse::Event::Type::WheelUp)
-        {
-            camera.SetScale(camera.GetScale() * 1.05f);
-        }
-        else if (e.GetType() == Mouse::Event::Type::WheelDown)
-        {
-            camera.SetScale(camera.GetScale() * 0.95f);
-        }
-    }
-
-    static constexpr float movingSpeed = 5.0f;
-
-    if (wnd.kbd.KeyIsPressed('W'))
-    {
-        cameraOffset.y += movingSpeed;
-    }
-    if (wnd.kbd.KeyIsPressed('A'))
-    {
-        cameraOffset.x -= movingSpeed;
-    }
-    if (wnd.kbd.KeyIsPressed('S'))
-    {
-        cameraOffset.y -= movingSpeed;
-    }
-    if (wnd.kbd.KeyIsPressed('D'))
-    {
-        cameraOffset.x += movingSpeed;
-    }
-
-    camera.MoveTo(camera.GetPos() + cameraOffset);
+    cameraCtrl.Update(deltaTime);
 }
 
 void Game::ComposeFrame()

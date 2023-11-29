@@ -26,6 +26,10 @@
 #include "Star.hpp"
 #include "CoordinateTransformer.hpp"
 #include "Camera.hpp"
+#include "CameraController.hpp"
+#include "FatTimer.hpp"
+
+using namespace fatpound::time;
 
 class Game
 {
@@ -73,8 +77,12 @@ private:
     static constexpr float minStarInnerRatio = 0.15f;
 
     std::vector<Star> stars;
-
+    
+    FatTimer frameTimer;
     CoordinateTransformer coordinateTransformer;
     Camera camera;
+    CameraController cameraCtrl;
+
+    float totalTime = 0.0f;
 	/********************************/
 };

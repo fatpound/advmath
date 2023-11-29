@@ -252,6 +252,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="CameraController.cpp" />
     <ClCompile Include="RectF.cpp" />
     <ClCompile Include="Sound.cpp" />
   </ItemGroup>
@@ -273,6 +274,7 @@
     <ClInclude Include="Mat2.hpp" />
     <ClInclude Include="Mat3.hpp" />
     <ClInclude Include="Mouse.h" />
+    <ClInclude Include="CameraController.hpp" />
     <ClInclude Include="RectF.hpp" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Sound.h" />
