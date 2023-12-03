@@ -76,6 +76,9 @@ private:
     static constexpr float maxStarInnerRatio = 0.8f;
     static constexpr float minStarInnerRatio = 0.15f;
 
+	static constexpr float minRotationSpeed = -1.0f * std::numbers::pi_v<float>;
+	static constexpr float maxRotationSpeed =  1.0f * std::numbers::pi_v<float>;
+
     std::vector<Star> stars;
     
     FatTimer frameTimer;

@@ -40,6 +40,7 @@ Game::Game( MainWindow& wnd )
 
     std::uniform_real_distribution<float> xDist(-worldWidth / 2.0f, worldWidth / 2.0f);
     std::uniform_real_distribution<float> yDist(-worldWidth / 2.0f, worldWidth / 2.0f);
+	std::uniform_real_distribution<float> rotationSpeedDist(minRotationSpeed, maxRotationSpeed);
 
     std::normal_distribution<float> radiusDist(meanStarRadius, devStarRadius);
     std::normal_distribution<float> ratioDist(meanStarInnerRatio, devStarInnerRatio);
@@ -56,10 +57,11 @@ Game::Game( MainWindow& wnd )
         }
 
         const Color color = colors[colorDist(drng)];
-        const float ratio = std::clamp(ratioDist(drng), minStarInnerRatio, maxStarInnerRatio);
         const size_t flareCount = std::clamp(static_cast<size_t>(flareCountDist(drng)), minFlareCount, maxFlareCount);
+        const float ratio = std::clamp(ratioDist(drng), minStarInnerRatio, maxStarInnerRatio);
+		const float rotationSpeed = rotationSpeedDist(drng);
 
-        stars.emplace_back(position, radius, ratio, flareCount, color);
+        stars.emplace_back(position, radius, ratio, rotationSpeed, flareCount, color);
     }
 }
 
@@ -101,6 +103,11 @@ void Game::UpdateModel()
     const float deltaTime = frameTimer.Mark();
 
     totalTime += deltaTime;
+
+	for (auto& star : stars)
+	{
+		star.Update(deltaTime);
+	}
 
     cameraCtrl.Update(deltaTime);
 }

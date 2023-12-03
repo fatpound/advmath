@@ -7,10 +7,11 @@
 class Star : public Entity
 {
 public:
-    Star(Vef2 pos, float outerRadius, float innerRatio, size_t flareCount, Color color)
-        :
-        Entity(Make(outerRadius, outerRadius * innerRatio), pos, color),
-        radius(outerRadius)
+	Star(Vef2 pos, float outerRadius, float innerRatio, float in_rotationSpeed, size_t flareCount, Color color)
+		:
+		Entity(Make(outerRadius, outerRadius* innerRatio), pos, color),
+		radius(outerRadius),
+		rotationSpeed(in_rotationSpeed)
     {
 
     }
@@ -48,7 +49,24 @@ public:
         return radius;
     }
 
+	void Update(float deltaTime)
+	{
+		totalTime += deltaTime;
+
+		UpdateRotation();
+	}
+
+
+private:
+	void UpdateRotation()
+	{
+		SetAngle(rotationSpeed * totalTime);
+	}
+
 
 private:
     float radius;
+	float rotationSpeed;
+
+	float totalTime = 0.0f;
 };
