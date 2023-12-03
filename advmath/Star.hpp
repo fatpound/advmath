@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Entity.hpp"
+#include "RectF.hpp"
 
 #include <numbers>
 
@@ -49,6 +50,11 @@ public:
 
         return star;
     }
+
+	RectF GetBoundingRect() const
+	{
+		return RectF::FromCenter(GetPos(), GetRadius(), GetRadius());
+	}
 
     float GetRadius() const
     {

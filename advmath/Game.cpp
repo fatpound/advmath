@@ -125,8 +125,13 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
+	const auto viewport = camera.GetViewportRect();
+
     for (const auto& star : stars)
     {
-        camera.Draw(star.GetDrawable());
+		if (star.GetBoundingRect().IsOverlappingWith(viewport))
+		{
+			camera.Draw(star.GetDrawable());
+		}
     }
 }

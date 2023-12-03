@@ -56,12 +56,12 @@ private:
     Graphics gfx;
     /********************************/
     /*  User Variables              */
-    static constexpr size_t starCount = 100ui64;
-    static constexpr size_t maxFlareCount = 10;
+    static constexpr size_t starCount = 500ui64;
     static constexpr size_t minFlareCount = 3;
+    static constexpr size_t maxFlareCount = 10;
 
-    static constexpr float worldWidth = 3000.0f;
-    static constexpr float worldHeight = 1000.0f;
+    static constexpr float worldWidth = 12000.0f;
+    static constexpr float worldHeight = 10000.0f;
 
     static constexpr float meanFlares = 6.5f;
     static constexpr float devFlares = 2.0f;
