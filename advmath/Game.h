@@ -81,6 +81,16 @@ private:
 	static constexpr float minColorFrequency = 0.6f;
 	static constexpr float maxColorFrequency = 4.0f;
 
+	static constexpr float meanRadiusAmplitude = 0.5f;
+	static constexpr float devRadiusAmplitude = 0.3f;
+	static constexpr float minRadiusAmplitude = 0.1f;
+	static constexpr float maxRadiusAmplitude = 0.9f;
+
+	static constexpr float meanRadiusFrequency = 1.8f;
+	static constexpr float devRadiusFrequency = 1.5f;
+	static constexpr float minRadiusFrequency = 0.6f;
+	static constexpr float maxRadiusFrequency = 4.0f;
+
     static constexpr float minRotationSpeed = -1.0f * std::numbers::pi_v<float>;
     static constexpr float maxRotationSpeed =  1.0f * std::numbers::pi_v<float>;
 

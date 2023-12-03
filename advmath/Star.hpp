@@ -7,14 +7,17 @@
 class Star : public Entity
 {
 public:
-	Star(Vef2 pos, float outerRadius, float innerRatio, size_t flareCount, Color in_baseColor, float in_rotationSpeed, float in_colorFrequencyFactor, float in_colorPhase)
+	Star(Vef2 pos, float outerRadius, float innerRatio, size_t flareCount, Color in_baseColor, float in_rotationSpeed, float in_colorFrequencyFactor, float in_colorPhase, float in_radiusFactorAmplitude, float in_radiusFactorFrequencyFactor, float in_radiusFactorPhase)
 		:
 		Entity(Make(outerRadius, outerRadius* innerRatio), pos, baseColor),
 		baseColor(in_baseColor),
         radius(outerRadius),
         rotationSpeed(in_rotationSpeed),
 		colorFrequencyFactor(in_colorFrequencyFactor),
-		colorPhase(in_colorPhase)
+		colorPhase(in_colorPhase),
+		radiusFactorAmplitude{ in_radiusFactorAmplitude },
+		radiusFactorFrequencyFactor{ in_radiusFactorFrequencyFactor },
+		radiusFactorPhase{ in_radiusFactorPhase }
     {
 
     }
@@ -49,14 +52,19 @@ public:
 
     float GetRadius() const
     {
-        return radius;
+        return radius * GetScale();
     }
+	float GetMaxRadius() const
+	{
+		return radius * (1.0f + radiusFactorAmplitude);
+	}
 
     void Update(float deltaTime)
     {
         totalTime += deltaTime;
 
         UpdateRotation();
+		UpdateScale();
 		UpdateColor();
     }
 
@@ -74,6 +82,11 @@ private:
 
 		SetColor(col);
 	}
+	void UpdateScale()
+	{
+		const float radiusOffset = radiusFactorAmplitude * std::sin(radiusFactorFrequencyFactor * totalTime + radiusFactorPhase);
+		SetScale(1.0f + radiusOffset);
+	}
     void UpdateRotation()
     {
         SetAngle(rotationSpeed * totalTime);
@@ -88,6 +101,10 @@ private:
 
 	float colorFrequencyFactor;
 	float colorPhase;
+
+	float radiusFactorAmplitude;
+	float radiusFactorFrequencyFactor;
+	float radiusFactorPhase;
 
     float totalTime = 0.0f;
 };

@@ -47,16 +47,21 @@ Game::Game( MainWindow& wnd )
     std::normal_distribution<float> ratioDist(meanStarInnerRatio, devStarInnerRatio);
     std::normal_distribution<float> flareCountDist(meanFlares, devFlares);
 	std::normal_distribution<float> colorFrequencyDist(meanColorFrequency, devColorFrequency);
+	std::normal_distribution<float> radiusAmplitudeDist(meanRadiusAmplitude, devRadiusAmplitude);
+	std::normal_distribution<float> radiusFrequencyDist(meanRadiusFrequency, devRadiusFrequency);
 
     while (stars.size() < starCount)
     {
         const Vef2 position = { xDist(drng), yDist(drng) };
         const float radius = std::clamp(radiusDist(drng), minStarRadius, maxStarRadius);
+		const float radiusAmplitude = std::clamp(radiusAmplitudeDist(drng), minRadiusAmplitude, maxRadiusAmplitude);
 
-        if (std::any_of(stars.cbegin(), stars.cend(), [&](const Star& existingStar) {return (existingStar.GetPos() - position).Len() < (radius + existingStar.GetRadius()); }))
-        {
-            continue;
-        }
+		const float maxRadius = radius * (1.0f + radiusAmplitude);
+
+		if (std::any_of(stars.begin(), stars.end(), [&](const Star& existingStar) {return (existingStar.GetPos() - position).Len() < (maxRadius + existingStar.GetMaxRadius()); }))
+		{
+			continue;
+		}
 
         const Color color = colors[colorDist(drng)];
         const size_t flareCount = std::clamp(static_cast<size_t>(flareCountDist(drng)), minFlareCount, maxFlareCount);
@@ -64,8 +69,10 @@ Game::Game( MainWindow& wnd )
         const float rotationSpeed = rotationSpeedDist(drng);
 		const float colorFrequency = std::clamp(colorFrequencyDist(drng), minColorFrequency, maxColorFrequency);
 		const float colorPhase = phaseDist(drng);
+		const float radiusFrequency = radiusFrequencyDist(drng);
+		const float radiusPhase = phaseDist(drng);
 
-        stars.emplace_back(position, radius, ratio, flareCount, color, rotationSpeed, colorFrequency, colorPhase);
+        stars.emplace_back(position, radius, ratio, flareCount, color, rotationSpeed, colorFrequency, colorPhase, radiusAmplitude, radiusFrequency, radiusPhase);
     }
 }
 
