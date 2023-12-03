@@ -40,11 +40,13 @@ Game::Game( MainWindow& wnd )
 
     std::uniform_real_distribution<float> xDist(-worldWidth / 2.0f, worldWidth / 2.0f);
     std::uniform_real_distribution<float> yDist(-worldWidth / 2.0f, worldWidth / 2.0f);
+	std::uniform_real_distribution<float> phaseDist(0.0f, 2.0f * std::numbers::pi_v<float>);
     std::uniform_real_distribution<float> rotationSpeedDist(minRotationSpeed, maxRotationSpeed);
 
     std::normal_distribution<float> radiusDist(meanStarRadius, devStarRadius);
     std::normal_distribution<float> ratioDist(meanStarInnerRatio, devStarInnerRatio);
     std::normal_distribution<float> flareCountDist(meanFlares, devFlares);
+	std::normal_distribution<float> colorFrequencyDist(meanColorFrequency, devColorFrequency);
 
     while (stars.size() < starCount)
     {
@@ -60,8 +62,10 @@ Game::Game( MainWindow& wnd )
         const size_t flareCount = std::clamp(static_cast<size_t>(flareCountDist(drng)), minFlareCount, maxFlareCount);
         const float ratio = std::clamp(ratioDist(drng), minStarInnerRatio, maxStarInnerRatio);
         const float rotationSpeed = rotationSpeedDist(drng);
+		const float colorFrequency = std::clamp(colorFrequencyDist(drng), minColorFrequency, maxColorFrequency);
+		const float colorPhase = phaseDist(drng);
 
-        stars.emplace_back(position, radius, ratio, rotationSpeed, flareCount, color);
+        stars.emplace_back(position, radius, ratio, flareCount, color, rotationSpeed, colorFrequency, colorPhase);
     }
 }
 

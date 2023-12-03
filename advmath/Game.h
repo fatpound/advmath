@@ -76,6 +76,11 @@ private:
     static constexpr float maxStarInnerRatio = 0.8f;
     static constexpr float minStarInnerRatio = 0.15f;
 
+	static constexpr float meanColorFrequency = 1.8f;
+	static constexpr float devColorFrequency = 1.0f;
+	static constexpr float minColorFrequency = 0.6f;
+	static constexpr float maxColorFrequency = 4.0f;
+
     static constexpr float minRotationSpeed = -1.0f * std::numbers::pi_v<float>;
     static constexpr float maxRotationSpeed =  1.0f * std::numbers::pi_v<float>;
 

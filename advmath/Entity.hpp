@@ -5,7 +5,7 @@
 class Entity
 {
 public:
-    Entity(std::vector<Vef2> in_model, const Vef2& in_pos = { 0.0f, 0.0f }, Color in_color = color::Yellow)
+    Entity(std::vector<Vef2> in_model, const Vef2& in_pos, Color in_color = color::Yellow)
         :
         model( std::move(in_model) ),
         pos( in_pos ),
@@ -35,13 +35,13 @@ public:
         return color;
     }
 
-    float GetScale() const
-    {
-        return scale;
-    }
     float GetAngle() const
     {
         return angle;
+    }
+    float GetScale() const
+    {
+        return scale;
     }
 
     void SetPos(const Vef2& newPos)
@@ -52,9 +52,9 @@ public:
     {
         color = in_color;
     }
-    void SetScale(const float s)
+    void SetScale(const float s_scale)
     {
-        scale = s;
+        scale = s_scale;
     }
     void SetAngle(const float s_angle)
     {
