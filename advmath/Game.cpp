@@ -26,9 +26,9 @@
 #include <array>
 
 Game::Game( MainWindow& wnd )
-	:
-	wnd( wnd ),
-	gfx( wnd ),
+    :
+    wnd( wnd ),
+    gfx( wnd ),
     coordinateTransformer( gfx ),
     camera( coordinateTransformer ),
     cameraCtrl( wnd.mouse, camera )
@@ -40,7 +40,7 @@ Game::Game( MainWindow& wnd )
 
     std::uniform_real_distribution<float> xDist(-worldWidth / 2.0f, worldWidth / 2.0f);
     std::uniform_real_distribution<float> yDist(-worldWidth / 2.0f, worldWidth / 2.0f);
-	std::uniform_real_distribution<float> rotationSpeedDist(minRotationSpeed, maxRotationSpeed);
+    std::uniform_real_distribution<float> rotationSpeedDist(minRotationSpeed, maxRotationSpeed);
 
     std::normal_distribution<float> radiusDist(meanStarRadius, devStarRadius);
     std::normal_distribution<float> ratioDist(meanStarInnerRatio, devStarInnerRatio);
@@ -59,7 +59,7 @@ Game::Game( MainWindow& wnd )
         const Color color = colors[colorDist(drng)];
         const size_t flareCount = std::clamp(static_cast<size_t>(flareCountDist(drng)), minFlareCount, maxFlareCount);
         const float ratio = std::clamp(ratioDist(drng), minStarInnerRatio, maxStarInnerRatio);
-		const float rotationSpeed = rotationSpeedDist(drng);
+        const float rotationSpeed = rotationSpeedDist(drng);
 
         stars.emplace_back(position, radius, ratio, rotationSpeed, flareCount, color);
     }
@@ -104,10 +104,10 @@ void Game::UpdateModel()
 
     totalTime += deltaTime;
 
-	for (auto& star : stars)
-	{
-		star.Update(deltaTime);
-	}
+    for (auto& star : stars)
+    {
+        star.Update(deltaTime);
+    }
 
     cameraCtrl.Update(deltaTime);
 }

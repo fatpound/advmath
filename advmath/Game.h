@@ -34,28 +34,28 @@ using namespace fatpound::time;
 class Game
 {
 public:
-	Game( class MainWindow& wnd );
-	Game( const Game& ) = delete;
-	Game& operator = ( const Game& ) = delete;
+    Game( class MainWindow& wnd );
+    Game( const Game& ) = delete;
+    Game& operator = ( const Game& ) = delete;
 
 
 public:
-	void Go();
+    void Go();
 
 
 private:
-	void ComposeFrame();
+    void ComposeFrame();
     void UpdateModel();
-	/********************************/
-	/*  User Functions              */
-	/********************************/
+    /********************************/
+    /*  User Functions              */
+    /********************************/
 
 
 private:
-	MainWindow& wnd;
-	Graphics gfx;
-	/********************************/
-	/*  User Variables              */
+    MainWindow& wnd;
+    Graphics gfx;
+    /********************************/
+    /*  User Variables              */
     static constexpr size_t starCount = 100ui64;
     static constexpr size_t maxFlareCount = 10;
     static constexpr size_t minFlareCount = 3;
@@ -76,8 +76,8 @@ private:
     static constexpr float maxStarInnerRatio = 0.8f;
     static constexpr float minStarInnerRatio = 0.15f;
 
-	static constexpr float minRotationSpeed = -1.0f * std::numbers::pi_v<float>;
-	static constexpr float maxRotationSpeed =  1.0f * std::numbers::pi_v<float>;
+    static constexpr float minRotationSpeed = -1.0f * std::numbers::pi_v<float>;
+    static constexpr float maxRotationSpeed =  1.0f * std::numbers::pi_v<float>;
 
     std::vector<Star> stars;
     
@@ -87,5 +87,5 @@ private:
     CameraController cameraCtrl;
 
     float totalTime = 0.0f;
-	/********************************/
+    /********************************/
 };

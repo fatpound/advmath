@@ -39,10 +39,10 @@ public:
     {
         return scale;
     }
-	float GetAngle() const
-	{
-		return angle;
-	}
+    float GetAngle() const
+    {
+        return angle;
+    }
 
     void SetPos(const Vef2& newPos)
     {
@@ -56,10 +56,10 @@ public:
     {
         scale = s;
     }
-	void SetAngle(const float s_angle)
-	{
-		angle = s_angle;
-	}
+    void SetAngle(const float s_angle)
+    {
+        angle = s_angle;
+    }
 
     void TranslateBy(const Vef2& offset)
     {
@@ -73,6 +73,6 @@ private:
     Vef2 pos = { 0.0f, 0.0f };
     Color color;
 
-	float angle = 0.0f;
+    float angle = 0.0f;
     float scale = 1.0f;
 };
