@@ -10,7 +10,7 @@ class Star : public Entity
 public:
 	Star(Vef2 pos, float outerRadius, float innerRatio, size_t flareCount, Color in_baseColor, float in_rotationSpeed, float in_colorFrequencyFactor, float in_colorPhase, float in_radiusFactorAmplitude, float in_radiusFactorFrequencyFactor, float in_radiusFactorPhase)
 		:
-		Entity(Make(outerRadius, outerRadius* innerRatio), pos, baseColor),
+		Entity(Make(outerRadius, outerRadius* innerRatio, flareCount), pos, baseColor),
 		baseColor(in_baseColor),
         radius(outerRadius),
         rotationSpeed(in_rotationSpeed),
