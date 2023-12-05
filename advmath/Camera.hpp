@@ -19,10 +19,16 @@ public:
     {
         const float zoom = 1.0f / scale;
 
+		const float diagonal = std::sqrt(
+			fatpound::math::sq(static_cast<float>(Graphics::ScreenWidth  / 2 * zoom))
+			+
+			fatpound::math::sq(static_cast<float>(Graphics::ScreenHeight / 2 * zoom))
+		);
+
         return RectF::FromCenter(
             pos,
-            static_cast<float>(Graphics::ScreenWidth / 2 * zoom),
-            static_cast<float>(Graphics::ScreenHeight / 2 * zoom)
+            diagonal,
+            diagonal
         );
     }
     Vef2 GetPos() const
@@ -70,6 +76,6 @@ private:
     CoordinateTransformer& coordinateTransformer;
     Vef2 pos = { 0.0f, 0.0f };
 
-	float angle = 1.0f;
+	float angle = 0.0f;
     float scale = 1.0f;
 };

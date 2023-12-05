@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cmath>
+#include "FatMath.hpp"
 
 namespace fatpound::math
 {
