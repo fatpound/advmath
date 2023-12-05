@@ -40,8 +40,8 @@ namespace fatpound::math
         Vec2<T>  operator *  (const Vec2<T>& vec) const
         {
             return Vec2<T>{
-                cells[0][0] * vec.x + cells[0][1] * vec.y,
-                cells[1][0] * vec.x + cells[1][1] * vec.y
+                vec.x * cells[0][0] + vec.y * cells[1][0],
+                vec.x * cells[0][1] + vec.y * cells[1][1]
             };
         }
         Mat2<T>  operator *  (const Mat2<T>& rhs) const
@@ -72,5 +72,3 @@ namespace fatpound::math
     typedef Mat2<float> Maf2;
     typedef Mat2<double> Mad2;
 }
-
-using fatpound::math::Maf2;

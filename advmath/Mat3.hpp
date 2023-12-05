@@ -8,7 +8,26 @@ namespace fatpound::math
     class Mat3
     {
     public:
-        static Mat3<T> Scaler(T factor)
+        Mat3<T>& operator = (const Mat3<T>& rhs)
+        {
+            cells[0][0] = rhs.cells[0][0];
+            cells[0][1] = rhs.cells[0][1];
+            cells[0][2] = rhs.cells[0][2];
+
+            cells[1][0] = rhs.cells[1][0];
+            cells[1][1] = rhs.cells[1][1];
+            cells[1][2] = rhs.cells[1][2];
+
+            cells[2][0] = rhs.cells[2][0];
+            cells[2][1] = rhs.cells[2][1];
+            cells[2][2] = rhs.cells[2][2];
+
+            return *this;
+        }
+
+
+    public:
+        static Mat3<T> Scaling(T factor)
         {
             return Mat3<T>{
                 factor,            static_cast<T>(0), static_cast<T>(0),
@@ -16,27 +35,11 @@ namespace fatpound::math
                 static_cast<T>(0), static_cast<T>(0), static_cast<T>(1)
             };
         }
-        static Mat3<T> ScalerIndependent(T x, T y) // W, H
-        {
-            return Mat3<T>{
-                static_cast<T>(x), static_cast<T>(0), static_cast<T>(0),
-                static_cast<T>(0), static_cast<T>(y), static_cast<T>(0),
-                static_cast<T>(0), static_cast<T>(0), static_cast<T>(1)
-            };
-        }
         static Mat3<T> Identity()
         {
             return Scaler(static_cast<T>(1));
         }
-        static Mat3<T> YFlipper()
-        {
-            return Mat3<T>{
-                static_cast<T>(1), static_cast<T>( 0), static_cast<T>(0),
-                static_cast<T>(0), static_cast<T>(-1), static_cast<T>(0),
-                static_cast<T>(0), static_cast<T>( 0), static_cast<T>(1)
-            };
-        }
-        static Mat3<T> Rotater(T theta)
+        static Mat3<T> RotationAroundZ(T theta)
         {
             const auto sint = std::sin(theta);
             const auto cost = std::cos(theta);
@@ -47,30 +50,34 @@ namespace fatpound::math
                 static_cast<T>(0), static_cast<T>(0), static_cast<T>(1)
             };
         }
-        static Mat3<T> Translater(const Vec2<T>& vec)
+        static Mat3<T> RotationAroundY(T theta)
         {
-            return Translater(vec.x, vec.y);
-        }
-        static Mat3<T> Translater(T x, T y)
-        {
+            const auto sint = std::sin(theta);
+            const auto cost = std::cos(theta);
+
             return Mat3<T>{
-                static_cast<T>(1), static_cast<T>(0), x,
-                static_cast<T>(0), static_cast<T>(1), y,
-                static_cast<T>(0), static_cast<T>(0), static_cast<T>(1)
+                cost,              static_cast<T>(0), -sint,
+                static_cast<T>(0), static_cast<T>(1), static_cast<T>(0),
+                sint,              static_cast<T>(0),  cost
+            };
+        }
+        static Mat3<T> RotationAroundX(T theta)
+        {
+            const auto sint = std::sin(theta);
+            const auto cost = std::cos(theta);
+
+            return Mat3<T>{
+                static_cast<T>(1), static_cast<T>(0), static_cast<T>(0),
+                static_cast<T>(0),  cost,             sint,
+                static_cast<T>(0), -sint,             cost
             };
         }
 
-        Vec2<T>  operator *  (const Vec2<T>& vec) const
+        Mat3<T>  operator *  (T factor) const
         {
-            return Vec2<T>(*this * static_cast<Vec3<T>>(vec));
-        }
-        Vec3<T>  operator *  (const Vec3<T>& vec) const
-        {
-            return Vec3<T>{
-                cells[0][0] * vec.x + cells[0][1] * vec.y + cells[0][2] * vec.w,
-                cells[1][0] * vec.x + cells[1][1] * vec.y + cells[1][2] * vec.w,
-                cells[2][0] * vec.x + cells[2][1] * vec.y + cells[2][2] * vec.w
-            };
+            Mat3<T> result = *this;
+
+            return result *= factor;
         }
         Mat3<T>  operator *  (const Mat3<T>& rhs) const
         {
@@ -79,6 +86,28 @@ namespace fatpound::math
                 cells[1][0] * rhs.cells[0][0] + cells[1][1] * rhs.cells[1][0] + cells[1][2] * rhs.cells[2][0],    cells[1][0] * rhs.cells[0][1] + cells[1][1] * rhs.cells[1][1] + cells[1][2] * rhs.cells[2][1],     cells[1][0] * rhs.cells[0][2] + cells[1][1] * rhs.cells[1][2] + cells[1][2] * rhs.cells[2][2],
                 cells[2][0] * rhs.cells[0][0] + cells[2][1] * rhs.cells[1][0] + cells[2][2] * rhs.cells[2][0],    cells[2][0] * rhs.cells[0][1] + cells[2][1] * rhs.cells[1][1] + cells[2][2] * rhs.cells[2][1],     cells[2][0] * rhs.cells[0][2] + cells[2][1] * rhs.cells[1][2] + cells[2][2] * rhs.cells[2][2]
             };
+        }
+        Mat3<T>& operator *= (T factor)
+        {
+            cells[0][0] *= factor;
+            cells[0][1] *= factor;
+            cells[0][2] *= factor;
+
+            cells[1][0] *= factor;
+            cells[1][1] *= factor;
+            cells[1][2] *= factor;
+
+            cells[2][0] *= factor;
+            cells[2][1] *= factor;
+            cells[2][2] *= factor;
+
+            return *this;
+        }
+        Mat3<T>& operator *= (const Mat3<T>& rhs)
+        {
+            *this = *this * rhs;
+
+            return *this;
         }
 
 
@@ -92,8 +121,24 @@ namespace fatpound::math
     private:
     };
 
+    template <typename T>
+    Vec3<T>& operator *= (Vec3<T>& lhs, const Mat3<T>& rhs)
+    {
+        lhs = lhs * rhs;
+
+        return lhs;
+    }
+
+    template <typename T>
+    Vec3<T>  operator * (const Vec3<T>& lhs, const Mat3<T>& rhs)
+    {
+        return Vec3<T>{
+            lhs.x * rhs.cells[0][0] + lhs.y * rhs.cells[1][0] + lhs.z * rhs.cells[2][0],
+            lhs.x * rhs.cells[0][1] + lhs.y * rhs.cells[1][1] + lhs.z * rhs.cells[2][1],
+            lhs.x * rhs.cells[0][2] + lhs.y * rhs.cells[1][2] + lhs.z * rhs.cells[2][2]
+        };
+    }
+
     typedef Mat3<float> Maf3;
     typedef Mat3<double> Mad3;
 }
-
-using fatpound::math::Maf3;
