@@ -54,7 +54,7 @@ void CameraController::Update(float deltaTime)
         Vef2 deltaPosition = currentPosition - lastPosition;
 
         deltaPosition.x = -deltaPosition.x;
-
+		deltaPosition.RotateBy( -camera.GetAngle() );
         camera.MoveBy(deltaPosition / camera.GetScale());
 
         lastPosition = currentPosition;
