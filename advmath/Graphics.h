@@ -25,7 +25,7 @@
 #include "ChiliException.h"
 #include "Surface.h"
 #include "Color.hpp"
-#include "Vec2.hpp"
+#include "Vec3.hpp"
 #include "Mat3.hpp"
 
 #define CHILI_GFX_EXCEPTION( hr,note ) Graphics::Exception( hr,note,_CRT_WIDE(__FILE__),__LINE__ )

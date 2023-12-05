@@ -23,6 +23,8 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
+#include "CubeScreenTransformer.hpp"
+#include "Cube.hpp"
 
 class Game
 {
@@ -49,5 +51,7 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
+	CubeScreenTransformer cst;
+	Cube cube;
 	/********************************/
 };

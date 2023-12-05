@@ -260,6 +260,8 @@
     <ClInclude Include="ChiliException.h" />
     <ClInclude Include="Color.hpp" />
     <ClInclude Include="COMInitializer.h" />
+    <ClInclude Include="Cube.hpp" />
+    <ClInclude Include="CubeScreenTransformer.hpp" />
     <ClInclude Include="DXErr.h" />
     <ClInclude Include="FatMath.hpp" />
     <ClInclude Include="FatTimer.hpp" />
@@ -267,6 +269,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GDIPlusManager.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="IndexedLineList.hpp" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="Mat2.hpp" />
