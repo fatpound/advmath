@@ -72,28 +72,28 @@ void Game::UpdateModel()
 
 	if (wnd.kbd.KeyIsPressed('Q'))
 	{
-		theta_x += deltaTheta * deltaTime;
+		theta_x = fatpound::math::wrap_angle(theta_x + deltaTheta * deltaTime);
 	}
 	if (wnd.kbd.KeyIsPressed('W'))
 	{
-		theta_y += deltaTheta * deltaTime;
+		theta_y = fatpound::math::wrap_angle(theta_y + deltaTheta * deltaTime);
 	}
 	if (wnd.kbd.KeyIsPressed('E'))
 	{
-		theta_z += deltaTheta * deltaTime;
+		theta_z = fatpound::math::wrap_angle(theta_z + deltaTheta * deltaTime);
 	}
 
 	if (wnd.kbd.KeyIsPressed('A'))
 	{
-		theta_x -= deltaTheta * deltaTime;
+		theta_x = fatpound::math::wrap_angle(theta_x - deltaTheta * deltaTime);
 	}
 	if (wnd.kbd.KeyIsPressed('S'))
 	{
-		theta_y -= deltaTheta * deltaTime;
+		theta_y = fatpound::math::wrap_angle(theta_y - deltaTheta * deltaTime);
 	}
 	if (wnd.kbd.KeyIsPressed('D'))
 	{
-		theta_z -= deltaTheta * deltaTime;
+		theta_z = fatpound::math::wrap_angle(theta_z - deltaTheta * deltaTime);
 	}
 }
 
