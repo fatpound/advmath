@@ -29,11 +29,20 @@ public:
     {
         return pos;
     }
+
+	float GetAngle() const
+	{
+		return angle;
+	}
     float GetScale() const
     {
         return scale;
     }
 
+	void SetAngle(const float new_angle)
+	{
+		angle = new_angle;
+	}
     void SetScale(const float new_scale)
     {
         scale = new_scale;
@@ -47,10 +56,9 @@ public:
     {
         pos = new_pos;
     }
-
     void Draw(Drawable drawable) const
     {
-        drawable.ApplyTransformation(Maf3::Scaler(scale) * Maf3::Translater(-pos));
+        drawable.ApplyTransformation(Maf3::Rotater(angle) * Maf3::Scaler(scale) * Maf3::Translater(-pos));
         coordinateTransformer.Draw(drawable);
     }
 
@@ -62,5 +70,6 @@ private:
     CoordinateTransformer& coordinateTransformer;
     Vef2 pos = { 0.0f, 0.0f };
 
+	float angle = 1.0f;
     float scale = 1.0f;
 };

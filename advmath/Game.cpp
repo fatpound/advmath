@@ -31,7 +31,7 @@ Game::Game( MainWindow& wnd )
     gfx( wnd ),
     coordinateTransformer( gfx ),
     camera( coordinateTransformer ),
-    cameraCtrl( wnd.mouse, camera )
+    cameraCtrl( wnd.mouse, wnd.kbd, camera )
 {
     std::default_random_engine drng(std::random_device{}());
 

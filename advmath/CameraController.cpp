@@ -1,8 +1,9 @@
 #include "CameraController.hpp"
 
-CameraController::CameraController(Mouse& in_mouse, Camera& in_camera)
+CameraController::CameraController(Mouse& in_mouse, const Keyboard& in_kbd, Camera& in_camera)
     :
     mouse(in_mouse),
+	kbd(in_kbd),
     camera(in_camera)
 {
 
@@ -10,6 +11,15 @@ CameraController::CameraController(Mouse& in_mouse, Camera& in_camera)
 
 void CameraController::Update(float deltaTime)
 {
+	if (kbd.KeyIsPressed('Q'))
+	{
+		camera.SetAngle(camera.GetAngle() + rotationSpeed * deltaTime);
+	}
+	if (kbd.KeyIsPressed('E'))
+	{
+		camera.SetAngle(camera.GetAngle() - rotationSpeed * deltaTime);
+	}
+
     while ( ! mouse.IsEmpty() )
     {
         const auto e = mouse.Read();
