@@ -95,6 +95,15 @@ void Game::UpdateModel()
 	{
 		theta_z = fatpound::math::wrap_angle(theta_z - deltaTheta * deltaTime);
 	}
+
+	if (wnd.kbd.KeyIsPressed('R'))
+	{
+		offset_z += 2.0f * deltaTime;
+	}
+	if (wnd.kbd.KeyIsPressed('F'))
+	{
+		offset_z -= 2.0f * deltaTime;
+	}
 }
 
 void Game::ComposeFrame()
@@ -105,7 +114,7 @@ void Game::ComposeFrame()
 	for (auto& vertex : lines.vertices)
 	{
 		vertex *= rotater;
-		vertex += Vef3{ 0.0f, 0.0f, 2.0f };
+		vertex += Vef3{ 0.0f, 0.0f, offset_z };
 		cst.Transform(vertex);
 	}
 
