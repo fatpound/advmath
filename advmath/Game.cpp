@@ -21,6 +21,8 @@
 #include "MainWindow.h"
 #include "Game.h"
 
+using fatpound::math::Maf3;
+
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
@@ -65,15 +67,44 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	const float deltaTime = ft.Mark();
+	totalTime += deltaTime;
 
+	if (wnd.kbd.KeyIsPressed('Q'))
+	{
+		theta_x += deltaTheta * deltaTime;
+	}
+	if (wnd.kbd.KeyIsPressed('W'))
+	{
+		theta_y += deltaTheta * deltaTime;
+	}
+	if (wnd.kbd.KeyIsPressed('E'))
+	{
+		theta_z += deltaTheta * deltaTime;
+	}
+
+	if (wnd.kbd.KeyIsPressed('A'))
+	{
+		theta_x -= deltaTheta * deltaTime;
+	}
+	if (wnd.kbd.KeyIsPressed('S'))
+	{
+		theta_y -= deltaTheta * deltaTime;
+	}
+	if (wnd.kbd.KeyIsPressed('D'))
+	{
+		theta_z -= deltaTheta * deltaTime;
+	}
 }
 
 void Game::ComposeFrame()
 {
 	IndexedLineList lines = cube.GetLines();
+	const Maf3 rotater = Maf3::RotationAroundX(theta_x) * Maf3::RotationAroundY(theta_y) * Maf3::RotationAroundZ(theta_z);
 
 	for (auto& vertex : lines.vertices)
 	{
+		vertex *= rotater;
 		vertex += Vef3{ 0.0f, 0.0f, 1.0f };
 		cst.Transform(vertex);
 	}

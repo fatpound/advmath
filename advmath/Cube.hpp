@@ -9,14 +9,14 @@ public:
 	{
 		const float side = size / 2.0f;
 
-		vertices.emplace_back(-side, -side, -side);
-		vertices.emplace_back(side, -side, -side);
-		vertices.emplace_back(-side, side, -side);
-		vertices.emplace_back(side, side, -side);
-		vertices.emplace_back(-side, -side, side);
-		vertices.emplace_back(side, -side, side);
-		vertices.emplace_back(-side, side, side);
-		vertices.emplace_back(side, side, side);
+        vertices.emplace_back(-side, -side, -side);
+        vertices.emplace_back( side, -side, -side);
+        vertices.emplace_back(-side,  side, -side);
+        vertices.emplace_back( side,  side, -side);
+        vertices.emplace_back(-side, -side,  side);
+        vertices.emplace_back( side, -side,  side);
+        vertices.emplace_back(-side,  side,  side);
+        vertices.emplace_back( side,  side,  side);
 	}
 
 

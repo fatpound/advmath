@@ -25,6 +25,9 @@
 #include "Graphics.h"
 #include "CubeScreenTransformer.hpp"
 #include "Cube.hpp"
+#include "FatTimer.hpp"
+
+using fatpound::time::FatTimer;
 
 class Game
 {
@@ -51,7 +54,16 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
+	static constexpr float deltaTheta = std::numbers::pi_v<float>;
+
+	FatTimer ft;
 	CubeScreenTransformer cst;
 	Cube cube;
+
+	float totalTime = 0.0f;
+
+	float theta_x = 0.0f;
+	float theta_y = 0.0f;
+	float theta_z = 0.0f;
 	/********************************/
 };

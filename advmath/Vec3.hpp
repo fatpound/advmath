@@ -35,6 +35,16 @@ namespace fatpound::math
 			return{ static_cast<T2>(this->x), static_cast<T2>(this->y), static_cast<T2>(z) };
 		}
 
+		Vec3<T>  GetNormalized() const
+		{
+			Vec3<T> norm = *this;
+			norm.Normalize();
+			return norm;
+		}
+		Vec3<T>  GetRotated(T angle) const
+		{
+			return Vec3<T>(*this).RotateBy(angle);
+		}
 		Vec3<T>& Normalize()
 		{
 			const T length = Len();
@@ -56,16 +66,6 @@ namespace fatpound::math
 			this->x = new_x;
 
 			return *this;
-		}
-		Vec3<T>  GetNormalized() const
-		{
-			Vec3<T> norm = *this;
-			norm.Normalize();
-			return norm;
-		}
-		Vec3<T>  GetRotated(T angle) const
-		{
-			return Vec3<T>(*this).RotateBy(angle);
 		}
 
 		T LenSq() const
