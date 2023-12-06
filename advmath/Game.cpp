@@ -22,6 +22,7 @@
 #include "Game.h"
 
 using fatpound::math::Maf3;
+using fatpound::math::Vef3;
 
 Game::Game( MainWindow& wnd )
 	:
@@ -124,7 +125,7 @@ void Game::ComposeFrame()
 	};
 
 	IndexedTriangleList triangles = cube.GetTriangles();
-	const Maf3 rotater = Maf3::RotationAroundX(theta_x) * Maf3::RotationAroundY(theta_y) * Maf3::RotationAroundZ(theta_z);
+	const Maf3& rotater = Maf3::RotationAroundX(theta_x) * Maf3::RotationAroundY(theta_y) * Maf3::RotationAroundZ(theta_z);
 	
 	for (auto& vertex : triangles.vertices)
 	{

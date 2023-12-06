@@ -12,9 +12,9 @@ namespace fatpound::math
 		{
 
 		}
-		Vec3(const Vec3& vec)
+		Vec3(const Vec3<T>& vec)
 			:
-			Vec3(vec.x, vec.y, vec.z)
+			Vec3<T>(vec.x, vec.y, vec.z)
 		{
 
 		}
@@ -38,12 +38,18 @@ namespace fatpound::math
 		Vec3<T>  GetNormalized() const
 		{
 			Vec3<T> norm = *this;
+
 			norm.Normalize();
+
 			return norm;
 		}
 		Vec3<T>  GetRotated(T angle) const
 		{
-			return Vec3<T>(*this).RotateBy(angle);
+			Vec3<T> vec(*this);
+
+			vec.RotateBy(angle);
+
+			return vec;
 		}
 		Vec3<T>& Normalize()
 		{
@@ -70,40 +76,64 @@ namespace fatpound::math
 
 		T LenSq() const
 		{
-			return this->x * this->x + this->y * this->y + z * z;
+			return fatpound::math::sq( *this );
 		}
 		T Len() const
 		{
 			return static_cast<T>(std::sqrt(LenSq()));
 		}
 
-		T        operator *  (const Vec3& rhs) const
+		T        operator *  (const Vec3<T>& rhs) const
 		{
 			return this->x * rhs.x + this->y * rhs.y + z * rhs.z;
 		}
 		Vec3<T>  operator -  ()                const
 		{
-			return Vec3(-this->x, -this->y, -z);
+			return Vec3<T>(-this->x, -this->y, -z);
 		}
 
-		Vec3<T>  operator +  (const Vec3& rhs) const
+		Vec3<T>  operator +  (const Vec3<T>& rhs) const
 		{
-			return Vec3(*this) += rhs;
+			Vec3<T> vec(*this);
+
+			vec += rhs;
+
+			return vec;
 		}
-		Vec3<T>  operator -  (const Vec3& rhs) const
+		Vec3<T>  operator -  (const Vec3<T>& rhs) const
 		{
-			return Vec3(*this) -= rhs;
+			Vec3<T> vec(*this);
+
+			vec -= rhs;
+
+			return vec;
 		}
-		Vec3<T>  operator *  (const    T& rhs) const
+		Vec3<T>  operator *  (const      T & rhs) const
 		{
-			return Vec3(*this) *= rhs;
+			Vec3<T> vec(*this);
+
+			vec *= rhs;
+
+			return vec;
 		}
-		Vec3<T>  operator /  (const    T& rhs) const
+		Vec3<T>  operator /  (const      T & rhs) const
 		{
-			return Vec3(*this) /= rhs;
+			Vec3<T> vec(*this);
+
+			vec /= rhs;
+
+			return vec;
+		}
+		Vec3<T>  operator %  (const Vec3<T>& rhs) const
+		{
+			return Vec3<T>(
+				this->y * rhs.z - this->z * rhs.y,
+				this->z * rhs.x - this->x * rhs.z,
+				this->x * rhs.y - this->y * rhs.x
+			);
 		}
 
-		Vec3<T>& operator  = (const Vec3& rhs)
+		Vec3<T>& operator  = (const Vec3<T> rhs)
 		{
 			this->x = rhs.x;
 			this->y = rhs.y;
@@ -111,7 +141,7 @@ namespace fatpound::math
 
 			return *this;
 		}
-		Vec3<T>& operator += (const Vec3& rhs)
+		Vec3<T>& operator += (const Vec3<T>& rhs)
 		{
 			this->x += rhs.x;
 			this->y += rhs.y;
@@ -119,7 +149,7 @@ namespace fatpound::math
 
 			return *this;
 		}
-		Vec3<T>& operator -= (const Vec3& rhs)
+		Vec3<T>& operator -= (const Vec3<T>& rhs)
 		{
 			this->x -= rhs.x;
 			this->y -= rhs.y;
@@ -127,7 +157,7 @@ namespace fatpound::math
 
 			return *this;
 		}
-		Vec3<T>& operator *= (const    T& rhs)
+		Vec3<T>& operator *= (const      T & rhs)
 		{
 			this->x *= rhs;
 			this->y *= rhs;
@@ -135,7 +165,7 @@ namespace fatpound::math
 
 			return *this;
 		}
-		Vec3<T>& operator /= (const    T& rhs)
+		Vec3<T>& operator /= (const      T & rhs)
 		{
 			this->x /= rhs;
 			this->y /= rhs;
@@ -144,11 +174,11 @@ namespace fatpound::math
 			return *this;
 		}
 
-		bool  operator == (const Vec3& rhs) const
+		bool  operator == (const Vec3<T>& rhs) const
 		{
 			return this->x == rhs.x && this->y == rhs.y;
 		}
-		bool  operator != (const Vec3& rhs) const
+		bool  operator != (const Vec3<T>& rhs) const
 		{
 			return !(*this == rhs);
 		}
@@ -156,15 +186,15 @@ namespace fatpound::math
 
 	public:
 		T z;
+
+
+	protected:
+
+
+	private:
 	};
 
 	typedef Vec3<int>    Vei3;
 	typedef Vec3<float>  Vef3;
 	typedef Vec3<double> Ved3;
 }
-
-using fatpound::math::Vec3;
-
-using fatpound::math::Vei3;
-using fatpound::math::Vef3;
-using fatpound::math::Ved3;

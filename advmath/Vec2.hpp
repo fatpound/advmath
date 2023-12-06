@@ -8,9 +8,13 @@ namespace fatpound::math
 	class Vec2
 	{
 	public:
-		Vec2(const Vec2& vec)
+		Vec2()
+		{
+
+		}
+		Vec2(const Vec2<T>& vec)
 			:
-			Vec2(vec.x, vec.y)
+			Vec2<T>(vec.x, vec.y)
 		{
 
 		}
@@ -31,13 +35,21 @@ namespace fatpound::math
 			return{ static_cast<T2>(x), static_cast<T2>(y) };
 		}
 
-		T LenSq() const
+		Vec2<T>  GetNormalized() const
 		{
-			return sq(*this);
+			Vec2<T> norm = *this;
+
+			norm.Normalize();
+
+			return norm;
 		}
-		T Len() const
+		Vec2<T>  GetRotated(T angle) const
 		{
-			return std::sqrt(LenSq());
+			Vec2<T> vec(*this);
+
+			vec.RotateBy(angle);
+
+			return vec;
 		}
 		Vec2<T>& Normalize()
 		{
@@ -60,79 +72,99 @@ namespace fatpound::math
 
 			return *this;
 		}
-		Vec2<T>  GetNormalized() const
+
+		T LenSq() const
 		{
-			Vec2<T> norm = *this;
-			norm.Normalize();
-			return norm;
+			return fatpound::math::sq( *this );
 		}
-		Vec2<T>  GetRotated(T angle) const
+		T Len() const
 		{
-			return Vec2<T>(*this).RotateBy(angle);
+			return std::sqrt(LenSq());
 		}
 
-		T     operator *  (const Vec2& rhs) const
+		T        operator *  (const Vec2<T>& rhs) const
 		{
 			return x * rhs.x + y * rhs.y;
 		}
-		Vec2  operator -  ()                const
+		Vec2<T>  operator -  ()                const
 		{
 			return Vec2(-x, -y);
 		}
 
-		Vec2  operator +  (const Vec2& rhs) const
+		Vec2<T>  operator +  (const Vec2<T>& rhs) const
 		{
-			return Vec2(*this) += rhs;
+			Vec2<T> vec(*this);
+
+			vec += rhs;
+
+			return vec;
 		}
-		Vec2  operator -  (const Vec2& rhs) const
+		Vec2<T>  operator -  (const Vec2<T>& rhs) const
 		{
-			return Vec2(*this) -= rhs;
+			Vec2<T> vec(*this);
+
+			vec -= rhs;
+
+			return vec;
 		}
-		Vec2  operator *  (const    T& rhs) const
+		Vec2<T>  operator *  (const      T & rhs) const
 		{
-			return Vec2(*this) *= rhs;
+			Vec2<T> vec(*this);
+
+			vec *= rhs;
+
+			return vec;
 		}
-		Vec2  operator /  (const    T& rhs) const
+		Vec2<T>  operator /  (const      T & rhs) const
 		{
-			return Vec2(*this) /= rhs;
+			Vec2<T> vec(*this);
+
+			vec /= rhs;
+
+			return vec;
 		}
 
-		Vec2& operator  = (const Vec2& rhs)
+		Vec2<T>& operator  = (const Vec2<T>& rhs)
 		{
 			x = rhs.x;
 			y = rhs.y;
+
 			return *this;
 		}
-		Vec2& operator += (const Vec2& rhs)
+		Vec2<T>& operator += (const Vec2<T>& rhs)
 		{
 			x += rhs.x;
 			y += rhs.y;
+
 			return *this;
 		}
-		Vec2& operator -= (const Vec2& rhs)
+		Vec2<T>& operator -= (const Vec2<T>& rhs)
 		{
 			x -= rhs.x;
 			y -= rhs.y;
+
 			return *this;
 		}
-		Vec2& operator *= (const    T& rhs)
+		Vec2<T>& operator *= (const      T & rhs)
 		{
 			x *= rhs;
 			y *= rhs;
+
 			return *this;
 		}
-		Vec2& operator /= (const    T& rhs)
+		Vec2<T>& operator /= (const      T & rhs)
 		{
 			x /= rhs;
 			y /= rhs;
+
 			return *this;
 		}
 
-		bool  operator == (const Vec2& rhs) const
+		bool  operator == (const Vec2<T>& rhs) const
 		{
 			return x == rhs.x && y == rhs.y;
 		}
-		bool  operator != (const Vec2& rhs) const
+		bool  operator != (const Vec2<T>& rhs) const
 		{
 			return !(*this == rhs);
 		}
@@ -147,9 +179,3 @@ namespace fatpound::math
 	typedef Vec2<float>  Vef2;
 	typedef Vec2<double> Ved2;
 }
-
-using fatpound::math::Vec2;
-
-using fatpound::math::Vei2;
-using fatpound::math::Vef2;
-using fatpound::math::Ved2;
