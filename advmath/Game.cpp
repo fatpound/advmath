@@ -108,6 +108,21 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
+	static const std::array<Color, 12> colors = {
+		colors::White,
+		colors::Blue,
+		colors::Cyan,
+		colors::Gray,
+		colors::Green,
+		colors::Magenta,
+		colors::LightGray,
+		colors::Red,
+		colors::Yellow,
+		colors::White,
+		colors::Blue,
+		colors::Cyan
+	};
+
 	IndexedTriangleList triangles = cube.GetTriangles();
 	const Maf3 rotater = Maf3::RotationAroundX(theta_x) * Maf3::RotationAroundY(theta_y) * Maf3::RotationAroundZ(theta_z);
 	
@@ -124,7 +139,7 @@ void Game::ComposeFrame()
 			triangles.vertices[*it],
 			triangles.vertices[*std::next(it)],
 			triangles.vertices[*std::next(it, 2)],
-			colors::White
+			colors[std::distance(triangles.indices.cbegin(), it) / 3]
 		);
 	}
 }
