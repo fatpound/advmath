@@ -137,5 +137,3 @@ namespace fatpound::color
 		static constexpr Color Magenta = MakeRGB(255u, 0u, 255u);
 	}
 }
-
-using namespace fatpound::color;

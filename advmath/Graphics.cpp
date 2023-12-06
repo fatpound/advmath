@@ -287,6 +287,7 @@ void Graphics::BeginFrame()
 }
 
 
+
 //////////////////////////////////////////////////
 //           Graphics Exception
 Graphics::Exception::Exception(HRESULT hr, const std::wstring& note, const wchar_t* file, unsigned int line)
@@ -329,16 +330,16 @@ std::wstring Graphics::Exception::GetExceptionType() const
 	return L"Chili Graphics Exception";
 }
 
-void Graphics::DrawLine(float x1, float y1, float x2, float y2, Color c)
+void Graphics::DrawLine(float x1, float y1, float x2, float y2, Color color)
 {
 	const float dx = x2 - x1;
 	const float dy = y2 - y1;
 
 	if (dy == 0.0f && dx == 0.0f)
 	{
-		PutPixel(int(x1), int(y1), c);
+		PutPixel(static_cast<int>(x1), static_cast<int>(y1), color);
 	}
-	else if (abs(dy) > abs(dx))
+	else if (std::abs(dy) > std::abs(dx))
 	{
 		if (dy < 0.0f)
 		{
@@ -348,15 +349,17 @@ void Graphics::DrawLine(float x1, float y1, float x2, float y2, Color c)
 
 		const float m = dx / dy;
 		float y = y1;
-		int lastIntY;
+		int lastIntY = 0;
+
 		for (float x = x1; y < y2; y += 1.0f, x += m)
 		{
-			lastIntY = int(y);
-			PutPixel(int(x), lastIntY, c);
+			lastIntY = static_cast<int>(y);
+			PutPixel(static_cast<int>(x), lastIntY, color);
 		}
-		if (int(y2) > lastIntY)
+
+		if (static_cast<int>(y2) > lastIntY)
 		{
-			PutPixel(int(x2), int(y2), c);
+			PutPixel(static_cast<int>(x2), static_cast<int>(y2), color);
 		}
 	}
 	else
@@ -369,15 +372,127 @@ void Graphics::DrawLine(float x1, float y1, float x2, float y2, Color c)
 
 		const float m = dy / dx;
 		float x = x1;
-		int lastIntX;
+		int lastIntX = 0;
+
 		for (float y = y1; x < x2; x += 1.0f, y += m)
 		{
-			lastIntX = int(x);
-			PutPixel(lastIntX, int(y), c);
+			lastIntX = static_cast<int>(x);
+			PutPixel(lastIntX, static_cast<int>(y), color);
 		}
-		if (int(x2) > lastIntX)
+
+		if (static_cast<int>(x2) > lastIntX)
 		{
-			PutPixel(int(x2), int(y2), c);
+			PutPixel(static_cast<int>(x2), static_cast<int>(y2), color);
+		}
+	}
+}
+
+void Graphics::DrawTriangle(const Vef2& v0, const Vef2& v1, const Vef2& v2, Color color)
+{
+	const Vef2* pv0 = &v0;
+	const Vef2* pv1 = &v1;
+	const Vef2* pv2 = &v2;
+
+	// the y level of points should be in this ascending order
+	// p0
+	// p1
+	// p2
+
+	if (pv1->y < pv0->y)
+	{
+		std::swap(pv0, pv1);
+	}
+	if (pv2->y < pv1->y)
+	{
+		std::swap(pv1, pv2);
+	}
+	if (pv1->y < pv0->y)
+	{
+		std::swap(pv0, pv1);
+	}
+
+	if (pv0->y == pv1->y)
+	{
+		if (pv1->x < pv0->x)
+		{
+			std::swap(pv0, pv1);
+		}
+
+		DrawFlatTopTriangle(*pv0, *pv1, *pv2, color);
+	}
+	else if (pv1->y == pv2->y)
+	{
+		if (pv2->x < pv1->x)
+		{
+			std::swap(pv1, pv2);
+		}
+
+		DrawFlatBottomTriangle(*pv0, *pv1, *pv2, color);
+	}
+	else
+	{
+		const float alphaSplit =
+			(pv1->y - pv0->y)
+			/
+			(pv2->y - pv0->y);
+
+		const Vef2 vi = *pv0 + (*pv2 - *pv0) * alphaSplit;
+
+		if (pv1->x < vi.x)
+		{
+			DrawFlatBottomTriangle(*pv0, *pv1, vi, color);
+			DrawFlatTopTriangle(*pv1, vi, *pv2, color);
+		}
+		else
+		{
+			DrawFlatBottomTriangle(*pv0, vi, *pv1, color);
+			DrawFlatTopTriangle(vi, *pv1, *pv2, color);
+		}
+	}
+}
+
+void Graphics::DrawFlatTopTriangle(const Vef2& v0, const Vef2& v1, const Vef2& v2, Color color)
+{
+	float m0 = (v2.x - v0.x) / (v2.y - v0.y);
+	float m1 = (v2.x - v1.x) / (v2.y - v1.y);
+
+	const int yStart = static_cast<int>(std::ceil(v0.y - 0.5f));
+	const int yEnd   = static_cast<int>(std::ceil(v2.y - 0.5f));
+
+	for (int y = yStart; y < yEnd; ++y)
+	{
+		const float px0 = m0 * (static_cast<float>(y) + 0.5f - v0.y) + v0.x;
+		const float px1 = m1 * (static_cast<float>(y) + 0.5f - v1.y) + v1.x;
+
+		const int xStart = static_cast<int>(std::ceil(px0 - 0.5f));
+		const int xEnd   = static_cast<int>(std::ceil(px1 - 0.5f));
+
+		for (int x = xStart; x < xEnd; ++x)
+		{
+			PutPixel(x, y, color);
+		}
+	}
+}
+
+void Graphics::DrawFlatBottomTriangle(const Vef2& v0, const Vef2& v1, const Vef2& v2, Color color)
+{
+	float m0 = (v1.x - v0.x) / (v1.y - v0.y);
+	float m1 = (v2.x - v0.x) / (v2.y - v0.y);
+
+	const int yStart = static_cast<int>(std::ceil(v0.y - 0.5f));
+	const int yEnd   = static_cast<int>(std::ceil(v2.y - 0.5f));
+
+	for (int y = yStart; y < yEnd; ++y)
+	{
+		const float px0 = m0 * (static_cast<float>(y) + 0.5f - v0.y) + v0.x;
+		const float px1 = m1 * (static_cast<float>(y) + 0.5f - v0.y) + v0.x;
+
+		const int xStart = static_cast<int>(std::ceil(px0 - 0.5f));
+		const int xEnd   = static_cast<int>(std::ceil(px1 - 0.5f));
+
+		for (int x = xStart; x < xEnd; ++x)
+		{
+			PutPixel(x, y, color);
 		}
 	}
 }

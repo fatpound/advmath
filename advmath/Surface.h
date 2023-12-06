@@ -27,6 +27,7 @@
 #include <assert.h>
 #include <memory>
 
+using namespace fatpound::color;
 
 class Surface
 {
