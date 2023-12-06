@@ -20,13 +20,15 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
+#include "SolidCubeScene.hpp"
 
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd )
 {
-
+	scenes.push_back(std::make_unique<SolidCubeScene>());
+	curScene = scenes.begin();
 }
 
 void Game::Go()
@@ -67,10 +69,28 @@ void Game::UpdateModel()
 	const float deltaTime = ft.Mark();
 	totalTime += deltaTime;
 
-	scene.Update(wnd.kbd, wnd.mouse, deltaTime);
+	while ( ! wnd.kbd.KeyIsEmpty() )
+	{
+		const auto e = wnd.kbd.ReadKey();
+
+		if (e.GetCode() == VK_TAB && e.IsPress())
+		{
+			CycleScenes();
+		}
+	}
+
+	(*curScene)->Update(wnd.kbd, wnd.mouse, deltaTime);
+}
+
+void Game::CycleScenes()
+{
+	if (++curScene == scenes.end())
+	{
+		curScene = scenes.begin();
+	}
 }
 
 void Game::ComposeFrame()
 {
-	scene.Draw(gfx);
+	(*curScene)->Draw(gfx);
 }

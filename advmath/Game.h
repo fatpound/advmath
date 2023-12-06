@@ -24,7 +24,10 @@
 #include "Mouse.h"
 #include "Graphics.h"
 #include "FatTimer.hpp"
-#include "SolidCubeScene.hpp"
+#include "Scene.hpp"
+
+#include <memory>
+#include <vector>
 
 using fatpound::time::FatTimer;
 
@@ -45,6 +48,7 @@ private:
     void UpdateModel();
 	/********************************/
 	/*  User Functions              */
+	void CycleScenes();
 	/********************************/
 
 
@@ -53,7 +57,9 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
-	SolidCubeScene scene;
+	std::vector<std::unique_ptr<Scene>> scenes;
+	std::vector<std::unique_ptr<Scene>>::iterator curScene;
+
 	FatTimer ft;
 
 	float totalTime = 0.0f;

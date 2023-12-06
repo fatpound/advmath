@@ -4,7 +4,7 @@
 #include "Cube.hpp"
 #include "CubeScreenTransformer.hpp"
 
-class SolidCubeScene : Scene
+class SolidCubeScene : public Scene
 {
 public:
 	SolidCubeScene() = default;
