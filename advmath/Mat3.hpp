@@ -121,6 +121,7 @@ namespace fatpound::math
     private:
     };
 
+
     template <typename T>
     Vec3<T>& operator *= (Vec3<T>& lhs, const Mat3<T>& rhs)
     {

@@ -69,6 +69,7 @@ namespace fatpound::math
     private:
     };
 
+
     typedef Mat2<float> Maf2;
     typedef Mat2<double> Mad2;
 }

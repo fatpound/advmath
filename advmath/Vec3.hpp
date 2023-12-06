@@ -194,6 +194,7 @@ namespace fatpound::math
     private:
     };
 
+
     typedef Vec3<int>    Vei3;
     typedef Vec3<float>  Vef3;
     typedef Vec3<double> Ved3;

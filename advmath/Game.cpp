@@ -45,22 +45,33 @@ void Game::Go()
     }
     catch (const ChiliException& e)
     {
-        const std::wstring eMsg = e.GetFullMessage() +
-            L"\n\nException caught at Windows message loop.";
-        wnd.ShowMessageBox(e.GetExceptionType(), eMsg, MB_ICONERROR);
+        const std::wstring eMsg = e.GetFullMessage() + L"\n\nException caught at Windows message loop.";
+
+        wnd.ShowMessageBox(
+			e.GetExceptionType(),
+			eMsg,
+			MB_ICONERROR
+		);
     }
     catch (const std::exception& e)
     {
         // need to convert std::exception what() string from narrow to wide string
         const std::string whatStr(e.what());
-        const std::wstring eMsg = std::wstring(whatStr.begin(), whatStr.end()) +
-            L"\n\nException caught at Windows message loop.";
-        wnd.ShowMessageBox(L"Unhandled STL Exception", eMsg, MB_ICONERROR);
+        const std::wstring eMsg = std::wstring(whatStr.begin(), whatStr.end()) + L"\n\nException caught at Windows message loop.";
+
+        wnd.ShowMessageBox(
+			L"Unhandled STL Exception",
+			eMsg,
+			MB_ICONERROR
+		);
     }
     catch (...)
     {
-        wnd.ShowMessageBox(L"Unhandled Non-STL Exception",
-            L"\n\nException caught at Windows message loop.", MB_ICONERROR);
+        wnd.ShowMessageBox(
+			L"Unhandled Non-STL Exception",
+            L"\n\nException caught at Windows message loop.",
+			MB_ICONERROR
+		);
     }
 }
 
@@ -71,9 +82,9 @@ void Game::UpdateModel()
 
     while ( ! wnd.kbd.KeyIsEmpty() )
     {
-        const auto e = wnd.kbd.ReadKey();
+        const Keyboard::Event event = wnd.kbd.ReadKey();
 
-        if (e.GetCode() == VK_TAB && e.IsPress())
+        if (event.GetCode() == VK_TAB && event.IsPress())
         {
             CycleScenes();
         }

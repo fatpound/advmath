@@ -65,7 +65,7 @@ public:
             const Vef3& v1 = triangles.vertices[triangles.indices[i * 3ui64 + 1ui64]];
             const Vef3& v2 = triangles.vertices[triangles.indices[i * 3ui64 + 2ui64]];
 
-            triangles.cullFlags[i] = (v1 - v0) % (v2 - v0) * v0 >= 0.0f;
+            triangles.cullFlags[i] = ((v1 - v0) % (v2 - v0) * v0 >= 0.0f);
         }
 
         for (auto& vertex : triangles.vertices)
@@ -75,7 +75,7 @@ public:
 
         for (size_t i = 0ui64, end = triangles.indices.size() / 3i64; i < end; ++i)
         {
-            if (!triangles.cullFlags[i])
+            if ( ! triangles.cullFlags[i] )
             {
                 gfx.DrawTriangle(
                     triangles.vertices[triangles.indices[i * 3ui64]],
@@ -110,6 +110,7 @@ private:
     Cube cube = Cube(1.0f);
 
     float offset_z = 2.0f;
+
     float theta_x = 0.0f;
     float theta_y = 0.0f;
     float theta_z = 0.0f;

@@ -436,7 +436,7 @@ void Graphics::DrawTriangle(const Vef2& v0, const Vef2& v1, const Vef2& v2, Colo
             /
             (pv2->y - pv0->y);
 
-        const Vef2 vi = *pv0 + (*pv2 - *pv0) * alphaSplit;
+        const Vef2 vi = *pv0 + (*pv2 - *pv0) * alphaSplit; // *pv0 PLUS ((NOT)mid, splitted)point algorithm
 
         if (pv1->x < vi.x)
         {

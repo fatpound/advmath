@@ -175,6 +175,7 @@ namespace fatpound::math
         T y;
     };
 
+
     typedef Vec2<int>    Vei2;
     typedef Vec2<float>  Vef2;
     typedef Vec2<double> Ved2;
