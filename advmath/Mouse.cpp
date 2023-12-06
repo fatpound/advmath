@@ -26,6 +26,11 @@ std::pair<int,int> Mouse::GetPos() const
 	return { x,y };
 }
 
+Vef2 Mouse::GetPosVef2() const
+{
+    return Vef2(static_cast<float>(x) , static_cast<float>(y));
+}
+
 int Mouse::GetPosX() const
 {
 	return x;
