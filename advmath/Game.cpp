@@ -131,16 +131,32 @@ void Game::ComposeFrame()
 	{
 		vertex *= rotater;
 		vertex += Vef3{ 0.0f, 0.0f, offset_z };
-		cst.Transform(vertex);
 	}
 	
-	for (auto it = triangles.indices.cbegin(), end = triangles.indices.cend(); it != end; std::advance(it, 3))
+	for (size_t i = 0ui64, end = triangles.indices.size() / 3ui64; i < end; ++i)
 	{
-		gfx.DrawTriangle(
-			triangles.vertices[*it],
-			triangles.vertices[*std::next(it)],
-			triangles.vertices[*std::next(it, 2)],
-			colors[std::distance(triangles.indices.cbegin(), it) / 3]
-		);
+		const Vef3& v0 = triangles.vertices[triangles.indices[i * 3ui64]];
+		const Vef3& v1 = triangles.vertices[triangles.indices[i * 3ui64 + 1ui64]];
+		const Vef3& v2 = triangles.vertices[triangles.indices[i * 3ui64 + 2ui64]];
+
+		triangles.cullFlags[i] = (v1 - v0) % (v2 - v0) * v0 >= 0.0f;
+	}
+
+	for (auto& vertex : triangles.vertices)
+	{
+		cst.Transform(vertex);
+	}
+
+	for (size_t i = 0ui64, end = triangles.indices.size() / 3i64; i < end; ++i)
+	{
+		if ( ! triangles.cullFlags[i] )
+		{
+			gfx.DrawTriangle(
+				triangles.vertices[triangles.indices[i * 3ui64]],
+				triangles.vertices[triangles.indices[i * 3ui64 + 1ui64]],
+				triangles.vertices[triangles.indices[i * 3ui64 + 2ui64]],
+				colors[i]
+			);
+		}
 	}
 }
