@@ -108,30 +108,23 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	const Vef2 v0( 50.0f,  50.0f);
-	const Vef2 v1(590.0f,  50.0f);
-	const Vef2 v2(590.0f, 590.0f);
-	const Vef2 v3( 50.0f, 590.0f);
-
-	const Vef2 u(wnd.mouse.GetPosVef2());
+	IndexedTriangleList triangles = cube.GetTriangles();
+	const Maf3 rotater = Maf3::RotationAroundX(theta_x) * Maf3::RotationAroundY(theta_y) * Maf3::RotationAroundZ(theta_z);
 	
-	gfx.DrawTriangle(v0, v1, u, colors::Red);
-	gfx.DrawTriangle(v1, v2, u, colors::White);
-	gfx.DrawTriangle(v2, v3, u, colors::Green);
-	gfx.DrawTriangle(v3, v0, u, colors::Blue);
-
-	//IndexedLineList lines = cube.GetLines();
-	//const Maf3 rotater = Maf3::RotationAroundX(theta_x) * Maf3::RotationAroundY(theta_y) * Maf3::RotationAroundZ(theta_z);
-	//
-	//for (auto& vertex : lines.vertices)
-	//{
-	//	vertex *= rotater;
-	//	vertex += Vef3{ 0.0f, 0.0f, offset_z };
-	//	cst.Transform(vertex);
-	//}
-	//
-	//for (auto it = lines.indices.cbegin(), end = lines.indices.cend(); it != end; std::advance(it, 2))
-	//{
-	//	gfx.DrawLine(lines.vertices[*it], lines.vertices[*std::next(it)], colors::White);
-	//}
+	for (auto& vertex : triangles.vertices)
+	{
+		vertex *= rotater;
+		vertex += Vef3{ 0.0f, 0.0f, offset_z };
+		cst.Transform(vertex);
+	}
+	
+	for (auto it = triangles.indices.cbegin(), end = triangles.indices.cend(); it != end; std::advance(it, 3))
+	{
+		gfx.DrawTriangle(
+			triangles.vertices[*it],
+			triangles.vertices[*std::next(it)],
+			triangles.vertices[*std::next(it, 2)],
+			colors::White
+		);
+	}
 }

@@ -270,6 +270,7 @@
     <ClInclude Include="GDIPlusManager.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="IndexedLineList.hpp" />
+    <ClInclude Include="IndexedTriangleList.hpp" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="Mat2.hpp" />
