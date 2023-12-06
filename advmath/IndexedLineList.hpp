@@ -8,6 +8,6 @@ using fatpound::math::Vef3;
 
 struct IndexedLineList
 {
-	std::vector<Vef3> vertices;
-	std::vector<size_t> indices;
+    std::vector<Vef3> vertices;
+    std::vector<size_t> indices;
 };

@@ -23,12 +23,12 @@
 #include "SolidCubeScene.hpp"
 
 Game::Game( MainWindow& wnd )
-	:
-	wnd( wnd ),
-	gfx( wnd )
+    :
+    wnd( wnd ),
+    gfx( wnd )
 {
-	scenes.push_back(std::make_unique<SolidCubeScene>());
-	curScene = scenes.begin();
+    scenes.push_back(std::make_unique<SolidCubeScene>());
+    curScene = scenes.begin();
 }
 
 void Game::Go()
@@ -66,31 +66,31 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	const float deltaTime = ft.Mark();
-	totalTime += deltaTime;
+    const float deltaTime = ft.Mark();
+    totalTime += deltaTime;
 
-	while ( ! wnd.kbd.KeyIsEmpty() )
-	{
-		const auto e = wnd.kbd.ReadKey();
+    while ( ! wnd.kbd.KeyIsEmpty() )
+    {
+        const auto e = wnd.kbd.ReadKey();
 
-		if (e.GetCode() == VK_TAB && e.IsPress())
-		{
-			CycleScenes();
-		}
-	}
+        if (e.GetCode() == VK_TAB && e.IsPress())
+        {
+            CycleScenes();
+        }
+    }
 
-	(*curScene)->Update(wnd.kbd, wnd.mouse, deltaTime);
+    (*curScene)->Update(wnd.kbd, wnd.mouse, deltaTime);
 }
 
 void Game::CycleScenes()
 {
-	if (++curScene == scenes.end())
-	{
-		curScene = scenes.begin();
-	}
+    if (++curScene == scenes.end())
+    {
+        curScene = scenes.begin();
+    }
 }
 
 void Game::ComposeFrame()
 {
-	(*curScene)->Draw(gfx);
+    (*curScene)->Draw(gfx);
 }

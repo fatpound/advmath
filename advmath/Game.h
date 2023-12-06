@@ -34,34 +34,34 @@ using fatpound::time::FatTimer;
 class Game
 {
 public:
-	Game( class MainWindow& wnd );
-	Game( const Game& ) = delete;
-	Game& operator = ( const Game& ) = delete;
+    Game( class MainWindow& wnd );
+    Game( const Game& ) = delete;
+    Game& operator = ( const Game& ) = delete;
 
 
 public:
-	void Go();
+    void Go();
 
 
 private:
-	void ComposeFrame();
+    void ComposeFrame();
     void UpdateModel();
-	/********************************/
-	/*  User Functions              */
-	void CycleScenes();
-	/********************************/
+    /********************************/
+    /*  User Functions              */
+    void CycleScenes();
+    /********************************/
 
 
 private:
-	MainWindow& wnd;
-	Graphics gfx;
-	/********************************/
-	/*  User Variables              */
-	std::vector<std::unique_ptr<Scene>> scenes;
-	std::vector<std::unique_ptr<Scene>>::iterator curScene;
+    MainWindow& wnd;
+    Graphics gfx;
+    /********************************/
+    /*  User Variables              */
+    std::vector<std::unique_ptr<Scene>> scenes;
+    std::vector<std::unique_ptr<Scene>>::iterator curScene;
 
-	FatTimer ft;
+    FatTimer ft;
 
-	float totalTime = 0.0f;
-	/********************************/
+    float totalTime = 0.0f;
+    /********************************/
 };

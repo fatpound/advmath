@@ -24,8 +24,8 @@
 #include <algorithm>
 namespace Gdiplus
 {
-	using std::min;
-	using std::max;
+    using std::min;
+    using std::max;
 }
 #include <gdiplus.h>
 
@@ -34,20 +34,20 @@ int GDIPlusManager::refCount = 0;
 
 GDIPlusManager::GDIPlusManager()
 {
-	if (refCount++ == 0)
-	{
-		Gdiplus::GdiplusStartupInput input;
-		input.GdiplusVersion = 1;
-		input.DebugEventCallback = nullptr;
-		input.SuppressBackgroundThread = false;
-		Gdiplus::GdiplusStartup(&token, &input, nullptr);
-	}
+    if (refCount++ == 0)
+    {
+        Gdiplus::GdiplusStartupInput input;
+        input.GdiplusVersion = 1;
+        input.DebugEventCallback = nullptr;
+        input.SuppressBackgroundThread = false;
+        Gdiplus::GdiplusStartup(&token, &input, nullptr);
+    }
 }
 
 GDIPlusManager::~GDIPlusManager()
 {
-	if (--refCount == 0)
-	{
-		Gdiplus::GdiplusShutdown(token);
-	}
+    if (--refCount == 0)
+    {
+        Gdiplus::GdiplusShutdown(token);
+    }
 }

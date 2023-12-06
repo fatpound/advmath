@@ -24,9 +24,9 @@
 class GDIPlusManager
 {
 public:
-	GDIPlusManager();
-	~GDIPlusManager();
+    GDIPlusManager();
+    ~GDIPlusManager();
 private:
-	static ULONG_PTR token;
-	static int refCount;
+    static ULONG_PTR token;
+    static int refCount;
 };
