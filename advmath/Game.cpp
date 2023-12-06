@@ -48,10 +48,10 @@ void Game::Go()
         const std::wstring eMsg = e.GetFullMessage() + L"\n\nException caught at Windows message loop.";
 
         wnd.ShowMessageBox(
-			e.GetExceptionType(),
-			eMsg,
-			MB_ICONERROR
-		);
+            e.GetExceptionType(),
+            eMsg,
+            MB_ICONERROR
+        );
     }
     catch (const std::exception& e)
     {
@@ -60,18 +60,18 @@ void Game::Go()
         const std::wstring eMsg = std::wstring(whatStr.begin(), whatStr.end()) + L"\n\nException caught at Windows message loop.";
 
         wnd.ShowMessageBox(
-			L"Unhandled STL Exception",
-			eMsg,
-			MB_ICONERROR
-		);
+            L"Unhandled STL Exception",
+            eMsg,
+            MB_ICONERROR
+        );
     }
     catch (...)
     {
         wnd.ShowMessageBox(
-			L"Unhandled Non-STL Exception",
+            L"Unhandled Non-STL Exception",
             L"\n\nException caught at Windows message loop.",
-			MB_ICONERROR
-		);
+            MB_ICONERROR
+        );
     }
 }
 
