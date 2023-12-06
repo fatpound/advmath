@@ -19,18 +19,20 @@
 *	along with The Chili DirectX Framework.  If not, see <http://www.gnu.org/licenses/>.  *
 ******************************************************************************************/
 #pragma once
-#include <d3d11.h>
-#include <wrl.h>
 #include "GDIPlusManager.h"
 #include "ChiliException.h"
-#include "Surface.h"
 #include "Color.hpp"
+#include "Surface.h"
 #include "Vec3.hpp"
 #include "Mat3.hpp"
+
+#include <d3d11.h>
+#include <wrl.h>
 
 #define CHILI_GFX_EXCEPTION( hr,note ) Graphics::Exception( hr,note,_CRT_WIDE(__FILE__),__LINE__ )
 
 using fatpound::math::Vef2;
+using fatpound::math::Maf3;
 
 class Graphics
 {

@@ -21,14 +21,10 @@
 #include "MainWindow.h"
 #include "Game.h"
 
-using fatpound::math::Maf3;
-using fatpound::math::Vef3;
-
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
-	gfx( wnd ),
-	cube(1.0f)
+	gfx( wnd )
 {
 
 }
@@ -71,92 +67,10 @@ void Game::UpdateModel()
 	const float deltaTime = ft.Mark();
 	totalTime += deltaTime;
 
-	if (wnd.kbd.KeyIsPressed('Q'))
-	{
-		theta_x = fatpound::math::wrap_angle(theta_x + deltaTheta * deltaTime);
-	}
-	if (wnd.kbd.KeyIsPressed('W'))
-	{
-		theta_y = fatpound::math::wrap_angle(theta_y + deltaTheta * deltaTime);
-	}
-	if (wnd.kbd.KeyIsPressed('E'))
-	{
-		theta_z = fatpound::math::wrap_angle(theta_z + deltaTheta * deltaTime);
-	}
-
-	if (wnd.kbd.KeyIsPressed('A'))
-	{
-		theta_x = fatpound::math::wrap_angle(theta_x - deltaTheta * deltaTime);
-	}
-	if (wnd.kbd.KeyIsPressed('S'))
-	{
-		theta_y = fatpound::math::wrap_angle(theta_y - deltaTheta * deltaTime);
-	}
-	if (wnd.kbd.KeyIsPressed('D'))
-	{
-		theta_z = fatpound::math::wrap_angle(theta_z - deltaTheta * deltaTime);
-	}
-
-	if (wnd.kbd.KeyIsPressed('R'))
-	{
-		offset_z += 2.0f * deltaTime;
-	}
-	if (wnd.kbd.KeyIsPressed('F'))
-	{
-		offset_z -= 2.0f * deltaTime;
-	}
+	scene.Update(wnd.kbd, wnd.mouse, deltaTime);
 }
 
 void Game::ComposeFrame()
 {
-	static const std::array<Color, 12> colors = {
-		colors::White,
-		colors::Blue,
-		colors::Cyan,
-		colors::Gray,
-		colors::Green,
-		colors::Magenta,
-		colors::LightGray,
-		colors::Red,
-		colors::Yellow,
-		colors::White,
-		colors::Blue,
-		colors::Cyan
-	};
-
-	IndexedTriangleList triangles = cube.GetTriangles();
-	const Maf3& rotater = Maf3::RotationAroundX(theta_x) * Maf3::RotationAroundY(theta_y) * Maf3::RotationAroundZ(theta_z);
-	
-	for (auto& vertex : triangles.vertices)
-	{
-		vertex *= rotater;
-		vertex += Vef3{ 0.0f, 0.0f, offset_z };
-	}
-	
-	for (size_t i = 0ui64, end = triangles.indices.size() / 3ui64; i < end; ++i)
-	{
-		const Vef3& v0 = triangles.vertices[triangles.indices[i * 3ui64]];
-		const Vef3& v1 = triangles.vertices[triangles.indices[i * 3ui64 + 1ui64]];
-		const Vef3& v2 = triangles.vertices[triangles.indices[i * 3ui64 + 2ui64]];
-
-		triangles.cullFlags[i] = (v1 - v0) % (v2 - v0) * v0 >= 0.0f;
-	}
-
-	for (auto& vertex : triangles.vertices)
-	{
-		cst.Transform(vertex);
-	}
-
-	for (size_t i = 0ui64, end = triangles.indices.size() / 3i64; i < end; ++i)
-	{
-		if ( ! triangles.cullFlags[i] )
-		{
-			gfx.DrawTriangle(
-				triangles.vertices[triangles.indices[i * 3ui64]],
-				triangles.vertices[triangles.indices[i * 3ui64 + 1ui64]],
-				triangles.vertices[triangles.indices[i * 3ui64 + 2ui64]],
-				colors[i]
-			);
-		}
-	}
+	scene.Draw(gfx);
 }

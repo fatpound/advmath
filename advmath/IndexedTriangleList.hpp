@@ -6,6 +6,8 @@
 
 #include <vector>
 
+using fatpound::math::Vef3;
+
 struct IndexedTriangleList
 {
 public:

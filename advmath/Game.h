@@ -23,9 +23,8 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
-#include "CubeScreenTransformer.hpp"
-#include "Cube.hpp"
 #include "FatTimer.hpp"
+#include "SolidCubeScene.hpp"
 
 using fatpound::time::FatTimer;
 
@@ -54,17 +53,9 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
-	static constexpr float deltaTheta = std::numbers::pi_v<float>;
-
+	SolidCubeScene scene;
 	FatTimer ft;
-	CubeScreenTransformer cst;
-	Cube cube;
 
 	float totalTime = 0.0f;
-
-	float offset_z = 2.0f;
-	float theta_x = 0.0f;
-	float theta_y = 0.0f;
-	float theta_z = 0.0f;
 	/********************************/
 };
