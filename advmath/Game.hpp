@@ -1,6 +1,6 @@
 /****************************************************************************************** 
  *	Chili DirectX Framework Version 16.07.20											  *	
- *	Game.h																				  *
+ *	Game.hpp																				  *
  *	Copyright 2016 PlanetChili.net <http://www.planetchili.net>							  *
  *																						  *
  *	This file is part of The Chili DirectX Framework.									  *
@@ -20,9 +20,9 @@
  ******************************************************************************************/
 #pragma once
 
-#include "Keyboard.h"
-#include "Mouse.h"
-#include "Graphics.h"
+#include "Keyboard.hpp"
+#include "Mouse.hpp"
+#include "Graphics.hpp"
 #include "FatTimer.hpp"
 #include "Scene.hpp"
 

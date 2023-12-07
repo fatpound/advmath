@@ -259,32 +259,32 @@
     <ClCompile Include="Surface.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ChiliException.h" />
+    <ClInclude Include="ChiliException.hpp" />
     <ClInclude Include="Color.hpp" />
-    <ClInclude Include="COMInitializer.h" />
+    <ClInclude Include="COMInitializer.hpp" />
     <ClInclude Include="Cube.hpp" />
     <ClInclude Include="CubeScreenTransformer.hpp" />
     <ClInclude Include="DXErr.h" />
     <ClInclude Include="FatMath.hpp" />
     <ClInclude Include="FatTimer.hpp" />
     <ClInclude Include="FatWin.hpp" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GDIPlusManager.h" />
-    <ClInclude Include="Graphics.h" />
+    <ClInclude Include="Game.hpp" />
+    <ClInclude Include="GDIPlusManager.hpp" />
+    <ClInclude Include="Graphics.hpp" />
     <ClInclude Include="IndexedLineList.hpp" />
     <ClInclude Include="IndexedTriangleList.hpp" />
-    <ClInclude Include="Keyboard.h" />
-    <ClInclude Include="MainWindow.h" />
+    <ClInclude Include="Keyboard.hpp" />
+    <ClInclude Include="MainWindow.hpp" />
     <ClInclude Include="Mat2.hpp" />
     <ClInclude Include="Mat3.hpp" />
-    <ClInclude Include="Mouse.h" />
-    <ClInclude Include="Rect.h" />
+    <ClInclude Include="Mouse.hpp" />
+    <ClInclude Include="Rect.hpp" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="SolidCubeScene.hpp" />
-    <ClInclude Include="Sound.h" />
-    <ClInclude Include="SoundEffect.h" />
-    <ClInclude Include="Surface.h" />
+    <ClInclude Include="Sound.hpp" />
+    <ClInclude Include="SoundEffect.hpp" />
+    <ClInclude Include="Surface.hpp" />
     <ClInclude Include="Vec2.hpp" />
     <ClInclude Include="Vec3.hpp" />
   </ItemGroup>

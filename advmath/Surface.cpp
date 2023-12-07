@@ -20,8 +20,8 @@
 ******************************************************************************************/
 #define FULL_WINTARD
 #include "FatWin.hpp"
-#include "Surface.h"
-#include "ChiliException.h"
+#include "Surface.hpp"
+#include "ChiliException.hpp"
 namespace Gdiplus
 {
     using std::min;

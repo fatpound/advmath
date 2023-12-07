@@ -1,6 +1,6 @@
 /******************************************************************************************
 *	Chili DirectX Framework Version 16.10.01											  *
-*	Surface.h																			  *
+*	Surface.hpp																			  *
 *	Copyright 2016 PlanetChili <http://www.planetchili.net>								  *
 *																						  *
 *	This file is part of The Chili DirectX Framework.									  *
@@ -21,8 +21,8 @@
 #pragma once
 #include "FatWin.hpp"
 #include "Color.hpp"
-#include "Rect.h"
-#include "ChiliException.h"
+#include "Rect.hpp"
+#include "ChiliException.hpp"
 #include <string>
 #include <assert.h>
 #include <memory>

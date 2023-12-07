@@ -20,7 +20,7 @@
 ******************************************************************************************/
 #define FULL_WINTARD
 #include "FatWin.hpp"
-#include "GDIPlusManager.h"
+#include "GDIPlusManager.hpp"
 #include <algorithm>
 namespace Gdiplus
 {

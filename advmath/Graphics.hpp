@@ -1,6 +1,6 @@
 /******************************************************************************************
 *	Chili DirectX Framework Version 16.10.01											  *
-*	Graphics.h																			  *
+*	Graphics.hpp																			  *
 *	Copyright 2016 PlanetChili <http://www.planetchili.net>								  *
 *																						  *
 *	This file is part of The Chili DirectX Framework.									  *
@@ -19,10 +19,10 @@
 *	along with The Chili DirectX Framework.  If not, see <http://www.gnu.org/licenses/>.  *
 ******************************************************************************************/
 #pragma once
-#include "GDIPlusManager.h"
-#include "ChiliException.h"
+#include "GDIPlusManager.hpp"
+#include "ChiliException.hpp"
 #include "Color.hpp"
-#include "Surface.h"
+#include "Surface.hpp"
 #include "Vec3.hpp"
 #include "Mat3.hpp"
 

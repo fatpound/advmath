@@ -1,6 +1,6 @@
 /******************************************************************************************
-*	Chili DirectX Framework Version 16.10.01											  *
-*	GDIPlusManager.h																	  *
+*	Chili DirectX Framework Version 16.07.20											  *
+*	ChiliException.hpp																	  *
 *	Copyright 2016 PlanetChili <http://www.planetchili.net>								  *
 *																						  *
 *	This file is part of The Chili DirectX Framework.									  *
@@ -19,14 +19,37 @@
 *	along with The Chili DirectX Framework.  If not, see <http://www.gnu.org/licenses/>.  *
 ******************************************************************************************/
 #pragma once
-#include "FatWin.hpp"
+#include <string>
 
-class GDIPlusManager
+class ChiliException
 {
 public:
-    GDIPlusManager();
-    ~GDIPlusManager();
+    ChiliException( const wchar_t* file,unsigned int line,const std::wstring& note = L"" )
+        :
+        note( note ),
+        file( file ),
+        line( line )
+    {}
+    const std::wstring& GetNote() const
+    {
+        return note;
+    }
+    const std::wstring& GetFile() const
+    {
+        return file;
+    }
+    unsigned int GetLine() const
+    {
+        return line;
+    }
+    std::wstring GetLocation() const
+    {
+        return std::wstring( L"Line [" ) + std::to_wstring( line ) + L"] in " + file;
+    }
+    virtual std::wstring GetFullMessage() const = 0;
+    virtual std::wstring GetExceptionType() const = 0;
 private:
-    static ULONG_PTR token;
-    static int refCount;
+    std::wstring note;
+    std::wstring file;
+    unsigned int line;
 };

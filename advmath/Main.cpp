@@ -18,9 +18,9 @@
 *	You should have received a copy of the GNU General Public License					  *
 *	along with The Chili DirectX Framework.  If not, see <http://www.gnu.org/licenses/>.  *
 ******************************************************************************************/
-#include "MainWindow.h"
-#include "Game.h"
-#include "ChiliException.h"
+#include "MainWindow.hpp"
+#include "Game.hpp"
+#include "ChiliException.hpp"
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nShowCmd)
 {

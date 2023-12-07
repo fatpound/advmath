@@ -21,34 +21,34 @@
     <ClInclude Include="DXErr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
+    <ClInclude Include="Game.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics.h">
+    <ClInclude Include="Graphics.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Keyboard.h">
+    <ClInclude Include="Keyboard.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MainWindow.h">
+    <ClInclude Include="MainWindow.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Mouse.h">
+    <ClInclude Include="Mouse.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ChiliException.h">
+    <ClInclude Include="ChiliException.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Sound.h">
+    <ClInclude Include="Sound.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SoundEffect.h">
+    <ClInclude Include="SoundEffect.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="COMInitializer.h">
+    <ClInclude Include="COMInitializer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FatWin.hpp">
@@ -81,16 +81,16 @@
     <ClInclude Include="FatMath.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GDIPlusManager.h">
+    <ClInclude Include="GDIPlusManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IndexedLineList.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Rect.h">
+    <ClInclude Include="Rect.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Surface.h">
+    <ClInclude Include="Surface.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IndexedTriangleList.hpp">

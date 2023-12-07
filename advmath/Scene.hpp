@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Keyboard.h"
-#include "Mouse.h"
-#include "Graphics.h"
+#include "Keyboard.hpp"
+#include "Mouse.hpp"
+#include "Graphics.hpp"
 
 class Scene
 {

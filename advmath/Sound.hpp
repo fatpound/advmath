@@ -1,6 +1,6 @@
 /****************************************************************************************** 
  *	Chili DirectX Framework Sound Pack Version 16.11.11									  *	
- *	Sound.h																				  *
+ *	Sound.hpp																				  *
  *	Copyright 2016 PlanetChili.net <http://www.planetchili.net>							  *
  *																						  *
  *	This file is part of The Chili DirectX Framework.									  *
@@ -25,9 +25,9 @@
 #include <mutex>
 #include <condition_variable>
 #include <thread>
-#include "ChiliException.h"
+#include "ChiliException.hpp"
 #include <wrl\client.h>
-#include "COMInitializer.h"
+#include "COMInitializer.hpp"
 
 // forward declare WAVEFORMATEX so we don't have to include bullshit headers
 struct tWAVEFORMATEX;

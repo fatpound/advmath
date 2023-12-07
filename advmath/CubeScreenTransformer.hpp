@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Vec3.hpp"
-#include "Graphics.h"
+#include "Graphics.hpp"
 
 using fatpound::math::Vef3;
 

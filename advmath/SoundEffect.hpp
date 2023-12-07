@@ -1,6 +1,6 @@
 /****************************************************************************************** 
  *	Chili DirectX Framework Sound Pack Version 16.11.11									  *	
- *	SoundEffect.h																		  *
+ *	SoundEffect.hpp																		  *
  *	Copyright 2016 PlanetChili.net <http://www.planetchili.net>							  *
  *																						  *
  *	This file is part of The Chili DirectX Framework.									  *
@@ -20,7 +20,7 @@
  ******************************************************************************************/
 #pragma once
 
-#include "Sound.h"
+#include "Sound.hpp"
 
 #include <random>
 #include <initializer_list>

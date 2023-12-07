@@ -1,6 +1,6 @@
 /****************************************************************************************** 
  *	Chili DirectX Framework Version 16.07.20											  *	
- *	Keyboard.h																			  *
+ *	Keyboard.hpp																			  *
  *	Copyright 2016 PlanetChili.net <http://www.planetchili.net>							  *
  *																						  *
  *	This file is part of The Chili DirectX Framework.									  *
