@@ -35,6 +35,11 @@ namespace fatpound::math
             return{ static_cast<T2>(x), static_cast<T2>(y) };
         }
 
+        Vec2<T> InterpolateTo(const Vec2<T>& dest, T alpha) const
+        {
+            return *this + (dest - *this) * alpha;
+        }
+
         Vec2<T>  GetNormalized() const
         {
             Vec2<T> norm = *this;
