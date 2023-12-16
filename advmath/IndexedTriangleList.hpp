@@ -8,10 +8,11 @@
 
 using fatpound::math::Vef3;
 
-struct IndexedTriangleList
+template<class T>
+class IndexedTriangleList
 {
 public:
-    IndexedTriangleList(std::vector<Vef3> in_verts, std::vector<size_t> in_indices)
+    IndexedTriangleList(std::vector<T> in_verts, std::vector<size_t> in_indices)
         :
         vertices(std::move(in_verts)),
         indices(std::move(in_indices))
@@ -24,7 +25,7 @@ public:
 
 
 public:
-    std::vector<Vef3> vertices;
+    std::vector<T> vertices;
     std::vector<size_t> indices;
     std::vector<bool> cullFlags;
 };
