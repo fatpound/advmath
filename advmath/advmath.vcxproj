@@ -286,6 +286,7 @@
     <ClInclude Include="Sound.hpp" />
     <ClInclude Include="SoundEffect.hpp" />
     <ClInclude Include="Surface.hpp" />
+    <ClInclude Include="TexturedCubeScene.hpp" />
     <ClInclude Include="TextureVertex.hpp" />
     <ClInclude Include="Vec2.hpp" />
     <ClInclude Include="Vec3.hpp" />

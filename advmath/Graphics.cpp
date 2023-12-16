@@ -558,99 +558,99 @@ void Graphics::DrawFlatBottomTriangle(const Vef2& v0, const Vef2& v1, const Vef2
 
 void Graphics::DrawFlatTopTriangleTextured(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture)
 {
-	const float m0 = (v2.pos.x - v0.pos.x) / (v2.pos.y - v0.pos.y);
-	const float m1 = (v2.pos.x - v1.pos.x) / (v2.pos.y - v1.pos.y);
+    const float m0 = (v2.pos.x - v0.pos.x) / (v2.pos.y - v0.pos.y);
+    const float m1 = (v2.pos.x - v1.pos.x) / (v2.pos.y - v1.pos.y);
 
-	const int yStart = static_cast<int>(std::ceil(v0.pos.y - 0.5f));
-	const int yEnd = static_cast<int>(std::ceil(v2.pos.y - 0.5f));
+    const int yStart = static_cast<int>(std::ceil(v0.pos.y - 0.5f));
+    const int yEnd = static_cast<int>(std::ceil(v2.pos.y - 0.5f));
 
-	Vef2 tcEdgeL = v0.texCoord;
-	Vef2 tcEdgeR = v1.texCoord;
+    Vef2 tcEdgeL = v0.texCoord;
+    Vef2 tcEdgeR = v1.texCoord;
+    const Vef2 tcBottom = v2.texCoord;
 
-	const Vef2 tcBottom = v2.texCoord;
-	const Vef2 tcEdgeStepL = (tcBottom - tcEdgeL) / (v2.pos.y - v0.pos.y);
-	const Vef2 tcEdgeStepR = (tcBottom - tcEdgeR) / (v2.pos.y - v1.pos.y);
+    const Vef2 tcEdgeStepL = (tcBottom - tcEdgeL) / (v2.pos.y - v0.pos.y);
+    const Vef2 tcEdgeStepR = (tcBottom - tcEdgeR) / (v2.pos.y - v1.pos.y);
 
-	tcEdgeL += tcEdgeStepL * (static_cast<float>(yStart) + 0.5f - v1.pos.y);
-	tcEdgeR += tcEdgeStepR * (static_cast<float>(yStart) + 0.5f - v1.pos.y);
+    tcEdgeL += tcEdgeStepL * (static_cast<float>(yStart) + 0.5f - v1.pos.y);
+    tcEdgeR += tcEdgeStepR * (static_cast<float>(yStart) + 0.5f - v1.pos.y);
 
-	const float tex_width = static_cast<float>(texture.GetWidth());
-	const float tex_height = static_cast<float>(texture.GetHeight());
-	const float tex_clamp_x = tex_width - 1.0f;
-	const float tex_clamp_y = tex_height - 1.0f;
+    const float tex_width = static_cast<float>(texture.GetWidth());
+    const float tex_height = static_cast<float>(texture.GetHeight());
+    const float tex_clamp_x = tex_width - 1.0f;
+    const float tex_clamp_y = tex_height - 1.0f;
 
-	for (int y = yStart; y < yEnd; ++y, tcEdgeL += tcEdgeStepL, tcEdgeR += tcEdgeStepR)
-	{
-		const float px0 = m0 * (static_cast<float>(y) + 0.5f - v0.pos.y) + v0.pos.x;
-		const float px1 = m1 * (static_cast<float>(y) + 0.5f - v1.pos.y) + v1.pos.x;
+    for (int y = yStart; y < yEnd; ++y, tcEdgeL += tcEdgeStepL, tcEdgeR += tcEdgeStepR)
+    {
+        const float px0 = m0 * (static_cast<float>(y) + 0.5f - v0.pos.y) + v0.pos.x;
+        const float px1 = m1 * (static_cast<float>(y) + 0.5f - v1.pos.y) + v1.pos.x;
 
-		const int xStart = static_cast<int>(std::ceil(px0 - 0.5f));
-		const int xEnd = static_cast<int>(std::ceil(px1 - 0.5f));
+        const int xStart = static_cast<int>(std::ceil(px0 - 0.5f));
+        const int xEnd = static_cast<int>(std::ceil(px1 - 0.5f));
 
-		const Vef2 tcScanStep = (tcEdgeR - tcEdgeL) / (px1 - px0);
+        const Vef2 tcScanStep = (tcEdgeR - tcEdgeL) / (px1 - px0);
 
-		Vef2 texCoord = tcEdgeL + tcScanStep * (static_cast<float>(xStart) + 0.5f - px0);
+        Vef2 texCoord = tcEdgeL + tcScanStep * (static_cast<float>(xStart) + 0.5f - px0);
 
-		for (int x = xStart; x < xEnd; ++x, texCoord += tcScanStep)
-		{
-			PutPixel(
-				x,
-				y,
-				texture.GetPixel(
-					static_cast<int>(std::min(texCoord.x * tex_width, tex_clamp_x)),
-					static_cast<int>(std::min(texCoord.y * tex_height, tex_clamp_y))
-				)
-			);
-		}
-	}
+        for (int x = xStart; x < xEnd; ++x, texCoord += tcScanStep)
+        {
+            PutPixel(
+                x,
+                y,
+                texture.GetPixel(
+                    static_cast<int>(std::min(texCoord.x * tex_width, tex_clamp_x)),
+                    static_cast<int>(std::min(texCoord.y * tex_height, tex_clamp_y))
+                )
+            );
+        }
+    }
 }
 
 void Graphics::DrawFlatBottomTriangleTextured(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture)
 {
-	const float m0 = (v1.pos.x - v0.pos.x) / (v1.pos.y - v0.pos.y);
-	const float m1 = (v2.pos.x - v0.pos.x) / (v2.pos.y - v0.pos.y);
+    const float m0 = (v1.pos.x - v0.pos.x) / (v1.pos.y - v0.pos.y);
+    const float m1 = (v2.pos.x - v0.pos.x) / (v2.pos.y - v0.pos.y);
 
-	const int yStart = static_cast<int>(std::ceil(v0.pos.y - 0.5f));
-	const int yEnd = static_cast<int>(std::ceil(v2.pos.y - 0.5f));
+    const int yStart = static_cast<int>(std::ceil(v0.pos.y - 0.5f));
+    const int yEnd = static_cast<int>(std::ceil(v2.pos.y - 0.5f));
 
-	Vef2 tcEdgeL = v0.texCoord;
-	Vef2 tcEdgeR = v0.texCoord;
+    Vef2 tcEdgeL = v0.texCoord;
+    Vef2 tcEdgeR = v0.texCoord;
 
-	const Vef2 tcBottomL = v1.texCoord;
-	const Vef2 tcBottomR = v2.texCoord;
-	const Vef2 tcEdgeStepL = (tcBottomL - tcEdgeL) / (v1.pos.y - v0.pos.y);
-	const Vef2 tcEdgeStepR = (tcBottomR - tcEdgeR) / (v2.pos.y - v0.pos.y);
+    const Vef2 tcBottomL = v1.texCoord;
+    const Vef2 tcBottomR = v2.texCoord;
+    const Vef2 tcEdgeStepL = (tcBottomL - tcEdgeL) / (v1.pos.y - v0.pos.y);
+    const Vef2 tcEdgeStepR = (tcBottomR - tcEdgeR) / (v2.pos.y - v0.pos.y);
 
-	tcEdgeL += tcEdgeStepL * (static_cast<float>(yStart) + 0.5f - v0.pos.y);
-	tcEdgeR += tcEdgeStepR * (static_cast<float>(yStart) + 0.5f - v0.pos.y);
+    tcEdgeL += tcEdgeStepL * (static_cast<float>(yStart) + 0.5f - v0.pos.y);
+    tcEdgeR += tcEdgeStepR * (static_cast<float>(yStart) + 0.5f - v0.pos.y);
 
-	const float tex_width = static_cast<float>(texture.GetWidth());
-	const float tex_height = static_cast<float>(texture.GetHeight());
-	const float tex_clamp_x = tex_width - 1.0f;
-	const float tex_clamp_y = tex_height - 1.0f;
+    const float tex_width = static_cast<float>(texture.GetWidth());
+    const float tex_height = static_cast<float>(texture.GetHeight());
+    const float tex_clamp_x = tex_width - 1.0f;
+    const float tex_clamp_y = tex_height - 1.0f;
 
-	for (int y = yStart; y < yEnd; ++y, tcEdgeL += tcEdgeStepL, tcEdgeR += tcEdgeStepR)
-	{
-		const float px0 = m0 * (static_cast<float>(y) + 0.5f - v0.pos.y) + v0.pos.x;
-		const float px1 = m1 * (static_cast<float>(y) + 0.5f - v1.pos.y) + v1.pos.x;
+    for (int y = yStart; y < yEnd; ++y, tcEdgeL += tcEdgeStepL, tcEdgeR += tcEdgeStepR)
+    {
+        const float px0 = m0 * (static_cast<float>(y) + 0.5f - v0.pos.y) + v0.pos.x;
+        const float px1 = m1 * (static_cast<float>(y) + 0.5f - v0.pos.y) + v0.pos.x;
 
-		const int xStart = static_cast<int>(std::ceil(px0 - 0.5f));
-		const int xEnd = static_cast<int>(std::ceil(px1 - 0.5f));
+        const int xStart = static_cast<int>(std::ceil(px0 - 0.5f));
+        const int xEnd = static_cast<int>(std::ceil(px1 - 0.5f));
 
-		const Vef2 tcScanStep = (tcEdgeR - tcEdgeL) / (px1 - px0);
+        const Vef2 tcScanStep = (tcEdgeR - tcEdgeL) / (px1 - px0);
 
-		Vef2 texCoord = tcEdgeL + tcScanStep * (static_cast<float>(xStart) + 0.5f - px0);
+        Vef2 texCoord = tcEdgeL + tcScanStep * (static_cast<float>(xStart) + 0.5f - px0);
 
-		for (int x = xStart; x < xEnd; ++x, texCoord += tcScanStep)
-		{
-			PutPixel(
-				x,
-				y,
-				texture.GetPixel(
-					static_cast<int>(std::min(texCoord.x * tex_width, tex_clamp_x)),
-					static_cast<int>(std::min(texCoord.y * tex_height, tex_clamp_y))
-				)
-			);
-		}
-	}
+        for (int x = xStart; x < xEnd; ++x, texCoord += tcScanStep)
+        {
+            PutPixel(
+                x,
+                y,
+                texture.GetPixel(
+                    static_cast<int>(std::min(texCoord.x * tex_width, tex_clamp_x)),
+                    static_cast<int>(std::min(texCoord.y * tex_height, tex_clamp_y))
+                )
+            );
+        }
+    }
 }

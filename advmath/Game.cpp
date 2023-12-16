@@ -21,6 +21,7 @@
 #include "MainWindow.hpp"
 #include "Game.hpp"
 #include "SolidCubeScene.hpp"
+#include "TexturedCubeScene.hpp"
 
 Game::Game( MainWindow& wnd )
     :
@@ -28,6 +29,8 @@ Game::Game( MainWindow& wnd )
     gfx( wnd )
 {
     scenes.push_back(std::make_unique<SolidCubeScene>());
+	scenes.push_back(std::make_unique<TexturedCubeScene>());
+
     curScene = scenes.begin();
 }
 
