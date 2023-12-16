@@ -27,6 +27,68 @@ public:
 		};
 	}
 
+	TextureVertex  operator +  (const TextureVertex& rhs) const
+	{
+		TextureVertex tex(*this);
+
+		tex += rhs;
+
+		return tex;
+	}
+	TextureVertex  operator -  (const TextureVertex& rhs) const
+	{
+		TextureVertex tex(*this);
+
+		tex -= rhs;
+
+		return tex;
+	}
+	TextureVertex  operator *  (float rhs) const
+	{
+		TextureVertex tex(*this);
+
+		tex *= rhs;
+
+		return tex;
+	}
+	TextureVertex  operator /  (float rhs) const
+	{
+		TextureVertex tex(*this);
+
+		tex /= rhs;
+
+		return tex;
+	}
+
+	TextureVertex& operator += (const TextureVertex& rhs)
+	{
+		pos += rhs.pos;
+		texCoord += rhs.texCoord;
+
+		return *this;
+	}
+	TextureVertex& operator -= (const TextureVertex& rhs)
+	{
+		pos -= rhs.pos;
+		texCoord -= rhs.texCoord;
+
+		return *this;
+	}
+	TextureVertex& operator *= (float rhs)
+	{
+		pos *= rhs;
+		texCoord *= rhs;
+
+		return *this;
+	}
+	TextureVertex& operator /= (float rhs)
+	{
+		pos /= rhs;
+		texCoord /= rhs;
+
+		return *this;
+	}
+
 
 public:
 	Vef3 pos;
