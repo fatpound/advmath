@@ -1,7 +1,7 @@
 /******************************************************************************************
 *	Chili DirectX Framework Version 16.10.01											  *
 *	Graphics.cpp																		  *
-*	Copyright 2016 PlanetChili.net <http://www.planetchili.net>							  *
+*	Copyright 2016 PlanetChili.net <http://www.planetexCoordhili.net>							  *
 *																						  *
 *	This file is part of The Chili DirectX Framework.									  *
 *																						  *
@@ -451,7 +451,7 @@ void Graphics::DrawTriangle(const Vef2& v0, const Vef2& v1, const Vef2& v2, Colo
     }
 }
 
-void Graphics::DrawTriangleTextured(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& tex)
+void Graphics::DrawTriangleTextured(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture)
 {
     const TextureVertex* pv0 = &v0;
     const TextureVertex* pv1 = &v1;
@@ -477,7 +477,7 @@ void Graphics::DrawTriangleTextured(const TextureVertex& v0, const TextureVertex
             std::swap(pv0, pv1);
         }
 
-        DrawFlatTopTriangleTextured(*pv0, *pv1, *pv2, tex);
+        DrawFlatTopTriangleTextured(*pv0, *pv1, *pv2, texture);
     }
     else if (pv1->pos.y == pv2->pos.y)
     {
@@ -486,7 +486,7 @@ void Graphics::DrawTriangleTextured(const TextureVertex& v0, const TextureVertex
             std::swap(pv1, pv2);
         }
 
-        DrawFlatBottomTriangleTextured(*pv0, *pv1, *pv2, tex);
+        DrawFlatBottomTriangleTextured(*pv0, *pv1, *pv2, texture);
     }
     else
     {
@@ -499,13 +499,13 @@ void Graphics::DrawTriangleTextured(const TextureVertex& v0, const TextureVertex
 
         if (pv1->pos.x < vi.pos.x)
         {
-            DrawFlatBottomTriangleTextured(*pv0, *pv1, vi, tex);
-            DrawFlatTopTriangleTextured(*pv1, vi, *pv2, tex);
+            DrawFlatBottomTriangleTextured(*pv0, *pv1, vi, texture);
+            DrawFlatTopTriangleTextured(*pv1, vi, *pv2, texture);
         }
         else
         {
-            DrawFlatBottomTriangleTextured(*pv0, vi, *pv1, tex);
-            DrawFlatTopTriangleTextured(vi, *pv1, *pv2, tex);
+            DrawFlatBottomTriangleTextured(*pv0, vi, *pv1, texture);
+            DrawFlatTopTriangleTextured(vi, *pv1, *pv2, texture);
         }
     }
 }
@@ -562,43 +562,42 @@ void Graphics::DrawFlatTopTriangleTextured(const TextureVertex& v0, const Textur
     const float m1 = (v2.pos.x - v1.pos.x) / (v2.pos.y - v1.pos.y);
 
     const int yStart = static_cast<int>(std::ceil(v0.pos.y - 0.5f));
-    const int yEnd = static_cast<int>(std::ceil(v2.pos.y - 0.5f));
+    const int yEnd   = static_cast<int>(std::ceil(v2.pos.y - 0.5f));
 
-    Vef2 tcEdgeL = v0.texCoord;
-    Vef2 tcEdgeR = v1.texCoord;
-    const Vef2 tcBottom = v2.texCoord;
+    Vef2 texCoordEdgeL = v0.texCoord;
+    Vef2 texCoordEdgeR = v1.texCoord;
+    const Vef2 texCoordBottom = v2.texCoord;
 
-    const Vef2 tcEdgeStepL = (tcBottom - tcEdgeL) / (v2.pos.y - v0.pos.y);
-    const Vef2 tcEdgeStepR = (tcBottom - tcEdgeR) / (v2.pos.y - v1.pos.y);
+    const Vef2 texCoordEdgeStepL = (texCoordBottom - texCoordEdgeL) / (v2.pos.y - v0.pos.y);
+    const Vef2 texCoordEdgeStepR = (texCoordBottom - texCoordEdgeR) / (v2.pos.y - v1.pos.y);
 
-    tcEdgeL += tcEdgeStepL * (static_cast<float>(yStart) + 0.5f - v1.pos.y);
-    tcEdgeR += tcEdgeStepR * (static_cast<float>(yStart) + 0.5f - v1.pos.y);
+    texCoordEdgeL += texCoordEdgeStepL * (static_cast<float>(yStart) + 0.5f - v1.pos.y);
+    texCoordEdgeR += texCoordEdgeStepR * (static_cast<float>(yStart) + 0.5f - v1.pos.y);
 
-    const float tex_width = static_cast<float>(texture.GetWidth());
-    const float tex_height = static_cast<float>(texture.GetHeight());
-    const float tex_clamp_x = tex_width - 1.0f;
-    const float tex_clamp_y = tex_height - 1.0f;
+	const float textureWidth  = static_cast<float>(texture.GetWidth());
+	const float textureHeight = static_cast<float>(texture.GetHeight());
+	const Vef2 textureClamp = Vef2(textureWidth - 1.0f, textureHeight - 1.0f);
 
-    for (int y = yStart; y < yEnd; ++y, tcEdgeL += tcEdgeStepL, tcEdgeR += tcEdgeStepR)
+    for (int y = yStart; y < yEnd; ++y, texCoordEdgeL += texCoordEdgeStepL, texCoordEdgeR += texCoordEdgeStepR)
     {
         const float px0 = m0 * (static_cast<float>(y) + 0.5f - v0.pos.y) + v0.pos.x;
         const float px1 = m1 * (static_cast<float>(y) + 0.5f - v1.pos.y) + v1.pos.x;
 
         const int xStart = static_cast<int>(std::ceil(px0 - 0.5f));
-        const int xEnd = static_cast<int>(std::ceil(px1 - 0.5f));
+        const int xEnd   = static_cast<int>(std::ceil(px1 - 0.5f));
 
-        const Vef2 tcScanStep = (tcEdgeR - tcEdgeL) / (px1 - px0);
+        const Vef2 texCoordScanStep = (texCoordEdgeR - texCoordEdgeL) / (px1 - px0);
 
-        Vef2 texCoord = tcEdgeL + tcScanStep * (static_cast<float>(xStart) + 0.5f - px0);
+        Vef2 texCoord = texCoordEdgeL + texCoordScanStep * (static_cast<float>(xStart) + 0.5f - px0);
 
-        for (int x = xStart; x < xEnd; ++x, texCoord += tcScanStep)
+        for (int x = xStart; x < xEnd; ++x, texCoord += texCoordScanStep)
         {
             PutPixel(
                 x,
                 y,
                 texture.GetPixel(
-                    static_cast<int>(std::min(texCoord.x * tex_width, tex_clamp_x)),
-                    static_cast<int>(std::min(texCoord.y * tex_height, tex_clamp_y))
+					static_cast<int>(std::min(texCoord.x * textureWidth,  textureClamp.x)),
+					static_cast<int>(std::min(texCoord.y * textureHeight, textureClamp.y))
                 )
             );
         }
@@ -611,44 +610,43 @@ void Graphics::DrawFlatBottomTriangleTextured(const TextureVertex& v0, const Tex
     const float m1 = (v2.pos.x - v0.pos.x) / (v2.pos.y - v0.pos.y);
 
     const int yStart = static_cast<int>(std::ceil(v0.pos.y - 0.5f));
-    const int yEnd = static_cast<int>(std::ceil(v2.pos.y - 0.5f));
+    const int yEnd   = static_cast<int>(std::ceil(v2.pos.y - 0.5f));
 
-    Vef2 tcEdgeL = v0.texCoord;
-    Vef2 tcEdgeR = v0.texCoord;
+    Vef2 texCoordEdgeL = v0.texCoord;
+    Vef2 texCoordEdgeR = v0.texCoord;
 
-    const Vef2 tcBottomL = v1.texCoord;
-    const Vef2 tcBottomR = v2.texCoord;
-    const Vef2 tcEdgeStepL = (tcBottomL - tcEdgeL) / (v1.pos.y - v0.pos.y);
-    const Vef2 tcEdgeStepR = (tcBottomR - tcEdgeR) / (v2.pos.y - v0.pos.y);
+    const Vef2 texCoordBottomL = v1.texCoord;
+    const Vef2 texCoordBottomR = v2.texCoord;
+    const Vef2 texCoordEdgeStepL = (texCoordBottomL - texCoordEdgeL) / (v1.pos.y - v0.pos.y);
+    const Vef2 texCoordEdgeStepR = (texCoordBottomR - texCoordEdgeR) / (v2.pos.y - v0.pos.y);
 
-    tcEdgeL += tcEdgeStepL * (static_cast<float>(yStart) + 0.5f - v0.pos.y);
-    tcEdgeR += tcEdgeStepR * (static_cast<float>(yStart) + 0.5f - v0.pos.y);
+    texCoordEdgeL += texCoordEdgeStepL * (static_cast<float>(yStart) + 0.5f - v0.pos.y);
+    texCoordEdgeR += texCoordEdgeStepR * (static_cast<float>(yStart) + 0.5f - v0.pos.y);
 
-    const float tex_width = static_cast<float>(texture.GetWidth());
-    const float tex_height = static_cast<float>(texture.GetHeight());
-    const float tex_clamp_x = tex_width - 1.0f;
-    const float tex_clamp_y = tex_height - 1.0f;
+    const float textureWidth  = static_cast<float>(texture.GetWidth());
+    const float textureHeight = static_cast<float>(texture.GetHeight());
+	const Vef2 textureClamp = Vef2(textureWidth - 1.0f, textureHeight - 1.0f);
 
-    for (int y = yStart; y < yEnd; ++y, tcEdgeL += tcEdgeStepL, tcEdgeR += tcEdgeStepR)
+    for (int y = yStart; y < yEnd; ++y, texCoordEdgeL += texCoordEdgeStepL, texCoordEdgeR += texCoordEdgeStepR)
     {
         const float px0 = m0 * (static_cast<float>(y) + 0.5f - v0.pos.y) + v0.pos.x;
         const float px1 = m1 * (static_cast<float>(y) + 0.5f - v0.pos.y) + v0.pos.x;
 
         const int xStart = static_cast<int>(std::ceil(px0 - 0.5f));
-        const int xEnd = static_cast<int>(std::ceil(px1 - 0.5f));
+        const int xEnd   = static_cast<int>(std::ceil(px1 - 0.5f));
 
-        const Vef2 tcScanStep = (tcEdgeR - tcEdgeL) / (px1 - px0);
+        const Vef2 texCoordScanStep = (texCoordEdgeR - texCoordEdgeL) / (px1 - px0);
 
-        Vef2 texCoord = tcEdgeL + tcScanStep * (static_cast<float>(xStart) + 0.5f - px0);
+        Vef2 texCoord = texCoordEdgeL + texCoordScanStep * (static_cast<float>(xStart) + 0.5f - px0);
 
-        for (int x = xStart; x < xEnd; ++x, texCoord += tcScanStep)
+        for (int x = xStart; x < xEnd; ++x, texCoord += texCoordScanStep)
         {
             PutPixel(
                 x,
                 y,
                 texture.GetPixel(
-                    static_cast<int>(std::min(texCoord.x * tex_width, tex_clamp_x)),
-                    static_cast<int>(std::min(texCoord.y * tex_height, tex_clamp_y))
+                    static_cast<int>(std::min(texCoord.x * textureWidth,  textureClamp.x)),
+                    static_cast<int>(std::min(texCoord.y * textureHeight, textureClamp.y))
                 )
             );
         }

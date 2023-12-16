@@ -63,7 +63,7 @@ public:
     void EndFrame();
     void BeginFrame();
     void DrawTriangle(const Vef2& v0, const Vef2& v1, const Vef2& v2, Color color);
-    void DrawTriangleTextured(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& tex);
+    void DrawTriangleTextured(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture);
     void DrawLine(const Vef2& p1, const Vef2& p2, Color color)
     {
         DrawLine(p1.x, p1.y, p2.x, p2.y, color);
@@ -81,8 +81,8 @@ public:
 private:
     void DrawFlatTopTriangle(const Vef2& v0, const Vef2& v1, const Vef2& v2, Color color);
     void DrawFlatBottomTriangle(const Vef2& v0, const Vef2& v1, const Vef2& v2, Color color);
-    void DrawFlatTopTriangleTextured(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& tex);
-    void DrawFlatBottomTriangleTextured(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& tex);
+    void DrawFlatTopTriangleTextured(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture);
+    void DrawFlatBottomTriangleTextured(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture);
 private:
     GDIPlusManager										gdipMan;
     Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;
