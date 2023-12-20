@@ -58,10 +58,10 @@ private:
     /********************************/
     /*  User Variables              */
     std::vector<std::unique_ptr<Scene>> scenes;
-    std::vector<std::unique_ptr<Scene>>::iterator curScene;
+    std::vector<std::unique_ptr<Scene>>::iterator currentScene;
 
-    FatTimer ft;
+    FatTimer timer;
 
-    float totalTime = 0.0f;
+    //float totalTime = 0.0f;
     /********************************/
 };

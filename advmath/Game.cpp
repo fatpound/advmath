@@ -29,9 +29,9 @@ Game::Game( MainWindow& wnd )
     gfx( wnd )
 {
     scenes.push_back(std::make_unique<SolidCubeScene>());
-	scenes.push_back(std::make_unique<TexturedCubeScene>());
+    scenes.push_back(std::make_unique<TexturedCubeScene>());
 
-    curScene = scenes.begin();
+    currentScene = scenes.begin();
 }
 
 void Game::Go()
@@ -80,8 +80,8 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-    const float deltaTime = ft.Mark();
-    totalTime += deltaTime;
+    const float deltaTime = timer.Mark();
+    //totalTime += deltaTime;
 
     while ( ! wnd.kbd.KeyIsEmpty() )
     {
@@ -93,18 +93,18 @@ void Game::UpdateModel()
         }
     }
 
-    (*curScene)->Update(wnd.kbd, wnd.mouse, deltaTime);
+    (*currentScene)->Update(wnd.kbd, wnd.mouse, deltaTime);
 }
 
 void Game::CycleScenes()
 {
-    if (++curScene == scenes.end())
+    if (++currentScene == scenes.end())
     {
-        curScene = scenes.begin();
+        currentScene = scenes.begin();
     }
 }
 
 void Game::ComposeFrame()
 {
-    (*curScene)->Draw(gfx);
+    (*currentScene)->Draw(gfx);
 }
