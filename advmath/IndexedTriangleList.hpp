@@ -8,7 +8,7 @@
 
 using fatpound::math::Vef3;
 
-template<class T>
+template <class T>
 class IndexedTriangleList
 {
 public:

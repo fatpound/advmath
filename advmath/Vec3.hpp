@@ -35,9 +35,9 @@ namespace fatpound::math
             return{ static_cast<T2>(this->x), static_cast<T2>(this->y), static_cast<T2>(z) };
         }
 
-		Vec3<T> InterpolateTo(const Vec3<T>& dest, T alpha) const
+		Vec3<T> InterpolateTo(const Vec3<T>& dest, T splitRatio) const
 		{
-			return *this + (dest - *this) * alpha;
+			return *this + (dest - *this) * splitRatio;
 		}
 
         Vec3<T>  GetNormalized() const

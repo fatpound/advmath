@@ -19,11 +19,11 @@ public:
 
 
 public:
-	TextureVertex InterpolateTo(const TextureVertex& dest, float alpha) const
+	TextureVertex InterpolateTo(const TextureVertex& dest, float splitRatio) const
 	{
 		return TextureVertex{
-			pos.InterpolateTo(dest.pos, alpha),
-			texCoord.InterpolateTo(dest.texCoord, alpha)
+			pos.InterpolateTo(dest.pos, splitRatio),
+			texCoord.InterpolateTo(dest.texCoord, splitRatio)
 		};
 	}
 

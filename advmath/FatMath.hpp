@@ -21,11 +21,29 @@ namespace fatpound::math
     {
         const T twoPi = static_cast<T>(2) * std::numbers::pi_v<T>;
 
-        const T modded = fmod(theta, twoPi);
+        const T modded = std::fmod(theta, twoPi);
 
         return modded > std::numbers::pi_v<T>
             ? modded - twoPi
             : modded
             ;
+    }
+
+    template <Number T>
+    inline T line_split_ratio(T pos0, T pos1, T pos2)
+    {
+        return
+            (pos1 - pos0)
+            /
+            (pos2 - pos0);
+    }
+
+    template <Number T>
+    inline T line_slope(T x0, T x1, T y0, T y1)
+    {
+        return
+            (x1 - x0)
+            /
+            (y1 - y0);
     }
 }
