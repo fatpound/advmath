@@ -566,48 +566,40 @@ void Graphics::DrawFlatBottomTriangle(const Vef2& v0, const Vef2& v1, const Vef2
 
 void Graphics::DrawFlatTopTriangleTextured(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture)
 {
-    // the v.pos is actually Vec3 but the polymorphism is here to save us
-    const float m0 = fatpound::math::Vef2::line_slope(v0.pos, v2.pos);
-    const float m1 = fatpound::math::Vef2::line_slope(v1.pos, v2.pos);
+    const float delta_y = v2.pos.y - v0.pos.y;
+    const TextureVertex dv0 = (v2 - v0) / delta_y;
+    const TextureVertex dv1 = (v2 - v1) / delta_y;
+
+    TextureVertex intrpEdge0 = v0;
+    TextureVertex intrpEdge1 = v1;
 
     const int yStart = static_cast<int>(std::ceil(v0.pos.y - 0.5f));
     const int yEnd   = static_cast<int>(std::ceil(v2.pos.y - 0.5f));
 
-    Vef2 texCoordLeftEdge  = v0.texCoord;
-    Vef2 texCoordRightEdge = v1.texCoord;
-    const Vef2 texCoordBottom = v2.texCoord; // this is const because we wont "move" on a point, the bottom point
+    intrpEdge0 += dv0 * (static_cast<float>(yStart) + 0.5f - v1.pos.y);
+    intrpEdge1 += dv1 * (static_cast<float>(yStart) + 0.5f - v1.pos.y);
 
-    const Vef2 texCoordLeftEdgeStep  = (texCoordBottom - texCoordLeftEdge)  / (v2.pos.y - v0.pos.y);
-    const Vef2 texCoordRightEdgeStep = (texCoordBottom - texCoordRightEdge) / (v2.pos.y - v1.pos.y);
-    
-    texCoordLeftEdge  += texCoordLeftEdgeStep  * (static_cast<float>(yStart) + 0.5f - v1.pos.y);
-    texCoordRightEdge += texCoordRightEdgeStep * (static_cast<float>(yStart) + 0.5f - v1.pos.y);
-
-    const float textureWidth  = static_cast<float>(texture.GetWidth());
+    const float textureWidth = static_cast<float>(texture.GetWidth());
     const float textureHeight = static_cast<float>(texture.GetHeight());
     const Vef2 textureClamper = Vef2(textureWidth - 1.0f, textureHeight - 1.0f);
 
-    for (int y = yStart; y < yEnd; ++y, texCoordLeftEdge += texCoordLeftEdgeStep, texCoordRightEdge += texCoordRightEdgeStep)
+    for (int y = yStart; y < yEnd; ++y, intrpEdge0 += dv0, intrpEdge1 += dv1)
     {
-        const float px0 = m0 * (static_cast<float>(y) + 0.5f - v0.pos.y) + v0.pos.x;
-        const float px1 = m1 * (static_cast<float>(y) + 0.5f - v1.pos.y) + v1.pos.x;
+        const int xStart = static_cast<int>(std::ceil(intrpEdge0.pos.x - 0.5f));
+        const int xEnd   = static_cast<int>(std::ceil(intrpEdge1.pos.x - 0.5f));
 
-        const int xStart = static_cast<int>(std::ceil(px0 - 0.5f));
-        const int xEnd   = static_cast<int>(std::ceil(px1 - 0.5f));
+        const Vef2 deltaTexCoordLine = (intrpEdge1.texCoord - intrpEdge0.texCoord) / (intrpEdge1.pos.x - intrpEdge0.pos.x);
 
-        const Vef2 texCoordScanStep = (texCoordRightEdge - texCoordLeftEdge) / (px1 - px0);
+        Vef2 intrpTexCoordLine = intrpEdge0.texCoord + deltaTexCoordLine * (static_cast<float>(xStart) + 0.5f - intrpEdge0.pos.x);
 
-        // normalized texture coordinate location, prestepping
-        Vef2 texCoord = texCoordLeftEdge + texCoordScanStep * (static_cast<float>(xStart) + 0.5f - px0);
-
-        for (int x = xStart; x < xEnd; ++x, texCoord += texCoordScanStep)
+        for (int x = xStart; x < xEnd; ++x, intrpTexCoordLine += deltaTexCoordLine)
         {
             PutPixel(
                 x,
                 y,
                 texture.GetPixel(
-                    static_cast<int>(std::min(texCoord.x * textureWidth,  textureClamper.x)),
-                    static_cast<int>(std::min(texCoord.y * textureHeight, textureClamper.y))
+                    static_cast<int>(std::min(intrpTexCoordLine.x * textureWidth,  textureClamper.x)),
+                    static_cast<int>(std::min(intrpTexCoordLine.y * textureHeight, textureClamper.y))
                 )
             );
         }
