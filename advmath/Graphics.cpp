@@ -520,8 +520,8 @@ void Graphics::DrawTriangleTextured(const TextureVertex& v0, const TextureVertex
 
 void Graphics::DrawFlatTopTriangle(const Vef2& v0, const Vef2& v1, const Vef2& v2, Color color)
 {
-    const float m0 = fatpound::math::line_slope<float>(v0.x, v2.x, v0.y, v2.y);
-    const float m1 = fatpound::math::line_slope<float>(v1.x, v2.x, v1.y, v2.y);
+    const float m0 = fatpound::math::Vef2::line_slope(v0, v2);
+    const float m1 = fatpound::math::Vef2::line_slope(v1, v2);
 
     const int yStart = static_cast<int>(std::ceil(v0.y - 0.5f));
     const int yEnd   = static_cast<int>(std::ceil(v2.y - 0.5f));
@@ -543,8 +543,8 @@ void Graphics::DrawFlatTopTriangle(const Vef2& v0, const Vef2& v1, const Vef2& v
 
 void Graphics::DrawFlatBottomTriangle(const Vef2& v0, const Vef2& v1, const Vef2& v2, Color color)
 {
-    const float m0 = fatpound::math::line_slope<float>(v0.x, v1.x, v0.y, v1.y);
-    const float m1 = fatpound::math::line_slope<float>(v0.x, v2.x, v0.y, v2.y);
+    const float m0 = fatpound::math::Vef2::line_slope(v0, v1);
+    const float m1 = fatpound::math::Vef2::line_slope(v0, v2);
 
     const int yStart = static_cast<int>(std::ceil(v0.y - 0.5f));
     const int yEnd   = static_cast<int>(std::ceil(v2.y - 0.5f));
@@ -566,8 +566,9 @@ void Graphics::DrawFlatBottomTriangle(const Vef2& v0, const Vef2& v1, const Vef2
 
 void Graphics::DrawFlatTopTriangleTextured(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture)
 {
-    const float m0 = fatpound::math::line_slope<float>(v0.pos.x, v2.pos.x, v0.pos.y, v2.pos.y);
-    const float m1 = fatpound::math::line_slope<float>(v1.pos.x, v2.pos.x, v1.pos.y, v2.pos.y);
+    // the v.pos is actually Vec3 but the polymorphism is here to save us
+    const float m0 = fatpound::math::Vef2::line_slope(v0.pos, v2.pos);
+    const float m1 = fatpound::math::Vef2::line_slope(v1.pos, v2.pos);
 
     const int yStart = static_cast<int>(std::ceil(v0.pos.y - 0.5f));
     const int yEnd   = static_cast<int>(std::ceil(v2.pos.y - 0.5f));
@@ -615,8 +616,9 @@ void Graphics::DrawFlatTopTriangleTextured(const TextureVertex& v0, const Textur
 
 void Graphics::DrawFlatBottomTriangleTextured(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture)
 {
-    const float m0 = fatpound::math::line_slope<float>(v0.pos.x, v1.pos.x, v0.pos.y, v1.pos.y);
-    const float m1 = fatpound::math::line_slope<float>(v0.pos.x, v2.pos.x, v0.pos.y, v2.pos.y);
+    // the v.pos is actually Vec3 but the polymorphism is here to save us
+    const float m0 = fatpound::math::Vef2::line_slope(v0.pos, v1.pos);
+    const float m1 = fatpound::math::Vef2::line_slope(v0.pos, v2.pos);
     
     const int yStart = static_cast<int>(std::ceil(v0.pos.y - 0.5f));
     const int yEnd   = static_cast<int>(std::ceil(v2.pos.y - 0.5f));

@@ -77,6 +77,11 @@ namespace fatpound::math
             return *this;
         }
 
+        static T line_slope(const Vec2<T>& v0, const Vec2<T>& v1)
+        {
+            return fatpound::math::line_slope(v0.x, v1.x, v0.y, v1.y);
+        }
+
         T LenSq() const
         {
             return fatpound::math::sq( *this );
