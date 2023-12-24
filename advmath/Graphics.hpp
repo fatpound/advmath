@@ -83,6 +83,7 @@ private:
     void DrawFlatBottomTriangle(const Vef2& v0, const Vef2& v1, const Vef2& v2, Color color);
     void DrawFlatTopTriangleTextured(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture);
     void DrawFlatBottomTriangleTextured(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture);
+    void DrawFlatTriangleTextured(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture, const TextureVertex& dv0, const TextureVertex& dv1, TextureVertex& intrpEdge1);
 private:
     GDIPlusManager										gdipMan;
     Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;
