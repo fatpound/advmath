@@ -576,10 +576,10 @@ void Graphics::DrawFlatTopTriangleTextured(const TextureVertex& v0, const Textur
     const int yStart = static_cast<int>(std::ceil(v0.pos.y - 0.5f));
     const int yEnd   = static_cast<int>(std::ceil(v2.pos.y - 0.5f));
 
-    intrpEdge0 += dv0 * (static_cast<float>(yStart) + 0.5f - v1.pos.y);
-    intrpEdge1 += dv1 * (static_cast<float>(yStart) + 0.5f - v1.pos.y);
+    intrpEdge0 += dv0 * (static_cast<float>(yStart) + 0.5f - v0.pos.y);
+    intrpEdge1 += dv1 * (static_cast<float>(yStart) + 0.5f - v0.pos.y);
 
-    const float textureWidth = static_cast<float>(texture.GetWidth());
+    const float textureWidth  = static_cast<float>(texture.GetWidth());
     const float textureHeight = static_cast<float>(texture.GetHeight());
     const Vef2 textureClamper = Vef2(textureWidth - 1.0f, textureHeight - 1.0f);
 
