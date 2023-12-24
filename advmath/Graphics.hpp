@@ -33,6 +33,7 @@
 #define CHILI_GFX_EXCEPTION( hr,note ) Graphics::Exception( hr,note,_CRT_WIDE(__FILE__),__LINE__ )
 
 using fatpound::math::Vef2;
+using fatpound::math::Vef3;
 using fatpound::math::Maf3;
 
 class Graphics

@@ -21,6 +21,7 @@
 #pragma once
 
 #include <iostream>
+#include <array>
 
 namespace fatpound::color
 {
@@ -122,18 +123,30 @@ namespace fatpound::color
         return (r << 16u) | (g << 8u) | b;
     }
 
-    namespace colors
-    {
-        static constexpr Color Black = MakeRGB(0u, 0u, 0u);
-        static constexpr Color Gray = MakeRGB(128u, 128u, 128u);
-        static constexpr Color LightGray = MakeRGB(192u, 192u, 192u);
-        static constexpr Color White = MakeRGB(255u, 255u, 255u);
+    static constexpr Color Black = MakeRGB(0u, 0u, 0u);
+    static constexpr Color Gray = MakeRGB(128u, 128u, 128u);
+    static constexpr Color LightGray = MakeRGB(192u, 192u, 192u);
+    static constexpr Color White = MakeRGB(255u, 255u, 255u);
 
-        static constexpr Color Red = MakeRGB(255u, 0u, 0u);
-        static constexpr Color Green = MakeRGB(0u, 255u, 0u);
-        static constexpr Color Blue = MakeRGB(0u, 0u, 255u);
-        static constexpr Color Yellow = MakeRGB(255u, 255u, 0u);
-        static constexpr Color Cyan = MakeRGB(0u, 255u, 255u);
-        static constexpr Color Magenta = MakeRGB(255u, 0u, 255u);
-    }
+    static constexpr Color Red = MakeRGB(255u, 0u, 0u);
+    static constexpr Color Green = MakeRGB(0u, 255u, 0u);
+    static constexpr Color Blue = MakeRGB(0u, 0u, 255u);
+    static constexpr Color Yellow = MakeRGB(255u, 255u, 0u);
+    static constexpr Color Cyan = MakeRGB(0u, 255u, 255u);
+    static constexpr Color Magenta = MakeRGB(255u, 0u, 255u);
+
+    static constexpr std::array<Color, 12> colors = {
+        White,
+        Blue,
+        Cyan,
+        Gray,
+        Green,
+        Magenta,
+        LightGray,
+        Red,
+        Yellow,
+        White,
+        Blue,
+        Cyan
+    };
 }

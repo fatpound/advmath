@@ -244,6 +244,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="COMInitializer.cpp" />
+    <ClCompile Include="ConcaveHexahedron.cpp" />
+    <ClCompile Include="ConcaveHexahedronScene.cpp" />
+    <ClCompile Include="ConcaveHexahedronWireScene.cpp" />
     <ClCompile Include="DXErr.cpp" />
     <ClCompile Include="FatTimer.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -258,11 +261,16 @@
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="TextureVertex.cpp" />
+    <ClCompile Include="XMutualScene.cpp" />
+    <ClCompile Include="XQuads.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChiliException.hpp" />
     <ClInclude Include="Color.hpp" />
     <ClInclude Include="COMInitializer.hpp" />
+    <ClInclude Include="ConcaveHexahedron.hpp" />
+    <ClInclude Include="ConcaveHexahedronScene.hpp" />
+    <ClInclude Include="ConcaveHexahedronWireScene.hpp" />
     <ClInclude Include="Cube.hpp" />
     <ClInclude Include="CubeScreenTransformer.hpp" />
     <ClInclude Include="DXErr.h" />
@@ -290,6 +298,8 @@
     <ClInclude Include="TextureVertex.hpp" />
     <ClInclude Include="Vec2.hpp" />
     <ClInclude Include="Vec3.hpp" />
+    <ClInclude Include="XMutualScene.hpp" />
+    <ClInclude Include="XQuads.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc" />

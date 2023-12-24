@@ -3,8 +3,6 @@
 #include "Vec3.hpp"
 #include "Graphics.hpp"
 
-using fatpound::math::Vef3;
-
 class CubeScreenTransformer
 {
 public:

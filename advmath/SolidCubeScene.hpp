@@ -91,26 +91,10 @@ public:
 private:
     static constexpr float deltaTheta = std::numbers::pi_v<float>;
 
-    static constexpr std::array<Color, 12> colors = {
-        colors::White,
-        colors::Blue,
-        colors::Cyan,
-        colors::Gray,
-        colors::Green,
-        colors::Magenta,
-        colors::LightGray,
-        colors::Red,
-        colors::Yellow,
-        colors::White,
-        colors::Blue,
-        colors::Cyan
-    };
-
     CubeScreenTransformer cst;
     Cube cube = Cube(1.0f);
 
     float offset_z = 2.0f;
-
     float theta_x = 0.0f;
     float theta_y = 0.0f;
     float theta_z = 0.0f;
