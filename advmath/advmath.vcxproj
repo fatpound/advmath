@@ -249,6 +249,7 @@
     <ClCompile Include="ConcaveHexahedronWireScene.cpp" />
     <ClCompile Include="CubeFolded.cpp" />
     <ClCompile Include="CubeFoldedWrapped.cpp" />
+    <ClCompile Include="CubeSkinned.cpp" />
     <ClCompile Include="DXErr.cpp" />
     <ClCompile Include="FatTimer.cpp" />
     <ClCompile Include="FoldedCubeScene.cpp" />
@@ -262,6 +263,7 @@
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="OrderedCubeScene.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SkinnedCubeScene.cpp" />
     <ClCompile Include="SolidCubeScene.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Surface.cpp" />
@@ -281,6 +283,7 @@
     <ClInclude Include="CubeFolded.hpp" />
     <ClInclude Include="CubeFoldedWrapped.hpp" />
     <ClInclude Include="CubeScreenTransformer.hpp" />
+    <ClInclude Include="CubeSkinned.hpp" />
     <ClInclude Include="DXErr.h" />
     <ClInclude Include="FatMath.hpp" />
     <ClInclude Include="FatTimer.hpp" />
@@ -301,6 +304,7 @@
     <ClInclude Include="Rect.hpp" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.hpp" />
+    <ClInclude Include="SkinnedCubeScene.hpp" />
     <ClInclude Include="SolidCubeScene.hpp" />
     <ClInclude Include="Sound.hpp" />
     <ClInclude Include="SoundEffect.hpp" />

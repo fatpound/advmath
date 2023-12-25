@@ -26,6 +26,7 @@
 #include "DualOrderedCubeScene.hpp"
 #include "FoldedCubeScene.hpp"
 #include "FoldedWrappedCubeScene.hpp"
+#include "SkinnedCubeScene.hpp"
 #include "ConcaveHexahedronScene.hpp"
 #include "ConcaveHexahedronWireScene.hpp"
 #include "XMutualScene.hpp"
@@ -44,7 +45,10 @@ Game::Game( MainWindow& wnd )
     scenes.push_back(std::make_unique<TexturedWrappedCubeScene>(6.0f));
     scenes.push_back(std::make_unique<DualOrderedCubeScene>());
     scenes.push_back(std::make_unique<FoldedCubeScene>());
-    scenes.push_back(std::make_unique<FoldedWrappedCubeScene>());
+    //scenes.push_back(std::make_unique<FoldedWrappedCubeScene>());
+    scenes.push_back(std::make_unique<SkinnedCubeScene>(L"Images\\dice_skin.png"));
+    scenes.push_back(std::make_unique<SkinnedCubeScene>(L"Images\\office_skin.jpg"));
+    scenes.push_back(std::make_unique<SkinnedCubeScene>(L"Images\\office_skin_lores.png"));
     scenes.push_back(std::make_unique<ConcaveHexahedronScene>());
     scenes.push_back(std::make_unique<ConcaveHexahedronWireScene>());
     scenes.push_back(std::make_unique<XMutualScene>());
@@ -109,7 +113,14 @@ void Game::UpdateModel()
 
         if (event.GetCode() == VK_TAB && event.IsPress())
         {
-            CycleScenes();
+            if (wnd.kbd.KeyIsPressed(VK_SHIFT))
+            {
+                ReverseCycleScenes();
+            }
+            else
+            {
+                CycleScenes();
+            }
         }
         else if (event.GetCode() == VK_ESCAPE && event.IsPress())
         {
@@ -127,6 +138,19 @@ void Game::CycleScenes()
         currentScene = scenes.begin();
     }
 
+    OutputSceneName();
+}
+
+void Game::ReverseCycleScenes()
+{
+    if (currentScene == scenes.begin())
+    {
+        currentScene = scenes.end() - 1;
+    }
+    else
+    {
+        --currentScene;
+    }
     OutputSceneName();
 }
 
