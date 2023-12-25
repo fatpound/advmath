@@ -88,7 +88,7 @@ public:
         {
             if ( ! triangles.cullFlags[i] )
             {
-                gfx.DrawTriangleTexturedWrappred(
+                gfx.DrawTriangleTexturedWrapped(
                     triangles.vertices[triangles.indices[i * 3]],
                     triangles.vertices[triangles.indices[i * 3 + 1]],
                     triangles.vertices[triangles.indices[i * 3 + 2]],
