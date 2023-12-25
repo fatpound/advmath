@@ -247,8 +247,10 @@
     <ClCompile Include="ConcaveHexahedron.cpp" />
     <ClCompile Include="ConcaveHexahedronScene.cpp" />
     <ClCompile Include="ConcaveHexahedronWireScene.cpp" />
+    <ClCompile Include="CubeFolded.cpp" />
     <ClCompile Include="DXErr.cpp" />
     <ClCompile Include="FatTimer.cpp" />
+    <ClCompile Include="FoldedCubeScene.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GDIPlusManager.cpp" />
     <ClCompile Include="Graphics.cpp" />
@@ -256,6 +258,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="OrderedCubeScene.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SolidCubeScene.cpp" />
     <ClCompile Include="Sound.cpp" />
@@ -273,11 +276,13 @@
     <ClInclude Include="ConcaveHexahedronScene.hpp" />
     <ClInclude Include="ConcaveHexahedronWireScene.hpp" />
     <ClInclude Include="Cube.hpp" />
+    <ClInclude Include="CubeFolded.hpp" />
     <ClInclude Include="CubeScreenTransformer.hpp" />
     <ClInclude Include="DXErr.h" />
     <ClInclude Include="FatMath.hpp" />
     <ClInclude Include="FatTimer.hpp" />
     <ClInclude Include="FatWin.hpp" />
+    <ClInclude Include="FoldedCubeScene.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="GDIPlusManager.hpp" />
     <ClInclude Include="Graphics.hpp" />
@@ -288,6 +293,7 @@
     <ClInclude Include="Mat2.hpp" />
     <ClInclude Include="Mat3.hpp" />
     <ClInclude Include="Mouse.hpp" />
+    <ClInclude Include="DualOrderedCubeScene.hpp" />
     <ClInclude Include="Rect.hpp" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.hpp" />
