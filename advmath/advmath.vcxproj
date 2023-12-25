@@ -260,6 +260,7 @@
     <ClCompile Include="SolidCubeScene.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Surface.cpp" />
+    <ClCompile Include="TexturedWrappedCubeScene.cpp" />
     <ClCompile Include="TextureVertex.cpp" />
     <ClCompile Include="XMutualScene.cpp" />
     <ClCompile Include="XQuads.cpp" />
@@ -295,6 +296,7 @@
     <ClInclude Include="SoundEffect.hpp" />
     <ClInclude Include="Surface.hpp" />
     <ClInclude Include="TexturedCubeScene.hpp" />
+    <ClInclude Include="TexturedWrappedCubeScene.hpp" />
     <ClInclude Include="TextureVertex.hpp" />
     <ClInclude Include="Vec2.hpp" />
     <ClInclude Include="Vec3.hpp" />

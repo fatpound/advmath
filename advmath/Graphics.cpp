@@ -518,6 +518,62 @@ void Graphics::DrawTriangleTextured(const TextureVertex& v0, const TextureVertex
     }
 }
 
+void Graphics::DrawTriangleTexturedWrappred(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture)
+{
+    const TextureVertex* pv0 = &v0;
+    const TextureVertex* pv1 = &v1;
+    const TextureVertex* pv2 = &v2;
+
+    if (pv1->pos.y < pv0->pos.y)
+    {
+        std::swap(pv0, pv1);
+    }
+    if (pv2->pos.y < pv1->pos.y)
+    {
+        std::swap(pv1, pv2);
+    }
+    if (pv1->pos.y < pv0->pos.y)
+    {
+        std::swap(pv0, pv1);
+    }
+
+    if (pv0->pos.y == pv1->pos.y)
+    {
+        if (pv1->pos.x < pv0->pos.x)
+        {
+            std::swap(pv0, pv1);
+        }
+
+        DrawFlatTopTriangleTexturedWrapped(*pv0, *pv1, *pv2, texture);
+    }
+    else if (pv1->pos.y == pv2->pos.y)
+    {
+        if (pv2->pos.x < pv1->pos.x)
+        {
+            std::swap(pv1, pv2);
+        }
+
+        DrawFlatBottomTriangleTexturedWrapped(*pv0, *pv1, *pv2, texture);
+    }
+    else
+    {
+        const float splitRatio = fatpound::math::line_split_ratio(pv0->pos.y, pv1->pos.y, pv2->pos.y);
+
+        const TextureVertex vi = pv0->InterpolateTo(*pv2, splitRatio);
+
+        if (pv1->pos.x < vi.pos.x)
+        {
+            DrawFlatBottomTriangleTexturedWrapped(*pv0, *pv1, vi, texture);
+            DrawFlatTopTriangleTexturedWrapped(*pv1, vi, *pv2, texture);
+        }
+        else
+        {
+            DrawFlatBottomTriangleTexturedWrapped(*pv0, vi, *pv1, texture);
+            DrawFlatTopTriangleTexturedWrapped(vi, *pv1, *pv2, texture);
+        }
+    }
+}
+
 void Graphics::DrawFlatTopTriangle(const Vef2& v0, const Vef2& v1, const Vef2& v2, Color color)
 {
     const float m0 = fatpound::math::Vef2::line_slope(v0, v2);
@@ -617,6 +673,65 @@ void Graphics::DrawFlatTriangleTextured(const TextureVertex& v0, const TextureVe
                 texture.GetPixel(
                     static_cast<int>(std::min(intrpTexCoordLine.x * textureWidth,  textureClamper.x)),
                     static_cast<int>(std::min(intrpTexCoordLine.y * textureHeight, textureClamper.y))
+                )
+            );
+        }
+    }
+}
+
+void Graphics::DrawFlatTopTriangleTexturedWrapped(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture)
+{
+    const float deltaY = v2.pos.y - v0.pos.y;
+    const TextureVertex dv0 = (v2 - v0) / deltaY;
+    const TextureVertex dv1 = (v2 - v1) / deltaY;
+
+    TextureVertex intrpEdge1 = v1;
+
+    DrawFlatTriangleTexturedWrapped(v0, v1, v2, texture, dv0, dv1, intrpEdge1);
+}
+
+void Graphics::DrawFlatBottomTriangleTexturedWrapped(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture)
+{
+    const float deltaY = v2.pos.y - v0.pos.y;
+    const TextureVertex dv0 = (v1 - v0) / deltaY;
+    const TextureVertex dv1 = (v2 - v0) / deltaY;
+
+    TextureVertex intrpEdge1 = v0;
+
+    DrawFlatTriangleTexturedWrapped(v0, v1, v2, texture, dv0, dv1, intrpEdge1);
+}
+
+void Graphics::DrawFlatTriangleTexturedWrapped(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture, const TextureVertex& dv0, const TextureVertex& dv1, TextureVertex& intrpEdge1)
+{
+    TextureVertex intrpEdge0 = v0;
+
+    const int yStart = static_cast<int>(std::ceil(v0.pos.y - 0.5f));
+    const int yEnd = static_cast<int>(std::ceil(v2.pos.y - 0.5f));
+
+    intrpEdge0 += dv0 * (static_cast<float>(yStart) + 0.5f - v0.pos.y);
+    intrpEdge1 += dv1 * (static_cast<float>(yStart) + 0.5f - v0.pos.y);
+
+    const float textureWidth = static_cast<float>(texture.GetWidth());
+    const float textureHeight = static_cast<float>(texture.GetHeight());
+    const Vef2 textureClamper = Vef2(textureWidth - 1.0f, textureHeight - 1.0f);
+
+    for (int y = yStart; y < yEnd; ++y, intrpEdge0 += dv0, intrpEdge1 += dv1)
+    {
+        const int xStart = static_cast<int>(std::ceil(intrpEdge0.pos.x - 0.5f));
+        const int xEnd = static_cast<int>(std::ceil(intrpEdge1.pos.x - 0.5f));
+
+        const Vef2 deltaTexCoordLine = (intrpEdge1.texCoord - intrpEdge0.texCoord) / (intrpEdge1.pos.x - intrpEdge0.pos.x);
+
+        Vef2 intrpTexCoordLine = intrpEdge0.texCoord + deltaTexCoordLine * (static_cast<float>(xStart) + 0.5f - intrpEdge0.pos.x);
+
+        for (int x = xStart; x < xEnd; ++x, intrpTexCoordLine += deltaTexCoordLine)
+        {
+            PutPixel(
+                x,
+                y,
+                texture.GetPixel(
+                    static_cast<int>(std::fmod(intrpTexCoordLine.x * textureWidth, textureClamper.x)),
+                    static_cast<int>(std::fmod(intrpTexCoordLine.y * textureHeight, textureClamper.y))
                 )
             );
         }

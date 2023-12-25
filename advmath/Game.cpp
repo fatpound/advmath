@@ -22,6 +22,7 @@
 #include "Game.hpp"
 #include "SolidCubeScene.hpp"
 #include "TexturedCubeScene.hpp"
+#include "TexturedWrappedCubeScene.hpp"
 #include "ConcaveHexahedronScene.hpp"
 #include "ConcaveHexahedronWireScene.hpp"
 #include "XMutualScene.hpp"
@@ -33,6 +34,7 @@ Game::Game( MainWindow& wnd )
 {
     scenes.push_back(std::make_unique<SolidCubeScene>());
     scenes.push_back(std::make_unique<TexturedCubeScene>());
+    scenes.push_back(std::make_unique<TexturedWrappedCubeScene>());
     scenes.push_back(std::make_unique<ConcaveHexahedronScene>());
     scenes.push_back(std::make_unique<ConcaveHexahedronWireScene>());
     scenes.push_back(std::make_unique<XMutualScene>());

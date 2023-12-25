@@ -7,33 +7,32 @@
 class Cube
 {
 public:
-    Cube(float size)
+    Cube(float size, float texdim = 1.0f)
     {
         const float side = size / 2.0f;
-
         vertices.emplace_back(-side, -side, -side); // 0
-		texCoords.emplace_back(0.0f, 1.0f);
+        texCoords.emplace_back(0.0f, texdim);
 
-		vertices.emplace_back( side, -side, -side); // 1
-		texCoords.emplace_back(1.0f, 1.0f);
+        vertices.emplace_back( side, -side, -side); // 1
+        texCoords.emplace_back(texdim, texdim);
 
-		vertices.emplace_back(-side,  side, -side); // 2
-		texCoords.emplace_back(0.0f, 0.0f);
+        vertices.emplace_back(-side,  side, -side); // 2
+        texCoords.emplace_back(0.0f, 0.0f);
 
-		vertices.emplace_back( side,  side, -side); // 3
-		texCoords.emplace_back(1.0f, 0.0f);
+        vertices.emplace_back( side,  side, -side); // 3
+        texCoords.emplace_back(texdim, 0.0f);
 
-		vertices.emplace_back(-side, -side,  side); // 4
-		texCoords.emplace_back(1.0f, 1.0f);
+        vertices.emplace_back(-side, -side,  side); // 4
+        texCoords.emplace_back(texdim, texdim);
 
-		vertices.emplace_back( side, -side,  side); // 5
-		texCoords.emplace_back(0.0f, 1.0f);
+        vertices.emplace_back( side, -side,  side); // 5
+        texCoords.emplace_back(0.0f, texdim);
 
-		vertices.emplace_back(-side,  side,  side); // 6
-		texCoords.emplace_back(1.0f, 0.0f);
+        vertices.emplace_back(-side,  side,  side); // 6
+        texCoords.emplace_back(texdim, 0.0f);
 
-		vertices.emplace_back( side,  side,  side); // 7
-		texCoords.emplace_back(0.0f, 0.0f);
+        vertices.emplace_back( side,  side,  side); // 7
+        texCoords.emplace_back(0.0f, 0.0f);
     }
 
 
