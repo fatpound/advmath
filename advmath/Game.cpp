@@ -105,6 +105,10 @@ void Game::UpdateModel()
         {
             CycleScenes();
         }
+        else if (event.GetCode() == VK_ESCAPE && event.IsPress())
+        {
+            wnd.Kill();
+        }
     }
 
     (*currentScene)->Update(wnd.kbd, wnd.mouse, deltaTime);
