@@ -11,6 +11,14 @@ class TexturedWrappedCubeScene : public Scene
 public:
     TexturedWrappedCubeScene() = default;
 
+    TexturedWrappedCubeScene(const std::wstring& textureName, float texdim)
+        :
+        Scene(L"Textured Cube " + std::wstring(textureName.begin(), textureName.end()) + L" Wrapping Dim: " + std::to_wstring(texdim)),
+        texture(Surface::FromFile(textureName)),
+        cube(1.0f, texdim)
+    {
+
+    }
     TexturedWrappedCubeScene(float texdim)
         :
         Scene(L"Textured and Wrapped Cube with the Eye of Sauron Clamped Dim : " + std::to_wstring(texdim)),
@@ -92,7 +100,7 @@ public:
                     triangles.vertices[triangles.indices[i * 3]],
                     triangles.vertices[triangles.indices[i * 3 + 1]],
                     triangles.vertices[triangles.indices[i * 3 + 2]],
-                    sbTex
+                    texture
                 );
             }
         }
@@ -104,7 +112,7 @@ private:
 
     CubeScreenTransformer cst;
     Cube cube;
-    Surface sbTex = Surface::FromFile(L"Images\\sauron-eye-100x100.png");
+    Surface texture = Surface::FromFile(L"Images\\sauron-eye-100x100.png");
 
     float offset_z = 2.0f;
     float theta_x = 0.0f;

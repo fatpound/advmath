@@ -89,7 +89,7 @@ public:
                     triangles.vertices[triangles.indices[i * 3]],
                     triangles.vertices[triangles.indices[i * 3 + 1]],
                     triangles.vertices[triangles.indices[i * 3 + 2]],
-                    sbTex
+                    texture
                 );
             }
         }
@@ -101,7 +101,7 @@ private:
 
     CubeScreenTransformer cst;
     CubeFoldedWrapped cube = CubeFoldedWrapped(1.0f);
-    Surface sbTex = Surface::FromFile(L"Images\\sauron-eye-100x100.png");
+    Surface texture = Surface::FromFile(L"Images\\sauron-eye-100x100.png");
 
     float offset_z = 2.0f;
     float theta_x = 0.0f;
