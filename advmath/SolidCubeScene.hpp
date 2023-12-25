@@ -7,7 +7,12 @@
 class SolidCubeScene : public Scene
 {
 public:
-    SolidCubeScene() = default;
+    SolidCubeScene()
+        :
+        Scene(L"Solid Cube with Different Colored Triangles")
+    {
+
+    }
 
 
 public:

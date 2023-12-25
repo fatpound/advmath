@@ -12,6 +12,7 @@ public:
 
     TexturedCubeScene(float texdim)
         :
+        Scene(L"Textured Cube with the Eye of Sauron Clamped Dim : " + std::to_wstring(texdim)),
         cube(1.0f, texdim)
     {
 

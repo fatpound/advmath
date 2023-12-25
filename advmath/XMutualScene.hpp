@@ -9,7 +9,12 @@
 class XMutualScene : public Scene
 {
 public:
-    XMutualScene() = default;
+    XMutualScene()
+        :
+        Scene(L"Weird X Shape Self Mutual Intersecting Planes")
+    {
+
+    }
 
 
 public:
@@ -92,10 +97,10 @@ public:
 
 
 private:
+    static constexpr float dTheta = std::numbers::pi_v<float>;
+
     CubeScreenTransformer cst;
     XQuads hex = XQuads(1.0f);
-
-    static constexpr float dTheta = std::numbers::pi_v<float>;
 
     float offset_z = 2.0f;
     float theta_x = 0.0f;

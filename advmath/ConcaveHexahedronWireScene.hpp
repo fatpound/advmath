@@ -9,7 +9,12 @@
 class ConcaveHexahedronWireScene : public Scene
 {
 public:
-    ConcaveHexahedronWireScene() = default;
+    ConcaveHexahedronWireScene()
+        :
+        Scene(L"Concave Hexahedron Filled Wireframe")
+    {
+
+    }
 
 
 public:

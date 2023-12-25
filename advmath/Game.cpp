@@ -27,6 +27,8 @@
 #include "ConcaveHexahedronWireScene.hpp"
 #include "XMutualScene.hpp"
 
+#include <sstream>
+
 Game::Game( MainWindow& wnd )
     :
     wnd( wnd ),
@@ -42,6 +44,8 @@ Game::Game( MainWindow& wnd )
     scenes.push_back(std::make_unique<XMutualScene>());
 
     currentScene = scenes.begin();
+
+    OutputSceneName();
 }
 
 void Game::Go()
@@ -112,6 +116,22 @@ void Game::CycleScenes()
     {
         currentScene = scenes.begin();
     }
+
+    OutputSceneName();
+}
+
+void Game::OutputSceneName() const
+{
+    std::wstringstream ss;
+
+    const std::wstring sceneName = (*currentScene)->GetName();
+    const std::wstring stars(sceneName.size() + 4, '*');
+
+    ss << stars << '\n'
+        << "* " << sceneName << " *" << '\n'
+        << stars << std::endl;
+
+    OutputDebugString(ss.str().c_str());
 }
 
 void Game::ComposeFrame()

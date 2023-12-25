@@ -13,10 +13,12 @@ public:
 
     TexturedWrappedCubeScene(float texdim)
         :
+        Scene(L"Textured and Wrapped Cube with the Eye of Sauron Clamped Dim : " + std::to_wstring(texdim)),
         cube(1.0f, texdim)
     {
 
     }
+
 
 public:
     virtual void Update(Keyboard& kbd, Mouse& mouse, float dt) override

@@ -11,7 +11,12 @@
 class ConcaveHexahedronScene : public Scene
 {
 public:
-    ConcaveHexahedronScene() = default;
+    ConcaveHexahedronScene()
+        :
+        Scene(L"Concave Hexahedron")
+    {
+
+    }
 
 
 public:
