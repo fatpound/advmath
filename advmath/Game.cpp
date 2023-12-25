@@ -25,7 +25,6 @@
 #include "TexturedWrappedCubeScene.hpp"
 #include "DualOrderedCubeScene.hpp"
 #include "FoldedCubeScene.hpp"
-#include "FoldedWrappedCubeScene.hpp"
 #include "SkinnedCubeScene.hpp"
 #include "ConcaveHexahedronScene.hpp"
 #include "ConcaveHexahedronWireScene.hpp"
@@ -46,7 +45,6 @@ Game::Game( MainWindow& wnd )
     scenes.push_back(std::make_unique<TexturedWrappedCubeScene>(L"images\\wood.jpg", 2.0f));
     scenes.push_back(std::make_unique<DualOrderedCubeScene>());
     scenes.push_back(std::make_unique<FoldedCubeScene>());
-    //scenes.push_back(std::make_unique<FoldedWrappedCubeScene>());
     scenes.push_back(std::make_unique<SkinnedCubeScene>(L"Images\\dice_skin.png"));
     scenes.push_back(std::make_unique<SkinnedCubeScene>(L"Images\\office_skin.jpg"));
     scenes.push_back(std::make_unique<SkinnedCubeScene>(L"Images\\office_skin_lores.png"));

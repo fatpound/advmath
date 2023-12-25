@@ -135,12 +135,6 @@
     <ClInclude Include="FoldedCubeScene.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CubeFoldedWrapped.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FoldedWrappedCubeScene.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CubeSkinned.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -219,12 +213,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FoldedCubeScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CubeFoldedWrapped.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FoldedWrappedCubeScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CubeSkinned.cpp">
