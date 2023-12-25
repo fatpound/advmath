@@ -518,7 +518,7 @@ void Graphics::DrawTriangleTextured(const TextureVertex& v0, const TextureVertex
     }
 }
 
-void Graphics::DrawTriangleTexturedWrappred(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture)
+void Graphics::DrawTriangleTexturedWrapped(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture)
 {
     const TextureVertex* pv0 = &v0;
     const TextureVertex* pv1 = &v1;

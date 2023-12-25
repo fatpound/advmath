@@ -65,7 +65,7 @@ public:
     void BeginFrame();
     void DrawTriangle(const Vef2& v0, const Vef2& v1, const Vef2& v2, Color color);
     void DrawTriangleTextured(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture);
-    void DrawTriangleTexturedWrappred(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture);
+    void DrawTriangleTexturedWrapped(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture);
     void DrawLine(const Vef2& p1, const Vef2& p2, Color color)
     {
         DrawLine(p1.x, p1.y, p2.x, p2.y, color);
