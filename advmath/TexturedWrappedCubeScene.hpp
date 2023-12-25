@@ -11,6 +11,12 @@ class TexturedWrappedCubeScene : public Scene
 public:
     TexturedWrappedCubeScene() = default;
 
+    TexturedWrappedCubeScene(float texdim)
+        :
+        cube(1.0f, texdim)
+    {
+
+    }
 
 public:
     virtual void Update(Keyboard& kbd, Mouse& mouse, float dt) override
@@ -92,11 +98,11 @@ public:
 
 
 private:
-    CubeScreenTransformer cst;
-    Cube cube = Cube(1.0f, 2.0f);
-    Surface sbTex = Surface::FromFile(L"Images\\sauron-eye-100x100.png");
-
     static constexpr float dTheta = std::numbers::pi_v<float>;
+
+    CubeScreenTransformer cst;
+    Cube cube;
+    Surface sbTex = Surface::FromFile(L"Images\\sauron-eye-100x100.png");
 
     float offset_z = 2.0f;
     float theta_x = 0.0f;

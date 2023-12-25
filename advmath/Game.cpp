@@ -33,8 +33,10 @@ Game::Game( MainWindow& wnd )
     gfx( wnd )
 {
     scenes.push_back(std::make_unique<SolidCubeScene>());
-    scenes.push_back(std::make_unique<TexturedCubeScene>());
-    scenes.push_back(std::make_unique<TexturedWrappedCubeScene>());
+    scenes.push_back(std::make_unique<TexturedCubeScene>(1.0f));
+    scenes.push_back(std::make_unique<TexturedCubeScene>(2.0f));
+    scenes.push_back(std::make_unique<TexturedWrappedCubeScene>(2.0f));
+    scenes.push_back(std::make_unique<TexturedWrappedCubeScene>(6.0f));
     scenes.push_back(std::make_unique<ConcaveHexahedronScene>());
     scenes.push_back(std::make_unique<ConcaveHexahedronWireScene>());
     scenes.push_back(std::make_unique<XMutualScene>());
