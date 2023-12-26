@@ -1,1 +1,0 @@
-#include "SolidCubeScene.hpp"

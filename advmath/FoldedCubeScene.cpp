@@ -1,1 +1,0 @@
-#include "FoldedCubeScene.hpp"

@@ -20,15 +20,6 @@
  ******************************************************************************************/
 #include "MainWindow.hpp"
 #include "Game.hpp"
-#include "SolidCubeScene.hpp"
-#include "TexturedCubeScene.hpp"
-#include "TexturedWrappedCubeScene.hpp"
-#include "DualOrderedCubeScene.hpp"
-#include "FoldedCubeScene.hpp"
-#include "SkinnedCubeScene.hpp"
-#include "ConcaveHexahedronScene.hpp"
-#include "ConcaveHexahedronWireScene.hpp"
-#include "XMutualScene.hpp"
 
 #include <sstream>
 
@@ -37,24 +28,9 @@ Game::Game( MainWindow& wnd )
     wnd( wnd ),
     gfx( wnd )
 {
-    scenes.push_back(std::make_unique<SolidCubeScene>());
-    scenes.push_back(std::make_unique<TexturedCubeScene>(1.0f));
-    scenes.push_back(std::make_unique<TexturedCubeScene>(2.0f));
-    scenes.push_back(std::make_unique<TexturedWrappedCubeScene>(2.0f));
-    scenes.push_back(std::make_unique<TexturedWrappedCubeScene>(6.0f));
-    scenes.push_back(std::make_unique<TexturedWrappedCubeScene>(L"images\\wood.jpg", 2.0f));
-    scenes.push_back(std::make_unique<DualOrderedCubeScene>());
-    scenes.push_back(std::make_unique<FoldedCubeScene>());
-    scenes.push_back(std::make_unique<SkinnedCubeScene>(L"Images\\dice_skin.png"));
-    scenes.push_back(std::make_unique<SkinnedCubeScene>(L"Images\\office_skin.jpg"));
-    scenes.push_back(std::make_unique<SkinnedCubeScene>(L"Images\\office_skin_lores.png"));
-    scenes.push_back(std::make_unique<ConcaveHexahedronScene>());
-    scenes.push_back(std::make_unique<ConcaveHexahedronWireScene>());
-    scenes.push_back(std::make_unique<XMutualScene>());
+    // currentScene = scenes.begin();
 
-    currentScene = scenes.begin();
-
-    OutputSceneName();
+    // OutputSceneName();
 }
 
 void Game::Go()
@@ -112,14 +88,14 @@ void Game::UpdateModel()
 
         if (event.GetCode() == VK_TAB && event.IsPress())
         {
-            if (wnd.kbd.KeyIsPressed(VK_SHIFT))
-            {
-                ReverseCycleScenes();
-            }
-            else
-            {
-                CycleScenes();
-            }
+            // if (wnd.kbd.KeyIsPressed(VK_SHIFT))
+            // {
+            //     ReverseCycleScenes();
+            // }
+            // else
+            // {
+            //     CycleScenes();
+            // }
         }
         else if (event.GetCode() == VK_ESCAPE && event.IsPress())
         {
@@ -127,30 +103,31 @@ void Game::UpdateModel()
         }
     }
 
-    (*currentScene)->Update(wnd.kbd, wnd.mouse, deltaTime);
+    // (*currentScene)->Update(wnd.kbd, wnd.mouse, deltaTime);
 }
 
 void Game::CycleScenes()
 {
-    if (++currentScene == scenes.end())
-    {
-        currentScene = scenes.begin();
-    }
-
-    OutputSceneName();
+    // if (++currentScene == scenes.end())
+    // {
+    //     currentScene = scenes.begin();
+    // }
+    // 
+    // OutputSceneName();
 }
 
 void Game::ReverseCycleScenes()
 {
-    if (currentScene == scenes.begin())
-    {
-        currentScene = scenes.end() - 1;
-    }
-    else
-    {
-        --currentScene;
-    }
-    OutputSceneName();
+    // if (currentScene == scenes.begin())
+    // {
+    //     currentScene = scenes.end() - 1;
+    // }
+    // else
+    // {
+    //     --currentScene;
+    // }
+    // 
+    // OutputSceneName();
 }
 
 void Game::OutputSceneName() const
@@ -169,5 +146,5 @@ void Game::OutputSceneName() const
 
 void Game::ComposeFrame()
 {
-    (*currentScene)->Draw(gfx);
+    // (*currentScene)->Draw(gfx);
 }

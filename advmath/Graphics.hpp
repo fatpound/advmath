@@ -25,7 +25,6 @@
 #include "Surface.hpp"
 #include "Vec3.hpp"
 #include "Mat3.hpp"
-#include "TextureVertex.hpp"
 
 #include <d3d11.h>
 #include <wrl.h>
@@ -63,9 +62,6 @@ public:
     Graphics& operator=(const Graphics&) = delete;
     void EndFrame();
     void BeginFrame();
-    void DrawTriangle(const Vef2& v0, const Vef2& v1, const Vef2& v2, Color color);
-    void DrawTriangleTextured(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture);
-    void DrawTriangleTexturedWrapped(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture);
     void DrawLine(const Vef2& p1, const Vef2& p2, Color color)
     {
         DrawLine(p1.x, p1.y, p2.x, p2.y, color);
@@ -80,19 +76,6 @@ public:
         sysBuffer.PutPixel(x, y, c);
     }
     ~Graphics();
-private:
-    void DrawFlatTopTriangle(const Vef2& v0, const Vef2& v1, const Vef2& v2, Color color);
-    void DrawFlatBottomTriangle(const Vef2& v0, const Vef2& v1, const Vef2& v2, Color color);
-
-    void DrawFlatTopTriangleTextured(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture);
-    void DrawFlatBottomTriangleTextured(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture);
-    void DrawFlatTriangleTextured(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture, const TextureVertex& dv0, const TextureVertex& dv1, TextureVertex& intrpEdge1);
-
-    void DrawFlatTopTriangleTexturedWrapped(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture);
-    void DrawFlatBottomTriangleTexturedWrapped(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture);
-    void DrawFlatTriangleTexturedWrapped(const TextureVertex& v0, const TextureVertex& v1, const TextureVertex& v2, const Surface& texture, const TextureVertex& dv0, const TextureVertex& dv1, TextureVertex& intrpEdge1);
-
-
 private:
     GDIPlusManager										gdipMan;
     Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;

@@ -1,1 +1,0 @@
-#include "SkinnedCubeScene.hpp"

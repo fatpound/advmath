@@ -1,1 +1,0 @@
-#include "TexturedWrappedCubeScene.hpp"

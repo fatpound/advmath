@@ -244,14 +244,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="COMInitializer.cpp" />
-    <ClCompile Include="ConcaveHexahedron.cpp" />
-    <ClCompile Include="ConcaveHexahedronScene.cpp" />
-    <ClCompile Include="ConcaveHexahedronWireScene.cpp" />
-    <ClCompile Include="CubeFolded.cpp" />
-    <ClCompile Include="CubeSkinned.cpp" />
     <ClCompile Include="DXErr.cpp" />
     <ClCompile Include="FatTimer.cpp" />
-    <ClCompile Include="FoldedCubeScene.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GDIPlusManager.cpp" />
     <ClCompile Include="Graphics.cpp" />
@@ -259,59 +253,37 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Mouse.cpp" />
-    <ClCompile Include="OrderedCubeScene.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="SkinnedCubeScene.cpp" />
-    <ClCompile Include="SolidCubeScene.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Surface.cpp" />
-    <ClCompile Include="TexturedWrappedCubeScene.cpp" />
-    <ClCompile Include="TextureVertex.cpp" />
-    <ClCompile Include="XMutualScene.cpp" />
-    <ClCompile Include="XQuads.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChiliException.hpp" />
     <ClInclude Include="Color.hpp" />
     <ClInclude Include="COMInitializer.hpp" />
-    <ClInclude Include="ConcaveHexahedron.hpp" />
-    <ClInclude Include="ConcaveHexahedronScene.hpp" />
-    <ClInclude Include="ConcaveHexahedronWireScene.hpp" />
     <ClInclude Include="Cube.hpp" />
-    <ClInclude Include="CubeFolded.hpp" />
     <ClInclude Include="CubeScreenTransformer.hpp" />
-    <ClInclude Include="CubeSkinned.hpp" />
     <ClInclude Include="DXErr.h" />
     <ClInclude Include="FatMath.hpp" />
     <ClInclude Include="FatTimer.hpp" />
     <ClInclude Include="FatWin.hpp" />
-    <ClInclude Include="FoldedCubeScene.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="GDIPlusManager.hpp" />
     <ClInclude Include="Graphics.hpp" />
-    <ClInclude Include="IndexedLineList.hpp" />
     <ClInclude Include="IndexedTriangleList.hpp" />
     <ClInclude Include="Keyboard.hpp" />
     <ClInclude Include="MainWindow.hpp" />
     <ClInclude Include="Mat2.hpp" />
     <ClInclude Include="Mat3.hpp" />
     <ClInclude Include="Mouse.hpp" />
-    <ClInclude Include="DualOrderedCubeScene.hpp" />
     <ClInclude Include="Rect.hpp" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.hpp" />
-    <ClInclude Include="SkinnedCubeScene.hpp" />
-    <ClInclude Include="SolidCubeScene.hpp" />
     <ClInclude Include="Sound.hpp" />
     <ClInclude Include="SoundEffect.hpp" />
     <ClInclude Include="Surface.hpp" />
-    <ClInclude Include="TexturedCubeScene.hpp" />
-    <ClInclude Include="TexturedWrappedCubeScene.hpp" />
-    <ClInclude Include="TextureVertex.hpp" />
     <ClInclude Include="Vec2.hpp" />
     <ClInclude Include="Vec3.hpp" />
-    <ClInclude Include="XMutualScene.hpp" />
-    <ClInclude Include="XQuads.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc" />
