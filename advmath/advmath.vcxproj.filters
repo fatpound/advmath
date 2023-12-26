@@ -108,6 +108,12 @@
     <ClInclude Include="TextureEffect.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="VertexColorEffect.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeVertexColorScene.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">
@@ -150,6 +156,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CubeSkinScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexColorEffect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeVertexColorScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

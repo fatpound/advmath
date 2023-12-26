@@ -1,0 +1,1 @@
+#include "CubeVertexColorScene.hpp"

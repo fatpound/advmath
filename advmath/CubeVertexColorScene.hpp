@@ -5,22 +5,30 @@
 #include "Cube.hpp"
 #include "Mat3.hpp"
 #include "Pipeline.hpp"
-#include "TextureEffect.hpp"
+#include "VertexColorEffect.hpp"
 
-class CubeSkinScene : public Scene
+class CubeVertexColorScene : public Scene
 {
 public:
-    typedef Pipeline<TextureEffect> Pipeline;
+    typedef Pipeline<VertexColorEffect> Pipeline;
     typedef Pipeline::Vertex Vertex;
 
+
 public:
-    CubeSkinScene(Graphics& gfx, const std::wstring& filename)
+    CubeVertexColorScene(Graphics& gfx)
         :
-        Scene(L"Textured Cube skinned using texture : " + std::wstring(filename.begin(), filename.end())),
-        itList(Cube::GenerateSkinned<Vertex>()),
+        Scene(L"Colored cube vertex gradient scene"),
+        itlist(Cube::GeneratePlain<Vertex>()),
         pipeline(gfx)
     {
-        pipeline.effect.pixelshader.BindTexture(filename);
+        itlist.vertices[0].color = Vef3(Red);
+        itlist.vertices[1].color = Vef3(Green);
+        itlist.vertices[2].color = Vef3(Blue);
+        itlist.vertices[3].color = Vef3(Yellow);
+        itlist.vertices[4].color = Vef3(Cyan);
+        itlist.vertices[5].color = Vef3(Magenta);
+        itlist.vertices[6].color = Vef3(White);
+        itlist.vertices[7].color = Vef3(Black);
     }
 
 
@@ -65,23 +73,22 @@ public:
     virtual void Draw() override
     {
         const Maf3 rot = Maf3::RotationAroundX(theta_x) * Maf3::RotationAroundY(theta_y) * Maf3::RotationAroundZ(theta_z);
-        const Vef3 translation = Vef3( 0.0f, 0.0f, offset_z );
+        const Vef3 trans = Vef3( 0.0f,0.0f,offset_z );
 
         pipeline.BindRotation(rot);
-        pipeline.BindTranslation(translation);
+        pipeline.BindTranslation(trans);
 
-        pipeline.Draw(itList);
+        pipeline.Draw(itlist);
     }
 
 
 private:
     static constexpr float dTheta = std::numbers::pi_v<float>;
 
-    IndexedTriangleList<Vertex> itList;
+    IndexedTriangleList<Vertex> itlist;
     Pipeline pipeline;
 
     float offset_z = 2.0f;
-
     float theta_x = 0.0f;
     float theta_y = 0.0f;
     float theta_z = 0.0f;
