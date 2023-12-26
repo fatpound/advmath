@@ -20,6 +20,7 @@
  ******************************************************************************************/
 #include "MainWindow.hpp"
 #include "Game.hpp"
+#include "Cube.hpp"
 
 #include <sstream>
 

@@ -6,8 +6,6 @@
 
 #include <vector>
 
-using fatpound::math::Vef3;
-
 template <class T>
 class IndexedTriangleList
 {
@@ -19,13 +17,10 @@ public:
     {
         assert(vertices.size() > 2);
         assert(indices.size() % 3 == 0);
-
-        cullFlags.resize(indices.size() / 3, false);
     }
 
 
 public:
     std::vector<T> vertices;
     std::vector<size_t> indices;
-    std::vector<bool> cullFlags;
 };

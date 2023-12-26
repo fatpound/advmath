@@ -46,4 +46,10 @@ namespace fatpound::math
             /
             (y1 - y0);
     }
+
+    template <typename T>
+    inline T interpolate(const T& src, const T& dst, float splitRatio)
+    {
+        return src + (dst - src) * splitRatio;
+    }
 }

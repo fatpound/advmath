@@ -1,93 +1,86 @@
 #pragma once
 
-#include "IndexedLineList.hpp"
 #include "IndexedTriangleList.hpp"
-#include "TextureVertex.hpp"
+
+using fatpound::math::Vef2;
+using fatpound::math::Vef3;
 
 class Cube
 {
 public:
-    Cube(float size, float texdim = 1.0f)
+    template <class V>
+    static IndexedTriangleList<V> GetSkinned(float size = 1.0f)
     {
         const float side = size / 2.0f;
+
+        const auto ConvertTexCoord = [](float u, float v)
+        {
+            return Vef2{ (u + 1.0f) / 3.0f, v / 4.0f };
+        };
+
+        std::vector<Vef3> vertices;
+        std::vector<Vef2> tc;
+
         vertices.emplace_back(-side, -side, -side); // 0
-        texCoords.emplace_back(0.0f, texdim);
+        tc.emplace_back(ConvertTexCoord(1.0f, 0.0f));
 
         vertices.emplace_back( side, -side, -side); // 1
-        texCoords.emplace_back(texdim, texdim);
+        tc.emplace_back(ConvertTexCoord(0.0f, 0.0f));
 
         vertices.emplace_back(-side,  side, -side); // 2
-        texCoords.emplace_back(0.0f, 0.0f);
+        tc.emplace_back(ConvertTexCoord(1.0f, 1.0f));
 
         vertices.emplace_back( side,  side, -side); // 3
-        texCoords.emplace_back(texdim, 0.0f);
+        tc.emplace_back(ConvertTexCoord(0.0f, 1.0f));
 
         vertices.emplace_back(-side, -side,  side); // 4
-        texCoords.emplace_back(texdim, texdim);
+        tc.emplace_back(ConvertTexCoord(1.0f, 3.0f));
 
         vertices.emplace_back( side, -side,  side); // 5
-        texCoords.emplace_back(0.0f, texdim);
+        tc.emplace_back(ConvertTexCoord(0.0f, 3.0f));
 
         vertices.emplace_back(-side,  side,  side); // 6
-        texCoords.emplace_back(texdim, 0.0f);
+        tc.emplace_back(ConvertTexCoord(1.0f, 2.0f));
 
         vertices.emplace_back( side,  side,  side); // 7
-        texCoords.emplace_back(0.0f, 0.0f);
-    }
+        tc.emplace_back(ConvertTexCoord(0.0f, 2.0f));
 
+        vertices.emplace_back(-side, -side, -side); // 8
+        tc.emplace_back(ConvertTexCoord(1.0f, 4.0f));
 
-public:
-    IndexedLineList GetLines() const
-    {
-        return IndexedLineList{
-            vertices,
-            {
-                0,1,  1,3,  3,2,  2,0,
-                0,4,  1,5,	3,7,  2,6,
-                4,5,  5,7,	7,6,  6,4
-            }
-        };
-    }
-    IndexedTriangleList<Vef3> GetTriangles() const
-    {
-        return IndexedTriangleList<Vef3>{
-            vertices,
-            {
-                0,2,1,  2,3,1,
-                1,3,5,  3,7,5,
-                2,6,3,  3,6,7,
-                4,5,7,  4,7,6,
-                0,4,2,  2,4,6,
-                0,1,4,  1,5,4
-            }
-        };
-    }
-    IndexedTriangleList<TextureVertex> GetTrianglesTextured() const
-    {
-        std::vector<TextureVertex> tverts;
+        vertices.emplace_back( side, -side, -side); // 9
+        tc.emplace_back(ConvertTexCoord(0.0f, 4.0f));
 
-        tverts.reserve(vertices.size());
+        vertices.emplace_back(-side, -side, -side); // 10
+        tc.emplace_back(ConvertTexCoord(2.0f, 1.0f));
 
-        for (size_t i = 0ui64; i < vertices.size(); ++i)
+        vertices.emplace_back(-side, -side,  side); // 11
+        tc.emplace_back(ConvertTexCoord(2.0f, 2.0f));
+
+        vertices.emplace_back( side, -side, -side); // 12
+        tc.emplace_back(ConvertTexCoord(-1.0f, 1.0f));
+
+        vertices.emplace_back( side, -side,  side); // 13
+        tc.emplace_back(ConvertTexCoord(-1.0f, 2.0f));
+
+        std::vector<V> verts(vertices.size());
+
+        for (size_t i = 0; i < vertices.size(); ++i)
         {
-            tverts.emplace_back(vertices[i], texCoords[i]);
+            verts[i].pos = vertices[i];
+            verts[i].tc = tc[i];
         }
 
-        return IndexedTriangleList<TextureVertex>{
-            std::move(tverts),
+        return IndexedTriangleList<V>{
+            std::move(verts),
             {
-                0,2,1,  2,3,1,
-                1,3,5,  3,7,5,
-                2,6,3,  3,6,7,
-                4,5,7,  4,7,6,
-                0,4,2,  2,4,6,
-                0,1,4,  1,5,4
+                 0,  2,  1,     2,  3,  1,
+                 4,  8,  5,     5,  8,  9,
+                 2,  6,  3,     3,  6,  7,
+                 4,  5,  7,     4,  7,  6,
+                 2, 10, 11,     2, 11,  6,
+                12,  3,  7,    12,  7, 13
             }
         };
     }
-
-
-private:
-    std::vector<Vef3> vertices;
-    std::vector<Vef2> texCoords;
 };
