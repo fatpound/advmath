@@ -20,7 +20,7 @@
  ******************************************************************************************/
 #include "MainWindow.hpp"
 #include "Game.hpp"
-#include "Cube.hpp"
+#include "CubeSkinScene.hpp"
 
 #include <sstream>
 
@@ -29,9 +29,11 @@ Game::Game( MainWindow& wnd )
     wnd( wnd ),
     gfx( wnd )
 {
-    // currentScene = scenes.begin();
+    scenes.push_back(std::make_unique<CubeSkinScene>(gfx, L"Images\\office_skin.jpg"));
 
-    // OutputSceneName();
+    currentScene = scenes.begin();
+
+    OutputSceneName();
 }
 
 void Game::Go()
@@ -81,7 +83,7 @@ void Game::Go()
 void Game::UpdateModel()
 {
     const float deltaTime = timer.Mark();
-    //totalTime += deltaTime;
+    totalTime += deltaTime;
 
     while ( ! wnd.kbd.KeyIsEmpty() )
     {
@@ -89,14 +91,14 @@ void Game::UpdateModel()
 
         if (event.GetCode() == VK_TAB && event.IsPress())
         {
-            // if (wnd.kbd.KeyIsPressed(VK_SHIFT))
-            // {
-            //     ReverseCycleScenes();
-            // }
-            // else
-            // {
-            //     CycleScenes();
-            // }
+            if (wnd.kbd.KeyIsPressed(VK_SHIFT))
+            {
+                ReverseCycleScenes();
+            }
+            else
+            {
+                CycleScenes();
+            }
         }
         else if (event.GetCode() == VK_ESCAPE && event.IsPress())
         {
@@ -104,31 +106,31 @@ void Game::UpdateModel()
         }
     }
 
-    // (*currentScene)->Update(wnd.kbd, wnd.mouse, deltaTime);
+    (*currentScene)->Update(wnd.kbd, wnd.mouse, deltaTime);
 }
 
 void Game::CycleScenes()
 {
-    // if (++currentScene == scenes.end())
-    // {
-    //     currentScene = scenes.begin();
-    // }
-    // 
-    // OutputSceneName();
+    if (++currentScene == scenes.end())
+    {
+        currentScene = scenes.begin();
+    }
+    
+    OutputSceneName();
 }
 
 void Game::ReverseCycleScenes()
 {
-    // if (currentScene == scenes.begin())
-    // {
-    //     currentScene = scenes.end() - 1;
-    // }
-    // else
-    // {
-    //     --currentScene;
-    // }
-    // 
-    // OutputSceneName();
+    if (currentScene == scenes.begin())
+    {
+        currentScene = scenes.end() - 1;
+    }
+    else
+    {
+        --currentScene;
+    }
+    
+    OutputSceneName();
 }
 
 void Game::OutputSceneName() const
@@ -147,5 +149,5 @@ void Game::OutputSceneName() const
 
 void Game::ComposeFrame()
 {
-    // (*currentScene)->Draw(gfx);
+    (*currentScene)->Draw();
 }

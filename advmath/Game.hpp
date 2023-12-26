@@ -64,6 +64,6 @@ private:
 
     FatTimer timer;
 
-    //float totalTime = 0.0f;
+    float totalTime = 0.0f;
     /********************************/
 };
