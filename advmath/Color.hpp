@@ -20,6 +20,8 @@
 ******************************************************************************************/
 #pragma once
 
+#include "Vec3.hpp"
+
 #include <iostream>
 #include <array>
 
@@ -47,24 +49,37 @@ namespace fatpound::color
 
         constexpr Color(unsigned char r, unsigned char g, unsigned char b, unsigned char alpha = 0xFFu)
         {
-            dword = uint32_t(alpha) << 24u
-                | uint32_t(r) << 16u
-                | uint32_t(g) << 8u
-                | uint32_t(b);
+            dword = static_cast<uint32_t>(alpha) << 24u
+                | static_cast<uint32_t>(r) << 16u
+                | static_cast<uint32_t>(g) << 8u
+                | static_cast<uint32_t>(b);
         }
         constexpr Color(int r, int g, int b)
             :
-            Color(unsigned char(r), unsigned char(g), unsigned char(b))
-        {}
+            Color(static_cast<unsigned char>(r), static_cast<unsigned char>(g), static_cast<unsigned char>(b))
+        {
+
+        }
         constexpr Color(uint32_t dw)
             :
             dword(dw | 0xFF'00'00'00u)
-        {}
+        {
+
+        }
         constexpr Color(Color col, unsigned char alpha)
             :
-            Color((uint32_t(alpha) << 24u) | col.dword)
-        {}
+            Color((static_cast<uint32_t>(alpha) << 24u) | col.dword)
+        {
 
+        }
+
+        explicit Color(const Vef3& floatColor)
+            :
+            Color(static_cast<unsigned char>(floatColor.x), static_cast<unsigned char>(floatColor.y), static_cast<unsigned char>(floatColor.z))
+        {
+
+        }
+        
 
     public:
         void SetAlpha(unsigned char x)
@@ -99,6 +114,11 @@ namespace fatpound::color
         constexpr unsigned char GetB() const
         {
             return dword & 0xFFu;
+        }
+
+        explicit operator Vef3() const
+        {
+            return Vef3{ static_cast<float>(GetR()), static_cast<float>(GetG()), static_cast<float>(GetB()) };
         }
 
         bool operator == (const Color src) const
