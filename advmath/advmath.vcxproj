@@ -245,6 +245,7 @@
   <ItemGroup>
     <ClCompile Include="COMInitializer.cpp" />
     <ClCompile Include="CubeSkinScene.cpp" />
+    <ClCompile Include="CubeSolidColorScene.cpp" />
     <ClCompile Include="CubeVertexColorScene.cpp" />
     <ClCompile Include="DXErr.cpp" />
     <ClCompile Include="FatTimer.cpp" />
@@ -256,6 +257,7 @@
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SolidColorEffect.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="VertexColorEffect.cpp" />
@@ -267,6 +269,7 @@
     <ClInclude Include="Cube.hpp" />
     <ClInclude Include="CubeScreenTransformer.hpp" />
     <ClInclude Include="CubeSkinScene.hpp" />
+    <ClInclude Include="CubeSolidColorScene.hpp" />
     <ClInclude Include="CubeVertexColorScene.hpp" />
     <ClInclude Include="DXErr.h" />
     <ClInclude Include="FatMath.hpp" />
@@ -285,6 +288,7 @@
     <ClInclude Include="Rect.hpp" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.hpp" />
+    <ClInclude Include="SolidColorEffect.hpp" />
     <ClInclude Include="Sound.hpp" />
     <ClInclude Include="SoundEffect.hpp" />
     <ClInclude Include="Surface.hpp" />

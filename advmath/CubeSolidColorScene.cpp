@@ -1,0 +1,1 @@
+#include "CubeSolidColorScene.hpp"

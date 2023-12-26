@@ -114,6 +114,12 @@
     <ClInclude Include="CubeVertexColorScene.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CubeSolidColorScene.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SolidColorEffect.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">
@@ -162,6 +168,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CubeVertexColorScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeSolidColorScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SolidColorEffect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
