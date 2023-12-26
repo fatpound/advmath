@@ -25,6 +25,8 @@
 #include <iostream>
 #include <array>
 
+using fatpound::math::Vef3;
+
 namespace fatpound::color
 {
     class Color
@@ -49,10 +51,10 @@ namespace fatpound::color
 
         constexpr Color(unsigned char r, unsigned char g, unsigned char b, unsigned char alpha = 0xFFu)
         {
-            dword = static_cast<uint32_t>(alpha) << 24u
-                | static_cast<uint32_t>(r) << 16u
-                | static_cast<uint32_t>(g) << 8u
-                | static_cast<uint32_t>(b);
+            dword = (static_cast<uint32_t>(alpha) << 24u)
+                | (static_cast<uint32_t>(r) << 16u)
+                | (static_cast<uint32_t>(g) << 8u)
+                | (static_cast<uint32_t>(b));
         }
         constexpr Color(int r, int g, int b)
             :
