@@ -17,7 +17,7 @@ public:
     CubeSkinScene(Graphics& gfx, const std::wstring& filename)
         :
         Scene(L"Textured Cube skinned using texture : " + std::wstring(filename.begin(), filename.end())),
-        itList(Cube::GetSkinned<Vertex>()),
+        itList(Cube::GenerateSkinned<Vertex>()),
         pipeline(gfx)
     {
         pipeline.effect.pixelshader.BindTexture(filename);

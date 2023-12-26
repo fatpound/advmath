@@ -9,7 +9,7 @@ class Cube
 {
 public:
     template <class V>
-    static IndexedTriangleList<V> GetSkinned(float size = 1.0f)
+    static IndexedTriangleList<V> GenerateSkinned(float size = 1.0f)
     {
         const float side = size / 2.0f;
 
