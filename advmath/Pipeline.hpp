@@ -10,101 +10,11 @@
 
 #include <algorithm>
 
+template <class Effect>
 class Pipeline
 {
 public:
-    class Vertex
-    {
-    public:
-        Vertex() = default;
-        Vertex(const Vef3& pos)
-            :
-            pos(pos)
-        {}
-
-    public:
-        Vertex(const Vef3& in_pos, const Vertex& src)
-            :
-            pos(in_pos),
-            tc(src.tc)
-        {
-
-        }
-        Vertex(const Vef3& in_pos, const Vef2& in_tc)
-            :
-            pos(in_pos),
-            tc(in_tc)
-        {
-
-        }
-
-    public:
-        Vertex  operator +  (const Vertex& rhs) const
-        {
-            Vertex vertex(*this);
-
-            vertex += rhs;
-
-            return vertex;
-        }
-        Vertex  operator -  (const Vertex& rhs) const
-        {
-            Vertex vertex(*this);
-
-            vertex -= rhs;
-
-            return vertex;
-        }
-        Vertex  operator *  (float rhs) const
-        {
-            Vertex vertex(*this);
-
-            vertex *= rhs;
-
-            return vertex;
-        }
-        Vertex  operator /  (float rhs) const
-        {
-            Vertex vertex(*this);
-
-            vertex /= rhs;
-
-            return vertex;
-        }
-
-        Vertex& operator += (const Vertex& rhs)
-        {
-            pos += rhs.pos;
-            tc += rhs.tc;
-
-            return *this;
-        }
-        Vertex& operator -= (const Vertex& rhs)
-        {
-            pos -= rhs.pos;
-            tc -= rhs.tc;
-
-            return *this;
-        }
-        Vertex& operator *= (float rhs)
-        {
-            pos *= rhs;
-            tc *= rhs;
-
-            return *this;
-        }
-        Vertex& operator /= (float rhs)
-        {
-            pos /= rhs;
-            tc /= rhs;
-
-            return *this;
-        }
-
-    public:
-        Vef3 pos;
-        Vef2 tc;
-    };
+    typedef typename Effect::Vertex Vertex;
 
 
 public:
@@ -114,6 +24,10 @@ public:
     {
 
     }
+
+
+public:
+    Effect effect;
 
 
 public:
@@ -129,10 +43,6 @@ public:
     {
         translation = in_translation;
     }
-    void BindTexture(const std::wstring& filename)
-    {
-        pTexture = std::make_unique<Surface>(Surface::FromFile(filename));
-    }
 
 
 private:
@@ -142,7 +52,7 @@ private:
 
         for (const auto& v : vertices)
         {
-            verticesOut.emplace_back(v.pos * rotation + translation, v.tc);
+            verticesOut.emplace_back(v.pos * rotation + translation, v);
         }
 
         AssembleTriangles(verticesOut, indices);
@@ -158,7 +68,6 @@ private:
 
             if ((v1.pos - v0.pos) % (v2.pos - v0.pos) * v0.pos <= 0.0f)
             {
-                // process 3 vertices into a triangle
                 ProcessTriangle(v0, v1, v2);
             }
         }
@@ -262,28 +171,23 @@ private:
         itEdge0 += dv0 * (static_cast<float>(yStart) + 0.5f - it0.pos.y);
         itEdge1 += dv1 * (static_cast<float>(yStart) + 0.5f - it0.pos.y);
 
-        const float textureWidth  = static_cast<float>(pTexture->GetWidth());
-        const float textureHeight = static_cast<float>(pTexture->GetHeight());
-        const Vef2 textureClamper = Vef2(textureWidth - 1.0f, textureHeight - 1.0f);
-
         for (int y = yStart; y < yEnd; ++y, itEdge0 += dv0, itEdge1 += dv1)
         {
             const int xStart = static_cast<int>(std::ceil(itEdge0.pos.x - 0.5f));
-            const int xEnd = static_cast<int>(std::ceil(itEdge1.pos.x - 0.5f));
+            const int xEnd   = static_cast<int>(std::ceil(itEdge1.pos.x - 0.5f));
 
-            const Vef2 deltaTexCoordLine = (itEdge1.tc - itEdge0.tc) / (itEdge1.pos.x - itEdge0.pos.x);
+            auto iLine = itEdge0;
+            const float dx = itEdge1.pos.x - itEdge0.pos.x;
+            const Vertex diLine = (itEdge1 - iLine) / dx;
 
-            Vef2 itTexCoordLine = itEdge0.tc + deltaTexCoordLine * (static_cast<float>(xStart) + 0.5f - itEdge0.pos.x);
+            iLine += diLine * (static_cast<float>(xStart) + 0.5f - itEdge0.pos.x);
 
-            for (int x = xStart; x < xEnd; ++x, itTexCoordLine += deltaTexCoordLine)
+            for (int x = xStart; x < xEnd; ++x, iLine += diLine)
             {
                 gfx.PutPixel(
                     x,
                     y,
-                    pTexture->GetPixel(
-                        static_cast<int>(std::min(itTexCoordLine.x * textureWidth,  textureClamper.x)),
-                        static_cast<int>(std::min(itTexCoordLine.y * textureHeight, textureClamper.y))
-                    )
+                    effect.pixelshader(iLine)
                 );
             }
         }
@@ -291,8 +195,6 @@ private:
 
 
 private:
-    std::unique_ptr<Surface> pTexture;
-
     Graphics& gfx;
     CubeScreenTransformer cst;
     Maf3 rotation;

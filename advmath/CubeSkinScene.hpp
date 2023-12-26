@@ -5,20 +5,22 @@
 #include "Cube.hpp"
 #include "Mat3.hpp"
 #include "Pipeline.hpp"
+#include "TextureEffect.hpp"
 
 class CubeSkinScene : public Scene
 {
 public:
+    typedef Pipeline<TextureEffect> Pipeline;
     typedef Pipeline::Vertex Vertex;
 
 public:
     CubeSkinScene(Graphics& gfx, const std::wstring& filename)
         :
-        Scene(L"Textured Cube skinned using texture: " + std::wstring(filename.begin(), filename.end())),
+        Scene(L"Textured Cube skinned using texture : " + std::wstring(filename.begin(), filename.end())),
         itList(Cube::GetSkinned<Vertex>()),
         pipeline(gfx)
     {
-        pipeline.BindTexture(filename);
+        pipeline.effect.pixelshader.BindTexture(filename);
     }
 
 
