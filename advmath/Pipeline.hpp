@@ -139,7 +139,7 @@ private:
         {
             const float splitRatio = fatpound::math::line_split_ratio(pv0->pos.y, pv1->pos.y, pv2->pos.y);
 
-            const Vertex vi = fatpound::math::interpolate(*pv0, *pv2, splitRatio);
+            const VSOut vi = fatpound::math::interpolate(*pv0, *pv2, splitRatio);
 
             if (pv1->pos.x < vi.pos.x)
             {
