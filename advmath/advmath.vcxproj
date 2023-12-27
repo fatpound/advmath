@@ -271,6 +271,7 @@
     <ClInclude Include="CubeSkinScene.hpp" />
     <ClInclude Include="CubeSolidColorScene.hpp" />
     <ClInclude Include="CubeVertexColorScene.hpp" />
+    <ClInclude Include="DoubleCubeScene.hpp" />
     <ClInclude Include="DXErr.h" />
     <ClInclude Include="FatMath.hpp" />
     <ClInclude Include="FatTimer.hpp" />

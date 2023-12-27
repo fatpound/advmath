@@ -157,18 +157,16 @@ namespace fatpound::color
     static constexpr Color Cyan = MakeRGB(0u, 255u, 255u);
     static constexpr Color Magenta = MakeRGB(255u, 0u, 255u);
 
-    static constexpr std::array<Color, 12> colors = {
-        White,
+    static constexpr std::array<Color, 10> colors = {
+        Red,
+        Green,
         Blue,
+        Magenta,
+        Yellow,
         Cyan,
         Gray,
-        Green,
-        Magenta,
         LightGray,
-        Red,
-        Yellow,
         White,
-        Blue,
-        Cyan
+        Black
     };
 }
