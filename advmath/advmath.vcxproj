@@ -271,6 +271,7 @@
     <ClInclude Include="CubeSkinScene.hpp" />
     <ClInclude Include="CubeSolidColorScene.hpp" />
     <ClInclude Include="CubeVertexColorScene.hpp" />
+    <ClInclude Include="CubeVertexPositionColorScene.hpp" />
     <ClInclude Include="DefaultVertexShader.hpp" />
     <ClInclude Include="DoubleCubeScene.hpp" />
     <ClInclude Include="DXErr.h" />
@@ -300,6 +301,7 @@
     <ClInclude Include="Vec2.hpp" />
     <ClInclude Include="Vec3.hpp" />
     <ClInclude Include="VertexColorEffect.hpp" />
+    <ClInclude Include="VertexPositionColorEffect.hpp" />
     <ClInclude Include="VertexWaveScene.hpp" />
     <ClInclude Include="WaveVertexTextureEffect.hpp" />
     <ClInclude Include="ZBuffer.hpp" />
