@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Pipeline.hpp"
+#include "DefaultVertexShader.hpp"
 
 class VertexColorEffect
 {
@@ -86,7 +87,7 @@ public:
     class PixelShader
     {
     public:
-        template<class Input>
+        template <class Input>
         Color operator () (const Input& in) const
         {
             return Color(in.color);
@@ -95,5 +96,10 @@ public:
 
 
 public:
+    typedef DefaultVertexShader<Vertex> VertexShader;
+
+
+public:
+    VertexShader vertexshader;
     PixelShader pixelshader;
 };

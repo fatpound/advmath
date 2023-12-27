@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Pipeline.hpp"
+#include "DefaultVertexShader.hpp"
 
 class SolidColorEffect
 {
@@ -82,7 +83,7 @@ public:
     class PixelShader
     {
     public:
-        template<class Input>
+        template <class Input>
         Color operator () (const Input& in) const
         {
             return in.color;
@@ -91,5 +92,10 @@ public:
 
 
 public:
+    typedef DefaultVertexShader<Vertex> VertexShader;
+
+
+public:
+    VertexShader vertexshader;
     PixelShader pixelshader;
 };

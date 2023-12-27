@@ -11,11 +11,24 @@
 
 #include <algorithm>
 
+/*
+
+                    idx stream
+         *----------------------------------*
+         |                                  |
+indexed  |                                  V                Perspective
+triangle --> SPLIT --> VertexShader --> TriangleAssembly -->   Screen    --> TriangleRasterizer --> PixelShader --> PutPixel
+list                                                         Transformer
+
+
+*/
+
 template <class Effect>
 class Pipeline
 {
 public:
     typedef typename Effect::Vertex Vertex;
+    typedef typename Effect::VertexShader::Output VSOut;
 
 
 public:
@@ -37,14 +50,6 @@ public:
     {
         ProcessVertices(triList.vertices, triList.indices);
     }
-    void BindRotation(const Maf3& in_rotation)
-    {
-        rotation = in_rotation;
-    }
-    void BindTranslation(const Vef3& in_translation)
-    {
-        translation = in_translation;
-    }
     void BeginFrame()
     {
         zbuffer.Clear();
@@ -54,17 +59,19 @@ public:
 private:
     void ProcessVertices(const std::vector<Vertex>& vertices, const std::vector<size_t>& indices)
     {
-        std::vector<Vertex> verticesOut;
+        std::vector<VSOut> verticesOut(vertices.size());
 
-        for (const auto& v : vertices)
-        {
-            verticesOut.emplace_back(v.pos * rotation + translation, v);
-        }
+        std::transform(
+            vertices.begin(),
+            vertices.end(),
+            verticesOut.begin(),
+            effect.vertexshader
+        );
 
         AssembleTriangles(verticesOut, indices);
     }
 
-    void AssembleTriangles(const std::vector<Vertex>& vertices, const std::vector<size_t>& indices)
+    void AssembleTriangles(const std::vector<VSOut>& vertices, const std::vector<size_t>& indices)
     {
         for (size_t i = 0, end = indices.size() / 3; i < end; i++)
         {
@@ -78,11 +85,11 @@ private:
             }
         }
     }
-    void ProcessTriangle(const Vertex& v0, const Vertex& v1, const Vertex& v2)
+    void ProcessTriangle(const VSOut& v0, const VSOut& v1, const VSOut& v2)
     {
-        PostProcessTriangleVertices(Triangle<Vertex>{ v0, v1, v2 });
+        PostProcessTriangleVertices(Triangle<VSOut>{ v0, v1, v2 });
     }
-    void PostProcessTriangleVertices(Triangle<Vertex> triangle)
+    void PostProcessTriangleVertices(Triangle<VSOut> triangle)
     {
         cst.Transform(triangle.v0);
         cst.Transform(triangle.v1);
@@ -91,11 +98,11 @@ private:
         DrawTriangle(triangle);
     }
 
-    void DrawTriangle(const Triangle<Vertex>& triangle)
+    void DrawTriangle(const Triangle<VSOut>& triangle)
     {
-        const Vertex* pv0 = &triangle.v0;
-        const Vertex* pv1 = &triangle.v1;
-        const Vertex* pv2 = &triangle.v2;
+        const VSOut* pv0 = &triangle.v0;
+        const VSOut* pv1 = &triangle.v1;
+        const VSOut* pv2 = &triangle.v2;
 
         if (pv1->pos.y < pv0->pos.y)
         {
@@ -147,29 +154,29 @@ private:
         }
     }
 
-    void DrawFlatTopTriangle(const Vertex& it0, const Vertex& it1, const Vertex& it2)
+    void DrawFlatTopTriangle(const VSOut& it0, const VSOut& it1, const VSOut& it2)
     {
         const float deltaY = it2.pos.y - it0.pos.y;
         const auto dit0 = (it2 - it0) / deltaY;
         const auto dit1 = (it2 - it1) / deltaY;
 
-        Vertex itEdge1 = it1;
+        auto itEdge1 = it1;
 
         DrawFlatTriangle(it0, it1, it2, dit0, dit1, itEdge1);
     }
-    void DrawFlatBottomTriangle(const Vertex& it0, const Vertex& it1, const Vertex& it2)
+    void DrawFlatBottomTriangle(const VSOut& it0, const VSOut& it1, const VSOut& it2)
     {
         const float deltaY = it2.pos.y - it0.pos.y;
         const auto dit0 = (it1 - it0) / deltaY;
         const auto dit1 = (it2 - it0) / deltaY;
 
-        Vertex itEdge1 = it0;
+        auto itEdge1 = it0;
 
         DrawFlatTriangle(it0, it1, it2, dit0, dit1, itEdge1);
     }
-    void DrawFlatTriangle(const Vertex& it0, const Vertex& it1, const Vertex& it2, const Vertex& dv0, const Vertex& dv1, Vertex itEdge1)
+    void DrawFlatTriangle(const VSOut& it0, const VSOut& it1, const VSOut& it2, const VSOut& dv0, const VSOut& dv1, VSOut itEdge1)
     {
-        Vertex itEdge0 = it0;
+        auto itEdge0 = it0;
 
         const int yStart = static_cast<int>(std::ceil(it0.pos.y - 0.5f));
         const int yEnd   = static_cast<int>(std::ceil(it2.pos.y - 0.5f));
@@ -182,10 +189,10 @@ private:
             const int xStart = static_cast<int>(std::ceil(itEdge0.pos.x - 0.5f));
             const int xEnd   = static_cast<int>(std::ceil(itEdge1.pos.x - 0.5f));
 
-            Vertex iLine = itEdge0;
+            auto iLine = itEdge0;
 
             const float dx = itEdge1.pos.x - itEdge0.pos.x;
-            const Vertex diLine = (itEdge1 - iLine) / dx;
+            const auto diLine = (itEdge1 - iLine) / dx;
 
             iLine += diLine * (static_cast<float>(xStart) + 0.5f - itEdge0.pos.x);
 
@@ -193,7 +200,7 @@ private:
             {
                 const float z = 1.0f / iLine.pos.z;
 
-                const Vertex attr = iLine * z;
+                const auto attr = iLine * z;
 
                 if (zbuffer.TestAndSet(x, y, z))
                 {
@@ -208,6 +215,4 @@ private:
     Graphics& gfx;
     CubeScreenTransformer cst;
     ZBuffer zbuffer;
-    Maf3 rotation;
-    Vef3 translation;
 };

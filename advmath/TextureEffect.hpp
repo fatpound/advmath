@@ -1,13 +1,10 @@
 #pragma once
 
 #include "Color.hpp"
-#include "Vec3.hpp"
 #include "Surface.hpp"
+#include "DefaultVertexShader.hpp"
 
 #include <cmath>
-
-using fatpound::math::Vef2;
-using fatpound::math::Vef3;
 
 class TextureEffect
 {
@@ -102,7 +99,7 @@ public:
             tex_clamper = Vef2(tex_width - 1.0f, tex_height - 1.0f);
         }
 
-        template<class Input>
+        template <class Input>
         Color operator () (const Input& in) const
         {
             return pTexture->GetPixel(
@@ -122,5 +119,10 @@ public:
 
 
 public:
+    typedef DefaultVertexShader<Vertex> VertexShader;
+
+
+public:
+    VertexShader vertexshader;
     PixelShader pixelshader;
 };

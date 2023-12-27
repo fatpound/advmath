@@ -74,8 +74,8 @@ public:
         {
             const Maf3 rot = Maf3::RotationAroundX(-theta_x) * Maf3::RotationAroundY(-theta_y) * Maf3::RotationAroundZ(-theta_z);
 
-            pipeline.BindRotation(rot);
-            pipeline.BindTranslation( Vef3( 0.0f,0.0f,2.0f ));
+            pipeline.effect.vertexshader.BindRotation(rot);
+            pipeline.effect.vertexshader.BindTranslation( Vef3( 0.0f,0.0f,2.0f ));
 
             pipeline.Draw(itlist);
         }
@@ -84,8 +84,8 @@ public:
         {
             const Maf3 rot = Maf3::RotationAroundX(theta_x) * Maf3::RotationAroundY(theta_y) * Maf3::RotationAroundZ(theta_z);
 
-            pipeline.BindRotation(rot);
-            pipeline.BindTranslation({ 0.0f,0.0f,offset_z });
+            pipeline.effect.vertexshader.BindRotation(rot);
+            pipeline.effect.vertexshader.BindTranslation({ 0.0f,0.0f,offset_z });
 
             pipeline.Draw(itlist);
         }

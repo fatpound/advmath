@@ -75,8 +75,8 @@ public:
         const Maf3 rot = Maf3::RotationAroundX(theta_x) * Maf3::RotationAroundY(theta_y) * Maf3::RotationAroundZ(theta_z);
         const Vef3 trans = Vef3( 0.0f,0.0f,offset_z );
 
-        pipeline.BindRotation(rot);
-        pipeline.BindTranslation(trans);
+        pipeline.effect.vertexshader.BindRotation(rot);
+        pipeline.effect.vertexshader.BindTranslation(trans);
 
         pipeline.Draw(itlist);
     }
