@@ -17,7 +17,6 @@ public:
 
         }
 
-    public:
         Vertex(const Vef3& in_pos, const Vertex& src)
             :
             pos(in_pos),

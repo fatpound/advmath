@@ -31,7 +31,7 @@ public:
 
                 for (int x = 0; x < nVerticesSide; x++, i++)
                 {
-                    vertices[i].pos = bottomLeft + Vec3{ float(x) * divisionSize,y_pos,0.0f };
+                    vertices[i].pos = bottomLeft + Vef3{ static_cast<float>(x) * divisionSize,y_pos,0.0f };
                 }
             }
         }
@@ -75,7 +75,8 @@ public:
     template <class V>
     static IndexedTriangleList<V> GenerateSkinned(int divisions = 7, float size = 1.0f)
     {
-        auto itlist = GetPlain<V>(divisions, size);
+        auto itlist = GeneratePlain<V>(divisions, size);
+
         {
             const int nVerticesSide = divisions + 1;
             const float tDivisionSize = 1.0f / float(divisions);
@@ -87,7 +88,7 @@ public:
 
                 for (int x = 0; x < nVerticesSide; x++, i++)
                 {
-                    itlist.vertices[i].t = tBottomLeft + Vec2{ float(x) * tDivisionSize,y_t };
+                    itlist.vertices[i].tc = tBottomLeft + Vec2{ float(x) * tDivisionSize,y_t };
                 }
             }
 

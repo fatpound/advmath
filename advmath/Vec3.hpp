@@ -19,6 +19,15 @@ namespace fatpound::math
 
         }
 
+        Vec3<T>& operator = (const Vec3<T>& rhs)
+        {
+            this->x = rhs.x;
+            this->y = rhs.y;
+            z = rhs.z;
+
+            return *this;
+        }
+
         Vec3(T in_x, T in_y, T in_z)
             :
             Vec2<T>(in_x, in_y),
@@ -133,14 +142,6 @@ namespace fatpound::math
             );
         }
 
-        Vec3<T>& operator  = (const Vec3<T> rhs)
-        {
-            this->x = rhs.x;
-            this->y = rhs.y;
-            z = rhs.z;
-
-            return *this;
-        }
         Vec3<T>& operator += (const Vec3<T>& rhs)
         {
             this->x += rhs.x;

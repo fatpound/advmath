@@ -32,45 +32,45 @@ public:
         }
 
     public:
-        Vertex  operator+(const Vertex& rhs) const
+        Vertex  operator +  (const Vertex& rhs) const
         {
             return Vertex(*this) += rhs;
         }
-        Vertex  operator-(const Vertex& rhs) const
+        Vertex  operator -  (const Vertex& rhs) const
         {
             return Vertex(*this) -= rhs;
         }
-        Vertex  operator*(float rhs) const
+        Vertex  operator *  (float rhs) const
         {
             return Vertex(*this) *= rhs;
         }
-        Vertex  operator/(float rhs) const
+        Vertex  operator /  (float rhs) const
         {
             return Vertex(*this) /= rhs;
         }
 
-        Vertex& operator+=(const Vertex& rhs)
+        Vertex& operator += (const Vertex& rhs)
         {
             pos += rhs.pos;
             tc += rhs.tc;
 
             return *this;
         }
-        Vertex& operator-=(const Vertex& rhs)
+        Vertex& operator -= (const Vertex& rhs)
         {
             pos -= rhs.pos;
             tc -= rhs.tc;
 
             return *this;
         }
-        Vertex& operator*=(float rhs)
+        Vertex& operator *= (float rhs)
         {
             pos *= rhs;
             tc *= rhs;
 
             return *this;
         }
-        Vertex& operator/=(float rhs)
+        Vertex& operator /= (float rhs)
         {
             pos /= rhs;
             tc /= rhs;
@@ -126,8 +126,8 @@ public:
         Color operator () (const Input& in) const
         {
             return pTexture->GetPixel(
-                (unsigned int)std::min(in.t.x * tex_width + 0.5f,  tex_xclamp),
-                (unsigned int)std::min(in.t.y * tex_height + 0.5f, tex_yclamp)
+                (unsigned int)std::min(in.tc.x * tex_width + 0.5f,  tex_xclamp),
+                (unsigned int)std::min(in.tc.y * tex_height + 0.5f, tex_yclamp)
             );
         }
 
