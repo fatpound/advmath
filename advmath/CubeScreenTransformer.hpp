@@ -8,7 +8,7 @@ class CubeScreenTransformer
 public:
     CubeScreenTransformer()
         :
-        xFactor(static_cast<float>(Graphics::ScreenWidth) / 2.0f),
+        xFactor(static_cast<float>(Graphics::ScreenWidth)  / 2.0f),
         yFactor(static_cast<float>(Graphics::ScreenHeight) / 2.0f)
     {
 
@@ -16,20 +16,27 @@ public:
 
 
 public:
-    Vef3& Transform(Vef3& v) const
+    template <class Vertex>
+    Vertex& Transform(Vertex& v) const
     {
-        const float zInv = 1.0f / v.z;
+        const float zInv = 1.0f / v.pos.z;
 
-        v.x = ( v.x * zInv + 1.0f) * xFactor;
-        v.y = (-v.y * zInv + 1.0f) * yFactor;
+        v *= zInv;
+
+        v.pos.x = ( v.pos.x + 1.0f) * xFactor;
+        v.pos.y = (-v.pos.y + 1.0f) * yFactor;
+
+        v.pos.z = zInv;
 
         return v;
     }
-    Vef3 GetTransformed(const Vef3& v) const
+    template <class Vertex>
+    Vertex GetTransformed(const Vertex& v) const
     {
-        Vef3 trans = v;
+        Vertex trans = v;
+        trans = Transform(trans);
 
-        return Transform(trans);
+        return trans;
     }
 
 

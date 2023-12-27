@@ -78,9 +78,9 @@ private:
     }
     void PostProcessTriangleVertices(Triangle<Vertex> triangle)
     {
-        cst.Transform(triangle.v0.pos);
-        cst.Transform(triangle.v1.pos);
-        cst.Transform(triangle.v2.pos);
+        cst.Transform(triangle.v0);
+        cst.Transform(triangle.v1);
+        cst.Transform(triangle.v2);
 
         DrawTriangle(triangle);
     }
@@ -176,7 +176,8 @@ private:
             const int xStart = static_cast<int>(std::ceil(itEdge0.pos.x - 0.5f));
             const int xEnd   = static_cast<int>(std::ceil(itEdge1.pos.x - 0.5f));
 
-            auto iLine = itEdge0;
+            Vertex iLine = itEdge0;
+
             const float dx = itEdge1.pos.x - itEdge0.pos.x;
             const Vertex diLine = (itEdge1 - iLine) / dx;
 
@@ -184,10 +185,14 @@ private:
 
             for (int x = xStart; x < xEnd; ++x, iLine += diLine)
             {
+                const float z = 1.0f / iLine.pos.z;
+
+                const Vertex attr = iLine * z;
+
                 gfx.PutPixel(
                     x,
                     y,
-                    effect.pixelshader(iLine)
+                    effect.pixelshader(attr)
                 );
             }
         }
