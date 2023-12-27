@@ -287,6 +287,7 @@
     <ClInclude Include="Mat3.hpp" />
     <ClInclude Include="Mouse.hpp" />
     <ClInclude Include="Pipeline.hpp" />
+    <ClInclude Include="Plane.hpp" />
     <ClInclude Include="Rect.hpp" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.hpp" />
@@ -299,6 +300,8 @@
     <ClInclude Include="Vec2.hpp" />
     <ClInclude Include="Vec3.hpp" />
     <ClInclude Include="VertexColorEffect.hpp" />
+    <ClInclude Include="VertexWaveScene.hpp" />
+    <ClInclude Include="WaveVertexTextureEffect.hpp" />
     <ClInclude Include="ZBuffer.hpp" />
   </ItemGroup>
   <ItemGroup>

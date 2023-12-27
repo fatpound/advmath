@@ -24,6 +24,7 @@
 #include "CubeVertexColorScene.hpp"
 #include "CubeSolidColorScene.hpp"
 #include "DoubleCubeScene.hpp"
+#include "VertexWaveScene.hpp"
 
 #include <sstream>
 
@@ -36,6 +37,7 @@ Game::Game( MainWindow& wnd )
     scenes.push_back(std::make_unique<CubeVertexColorScene>(gfx));
     scenes.push_back(std::make_unique<CubeSolidColorScene>(gfx));
     scenes.push_back(std::make_unique<DoubleCubeScene>(gfx));
+    scenes.push_back(std::make_unique<VertexWaveScene>(gfx));
 
     currentScene = scenes.begin();
 
