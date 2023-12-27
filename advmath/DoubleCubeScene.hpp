@@ -12,10 +12,12 @@ class DoubleCubeScene : public Scene
 public:
     typedef Pipeline<SolidColorEffect> Pipeline;
     typedef Pipeline::Vertex Vertex;
+
+
 public:
     DoubleCubeScene(Graphics& gfx)
         :
-        Scene(L"Colored cube vertex gradient scene"),
+        Scene(L"Double cube scene"),
         itlist(Cube::GeneratePlainIndependentFaces<Vertex>()),
         pipeline(gfx)
     {
@@ -66,6 +68,8 @@ public:
     }
     virtual void Draw() override
     {
+        pipeline.BeginFrame();
+
         // draw fixed cube
         {
             const Maf3 rot = Maf3::RotationAroundX(-theta_x) * Maf3::RotationAroundY(-theta_y) * Maf3::RotationAroundZ(-theta_z);

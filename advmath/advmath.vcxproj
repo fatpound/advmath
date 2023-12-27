@@ -298,6 +298,7 @@
     <ClInclude Include="Vec2.hpp" />
     <ClInclude Include="Vec3.hpp" />
     <ClInclude Include="VertexColorEffect.hpp" />
+    <ClInclude Include="ZBuffer.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc" />

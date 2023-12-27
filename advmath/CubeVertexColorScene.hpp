@@ -72,6 +72,8 @@ public:
     }
     virtual void Draw() override
     {
+        pipeline.BeginFrame();
+
         const Maf3 rot = Maf3::RotationAroundX(theta_x) * Maf3::RotationAroundY(theta_y) * Maf3::RotationAroundZ(theta_z);
         const Vef3 trans = Vef3( 0.0f,0.0f,offset_z );
 

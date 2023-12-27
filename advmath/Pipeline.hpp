@@ -7,6 +7,7 @@
 #include "IndexedTriangleList.hpp"
 #include "CubeScreenTransformer.hpp"
 #include "Mat3.hpp"
+#include "ZBuffer.hpp"
 
 #include <algorithm>
 
@@ -20,7 +21,8 @@ public:
 public:
     Pipeline(Graphics& in_gfx)
         :
-        gfx(in_gfx)
+        gfx(in_gfx),
+        zbuffer(gfx.ScreenWidth, gfx.ScreenHeight)
     {
 
     }
@@ -42,6 +44,10 @@ public:
     void BindTranslation(const Vef3& in_translation)
     {
         translation = in_translation;
+    }
+    void BeginFrame()
+    {
+        zbuffer.Clear();
     }
 
 
@@ -189,11 +195,10 @@ private:
 
                 const Vertex attr = iLine * z;
 
-                gfx.PutPixel(
-                    x,
-                    y,
-                    effect.pixelshader(attr)
-                );
+                if (zbuffer.TestAndSet(x, y, z))
+                {
+                    gfx.PutPixel(x, y, effect.pixelshader(attr));
+                }
             }
         }
     }
@@ -202,6 +207,7 @@ private:
 private:
     Graphics& gfx;
     CubeScreenTransformer cst;
+    ZBuffer zbuffer;
     Maf3 rotation;
     Vef3 translation;
 };
