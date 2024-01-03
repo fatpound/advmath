@@ -75,7 +75,7 @@ private:
 
     void AssembleTriangles(const std::vector<VSOut>& vertices, const std::vector<size_t>& indices)
     {
-        for (size_t i = 0, end = indices.size() / 3; i < end; i++)
+        for (size_t i = 0, end = indices.size() / 3; i < end; ++i, ++triangle_index_)
         {
             const auto& v0 = vertices[indices[i * 3]];
             const auto& v1 = vertices[indices[i * 3 + 1]];
