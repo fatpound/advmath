@@ -272,6 +272,7 @@
     <ClInclude Include="CubeSolidColorScene.hpp" />
     <ClInclude Include="CubeVertexColorScene.hpp" />
     <ClInclude Include="CubeVertexPositionColorScene.hpp" />
+    <ClInclude Include="DefaultGeometryShader.hpp" />
     <ClInclude Include="DefaultVertexShader.hpp" />
     <ClInclude Include="DoubleCubeScene.hpp" />
     <ClInclude Include="DXErr.h" />
@@ -290,7 +291,6 @@
     <ClInclude Include="Pipeline.hpp" />
     <ClInclude Include="Plane.hpp" />
     <ClInclude Include="Rect.hpp" />
-    <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="SolidColorEffect.hpp" />
     <ClInclude Include="Sound.hpp" />

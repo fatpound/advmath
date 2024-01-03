@@ -3,6 +3,7 @@
 #include "Vec3.hpp"
 #include "Mat3.hpp"
 
+using fatpound::math::Vef2;
 using fatpound::math::Vef3;
 using fatpound::math::Maf3;
 

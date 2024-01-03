@@ -29,13 +29,14 @@ class Pipeline
 public:
     typedef typename Effect::Vertex Vertex;
     typedef typename Effect::VertexShader::Output VSOut;
+    typedef typename Effect::GeometryShader::Output GSOut;
 
 
 public:
     Pipeline(Graphics& in_gfx)
         :
         gfx(in_gfx),
-        zbuffer(gfx.ScreenWidth, gfx.ScreenHeight)
+        zbuffer_(gfx.ScreenWidth, gfx.ScreenHeight)
     {
 
     }
@@ -52,7 +53,8 @@ public:
     }
     void BeginFrame()
     {
-        zbuffer.Clear();
+        zbuffer_.Clear();
+        triangle_index_ = 0u;
     }
 
 
@@ -87,22 +89,22 @@ private:
     }
     void ProcessTriangle(const VSOut& v0, const VSOut& v1, const VSOut& v2)
     {
-        PostProcessTriangleVertices(Triangle<VSOut>{ v0, v1, v2 });
+        PostProcessTriangleVertices(effect.geometryshader(v0, v1, v2, triangle_index_));
     }
-    void PostProcessTriangleVertices(Triangle<VSOut> triangle)
+    void PostProcessTriangleVertices(Triangle<GSOut> triangle)
     {
-        cst.Transform(triangle.v0);
-        cst.Transform(triangle.v1);
-        cst.Transform(triangle.v2);
+        cst_.Transform(triangle.v0);
+        cst_.Transform(triangle.v1);
+        cst_.Transform(triangle.v2);
 
         DrawTriangle(triangle);
     }
 
-    void DrawTriangle(const Triangle<VSOut>& triangle)
+    void DrawTriangle(const Triangle<GSOut>& triangle)
     {
-        const VSOut* pv0 = &triangle.v0;
-        const VSOut* pv1 = &triangle.v1;
-        const VSOut* pv2 = &triangle.v2;
+        const GSOut* pv0 = &triangle.v0;
+        const GSOut* pv1 = &triangle.v1;
+        const GSOut* pv2 = &triangle.v2;
 
         if (pv1->pos.y < pv0->pos.y)
         {
@@ -154,7 +156,7 @@ private:
         }
     }
 
-    void DrawFlatTopTriangle(const VSOut& it0, const VSOut& it1, const VSOut& it2)
+    void DrawFlatTopTriangle(const GSOut& it0, const GSOut& it1, const GSOut& it2)
     {
         const float deltaY = it2.pos.y - it0.pos.y;
         const auto dit0 = (it2 - it0) / deltaY;
@@ -164,7 +166,7 @@ private:
 
         DrawFlatTriangle(it0, it1, it2, dit0, dit1, itEdge1);
     }
-    void DrawFlatBottomTriangle(const VSOut& it0, const VSOut& it1, const VSOut& it2)
+    void DrawFlatBottomTriangle(const GSOut& it0, const GSOut& it1, const GSOut& it2)
     {
         const float deltaY = it2.pos.y - it0.pos.y;
         const auto dit0 = (it1 - it0) / deltaY;
@@ -174,7 +176,7 @@ private:
 
         DrawFlatTriangle(it0, it1, it2, dit0, dit1, itEdge1);
     }
-    void DrawFlatTriangle(const VSOut& it0, const VSOut& it1, const VSOut& it2, const VSOut& dv0, const VSOut& dv1, VSOut itEdge1)
+    void DrawFlatTriangle(const GSOut& it0, const GSOut& it1, const GSOut& it2, const GSOut& dv0, const GSOut& dv1, GSOut itEdge1)
     {
         auto itEdge0 = it0;
 
@@ -202,7 +204,7 @@ private:
 
                 const auto attr = iLine * z;
 
-                if (zbuffer.TestAndSet(x, y, z))
+                if (zbuffer_.TestAndSet(x, y, z))
                 {
                     gfx.PutPixel(x, y, effect.pixelshader(attr));
                 }
@@ -213,6 +215,8 @@ private:
 
 private:
     Graphics& gfx;
-    CubeScreenTransformer cst;
-    ZBuffer zbuffer;
+    CubeScreenTransformer cst_;
+    ZBuffer zbuffer_;
+
+    unsigned int triangle_index_;
 };

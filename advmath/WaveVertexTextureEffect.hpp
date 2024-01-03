@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Pipeline.hpp"
+#include "DefaultGeometryShader.hpp"
 
 class WaveVertexTextureEffect
 {
@@ -150,8 +151,11 @@ public:
         float tex_yclamp;
     };
 
+    typedef DefaultGeometryShader<VertexShader::Output> GeometryShader;
+
 
 public:
+    GeometryShader geometryshader;
     VertexShader vertexshader;
     PixelShader pixelshader;
 };

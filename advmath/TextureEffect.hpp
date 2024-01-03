@@ -3,6 +3,7 @@
 #include "Color.hpp"
 #include "Surface.hpp"
 #include "DefaultVertexShader.hpp"
+#include "DefaultGeometryShader.hpp"
 
 #include <cmath>
 
@@ -20,7 +21,6 @@ public:
 
         }
 
-    public:
         Vertex(const Vef3& in_pos, const Vertex& src)
             :
             pos(in_pos),
@@ -120,9 +120,11 @@ public:
 
 public:
     typedef DefaultVertexShader<Vertex> VertexShader;
+    typedef DefaultGeometryShader<VertexShader::Output> GeometryShader;
 
 
 public:
+    GeometryShader geometryshader;
     VertexShader vertexshader;
     PixelShader pixelshader;
 };

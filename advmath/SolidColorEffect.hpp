@@ -2,6 +2,7 @@
 
 #include "Pipeline.hpp"
 #include "DefaultVertexShader.hpp"
+#include "DefaultGeometryShader.hpp"
 
 class SolidColorEffect
 {
@@ -92,9 +93,11 @@ public:
 
 public:
     typedef DefaultVertexShader<Vertex> VertexShader;
+    typedef DefaultGeometryShader<VertexShader::Output> GeometryShader;
 
 
 public:
+    GeometryShader geometryshader;
     VertexShader vertexshader;
     PixelShader pixelshader;
 };
