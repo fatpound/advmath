@@ -270,6 +270,7 @@
     <ClInclude Include="CubeScreenTransformer.hpp" />
     <ClInclude Include="CubeSkinScene.hpp" />
     <ClInclude Include="CubeSolidColorScene.hpp" />
+    <ClInclude Include="CubeSolidGeometryScene.hpp" />
     <ClInclude Include="CubeVertexColorScene.hpp" />
     <ClInclude Include="CubeVertexPositionColorScene.hpp" />
     <ClInclude Include="DefaultGeometryShader.hpp" />
@@ -293,6 +294,7 @@
     <ClInclude Include="Rect.hpp" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="SolidColorEffect.hpp" />
+    <ClInclude Include="SolidGeometryEffect.hpp" />
     <ClInclude Include="Sound.hpp" />
     <ClInclude Include="SoundEffect.hpp" />
     <ClInclude Include="Surface.hpp" />

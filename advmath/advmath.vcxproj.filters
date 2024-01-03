@@ -144,6 +144,12 @@
     <ClInclude Include="DefaultGeometryShader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SolidGeometryEffect.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeSolidGeometryScene.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">
