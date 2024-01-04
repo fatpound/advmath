@@ -156,6 +156,12 @@
     <ClInclude Include="CubeFlatIndependentScene.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GeometryFlatEffect.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryFlatScene.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">

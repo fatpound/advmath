@@ -283,6 +283,8 @@
     <ClInclude Include="FatWin.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="GDIPlusManager.hpp" />
+    <ClInclude Include="GeometryFlatEffect.hpp" />
+    <ClInclude Include="GeometryFlatScene.hpp" />
     <ClInclude Include="Graphics.hpp" />
     <ClInclude Include="IndexedTriangleList.hpp" />
     <ClInclude Include="Keyboard.hpp" />
