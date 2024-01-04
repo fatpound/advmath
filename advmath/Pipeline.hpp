@@ -54,7 +54,6 @@ public:
     void BeginFrame()
     {
         zbuffer_.Clear();
-        triangle_index_ = 0u;
     }
 
 
@@ -75,7 +74,7 @@ private:
 
     void AssembleTriangles(const std::vector<VSOut>& vertices, const std::vector<size_t>& indices)
     {
-        for (size_t i = 0, end = indices.size() / 3; i < end; ++i, ++triangle_index_)
+        for (size_t i = 0, end = indices.size() / 3; i < end; ++i)
         {
             const auto& v0 = vertices[indices[i * 3]];
             const auto& v1 = vertices[indices[i * 3 + 1]];
@@ -83,13 +82,13 @@ private:
 
             if ((v1.pos - v0.pos) % (v2.pos - v0.pos) * v0.pos <= 0.0f)
             {
-                ProcessTriangle(v0, v1, v2);
+                ProcessTriangle(v0, v1, v2, i);
             }
         }
     }
-    void ProcessTriangle(const VSOut& v0, const VSOut& v1, const VSOut& v2)
+    void ProcessTriangle(const VSOut& v0, const VSOut& v1, const VSOut& v2, size_t triangle_index)
     {
-        PostProcessTriangleVertices(effect.geometryshader(v0, v1, v2, triangle_index_));
+        PostProcessTriangleVertices(effect.geometryshader(v0, v1, v2, triangle_index));
     }
     void PostProcessTriangleVertices(Triangle<GSOut> triangle)
     {
@@ -217,6 +216,4 @@ private:
     Graphics& gfx;
     CubeScreenTransformer cst_;
     ZBuffer zbuffer_;
-
-    unsigned int triangle_index_;
 };

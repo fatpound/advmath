@@ -144,7 +144,7 @@ public:
         };
 
     public:
-        Triangle<Output> operator () (const VertexShader::Output& in0, const VertexShader::Output& in1, const VertexShader::Output& in2, unsigned int triangle_index) const
+        Triangle<Output> operator () (const VertexShader::Output& in0, const VertexShader::Output& in1, const VertexShader::Output& in2, size_t triangle_index) const
         {
             return{
                 { in0.pos, triangle_colors[triangle_index / 2] },
