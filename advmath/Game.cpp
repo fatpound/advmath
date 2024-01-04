@@ -27,6 +27,7 @@
 #include "VertexWaveScene.hpp"
 #include "CubeVertexPositionColorScene.hpp"
 #include "CubeSolidGeometryScene.hpp"
+#include "CubeFlatIndependentScene.hpp"
 
 #include <sstream>
 
@@ -35,6 +36,7 @@ Game::Game( MainWindow& wnd )
     wnd( wnd ),
     gfx( wnd )
 {
+    scenes.push_back(std::make_unique<CubeFlatIndependentScene>(gfx));
     scenes.push_back(std::make_unique<CubeSkinScene>(gfx, L"Images\\office_skin.jpg"));
     scenes.push_back(std::make_unique<CubeVertexColorScene>(gfx));
     scenes.push_back(std::make_unique<CubeSolidGeometryScene>(gfx));

@@ -150,6 +150,12 @@
     <ClInclude Include="CubeSolidGeometryScene.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="VertexFlatEffect.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeFlatIndependentScene.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">

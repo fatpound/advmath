@@ -10,8 +10,8 @@ namespace fatpound::math
     template <typename T>
     concept Number = std::is_integral_v<T> || std::is_floating_point_v<T>;
 
-    template <Number T>
-    inline T sq(const T& x)
+    template <typename T>
+    inline auto sq(const T& x)
     {
         return x * x;
     }

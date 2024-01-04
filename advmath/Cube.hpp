@@ -8,7 +8,7 @@ using fatpound::math::Vef3;
 class Cube
 {
 public:
-    template<class V>
+    template <class V>
     static IndexedTriangleList<V> GeneratePlainIndependentFaces(float size = 1.0f)
     {
         const float side = size / 2.0f;
@@ -58,6 +58,75 @@ public:
                 20,23,21, 20,22,23
             }
         };
+    }
+
+    template <class V>
+    static IndexedTriangleList<V> GenerateIndependentFacesNormals(float size = 1.0f)
+    {
+        auto cube = GeneratePlainIndependentFaces<V>(size);
+
+        // std::vector<Vef3> vertices;
+
+        // vertices.emplace_back( -side, -side, -side ); // 0 near side
+        // vertices.emplace_back(  side, -side, -side ); // 1
+        // vertices.emplace_back( -side,  side, -side ); // 2
+        // vertices.emplace_back(  side,  side, -side ); // 3
+        cube.vertices[0].normal  = {  0.0f,  0.0f, -1.0f };
+        cube.vertices[1].normal  = {  0.0f,  0.0f, -1.0f };
+        cube.vertices[2].normal  = {  0.0f,  0.0f, -1.0f };
+        cube.vertices[3].normal  = {  0.0f,  0.0f, -1.0f };
+
+
+        // vertices.emplace_back( -side, -side,  side ); // 4 far side
+        // vertices.emplace_back(  side, -side,  side ); // 5
+        // vertices.emplace_back(  side,  side,  side ); // 7
+        // vertices.emplace_back( -side,  side,  side ); // 6
+        cube.vertices[4].normal = {  0.0f,  0.0f,  1.0f };
+        cube.vertices[5].normal = {  0.0f,  0.0f,  1.0f };
+        cube.vertices[6].normal = {  0.0f,  0.0f,  1.0f };
+        cube.vertices[7].normal = {  0.0f,  0.0f,  1.0f };
+
+
+        // vertices.emplace_back( -side, -side, -side ); // 8 left side
+        // vertices.emplace_back( -side,  side, -side ); // 9
+        // vertices.emplace_back( -side, -side,  side ); // 10
+        // vertices.emplace_back( -side,  side,  side ); // 11
+        cube.vertices[8].normal  = { -1.0f,  0.0f,  0.0f };
+        cube.vertices[9].normal  = { -1.0f,  0.0f,  0.0f };
+        cube.vertices[10].normal = { -1.0f,  0.0f,  0.0f };
+        cube.vertices[11].normal = { -1.0f,  0.0f,  0.0f };
+
+
+        // vertices.emplace_back(  side, -side, -side ); // 12 right side
+        // vertices.emplace_back(  side,  side, -side ); // 13
+        // vertices.emplace_back(  side, -side,  side ); // 14
+        // vertices.emplace_back(  side,  side,  side ); // 15
+        cube.vertices[12].normal = {  1.0f,  0.0f,  0.0f };
+        cube.vertices[13].normal = {  1.0f,  0.0f,  0.0f };
+        cube.vertices[14].normal = {  1.0f,  0.0f,  0.0f };
+        cube.vertices[15].normal = {  1.0f,  0.0f,  0.0f };
+
+
+        // vertices.emplace_back( -side, -side, -side ); // 16 bottom side
+        // vertices.emplace_back(  side, -side, -side ); // 17
+        // vertices.emplace_back( -side, -side,  side ); // 18
+        // vertices.emplace_back(  side, -side,  side ); // 19
+        cube.vertices[16].normal = {  0.0f, -1.0f,  0.0f };
+        cube.vertices[17].normal = {  0.0f, -1.0f,  0.0f };
+        cube.vertices[18].normal = {  0.0f, -1.0f,  0.0f };
+        cube.vertices[19].normal = {  0.0f, -1.0f,  0.0f };
+
+
+        // vertices.emplace_back( -side,  side, -side ); // 20 top side
+        // vertices.emplace_back(  side,  side, -side ); // 21
+        // vertices.emplace_back( -side,  side,  side ); // 22
+        // vertices.emplace_back(  side,  side,  side ); // 23
+        cube.vertices[20].normal = {  0.0f,  1.0f,  0.0f };
+        cube.vertices[21].normal = {  0.0f,  1.0f,  0.0f };
+        cube.vertices[22].normal = {  0.0f,  1.0f,  0.0f };
+        cube.vertices[23].normal = {  0.0f,  1.0f,  0.0f };
+
+        return cube;
     }
 
     template <class V>

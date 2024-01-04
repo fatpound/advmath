@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Vec2.hpp"
+#include "FatMath.hpp"
 
 namespace fatpound::math
 {
@@ -60,6 +61,22 @@ namespace fatpound::math
 
             return vec;
         }
+        Vec3<T>	 GetSaturated() const
+        {
+            Vec3<T> temp(*this);
+
+            temp.Saturate();
+
+            return temp;
+        }
+        Vec3<T>	 GetHadamard(const Vec3<T>& rhs) const
+        {
+            Vec3<T> temp(*this);
+
+            temp.Hadamard(rhs);
+
+            return temp;
+        }
         Vec3<T>& Normalize()
         {
             const T length = Len();
@@ -79,6 +96,22 @@ namespace fatpound::math
 
             this->y = this->x * sinTheta + this->y * cosTheta;
             this->x = new_x;
+
+            return *this;
+        }
+        Vec3<T>& Saturate()
+        {
+            this->x = std::min(1.0f, std::max(0.0f, this->x));
+            this->y = std::min(1.0f, std::max(0.0f, this->y));
+            z = std::min(1.0f, std::max(0.0f, z));
+
+            return *this;
+        }
+        Vec3<T>& Hadamard(const Vec3<T>& rhs)
+        {
+            this->x *= rhs.x;
+            this->y *= rhs.y;
+            z *= rhs.z;
 
             return *this;
         }

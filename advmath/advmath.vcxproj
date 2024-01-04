@@ -267,6 +267,7 @@
     <ClInclude Include="Color.hpp" />
     <ClInclude Include="COMInitializer.hpp" />
     <ClInclude Include="Cube.hpp" />
+    <ClInclude Include="CubeFlatIndependentScene.hpp" />
     <ClInclude Include="CubeScreenTransformer.hpp" />
     <ClInclude Include="CubeSkinScene.hpp" />
     <ClInclude Include="CubeSolidColorScene.hpp" />
@@ -303,6 +304,7 @@
     <ClInclude Include="Vec2.hpp" />
     <ClInclude Include="Vec3.hpp" />
     <ClInclude Include="VertexColorEffect.hpp" />
+    <ClInclude Include="VertexFlatEffect.hpp" />
     <ClInclude Include="VertexPositionColorEffect.hpp" />
     <ClInclude Include="VertexWaveScene.hpp" />
     <ClInclude Include="WaveVertexTextureEffect.hpp" />
