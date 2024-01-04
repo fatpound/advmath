@@ -361,3 +361,13 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+###############
+# Fat Ignores #
+###############
+
+# Precompiled shader bytecode headers
+*.shh
+
+# .obj 3d model files unignore
+!advmath/Models/*.obj
