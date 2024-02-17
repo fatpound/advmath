@@ -51,13 +51,13 @@ Graphics::Graphics( HWNDKey& key )
 	sd.BufferDesc.Width = Graphics::ScreenWidth;
 	sd.BufferDesc.Height = Graphics::ScreenHeight;
 	sd.BufferDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
-	sd.BufferDesc.RefreshRate.Numerator = 1;
-	sd.BufferDesc.RefreshRate.Denominator = 60;
+	sd.BufferDesc.RefreshRate.Numerator = 0;
+	sd.BufferDesc.RefreshRate.Denominator = 0;
 	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	sd.OutputWindow = key.hWnd;
 	sd.SampleDesc.Count = 1;
 	sd.SampleDesc.Quality = 0;
-	sd.Windowed = TRUE;
+	sd.Windowed = FALSE;
 
 	HRESULT				hr;
 	UINT				createFlags = 0u;
@@ -236,8 +236,18 @@ Graphics::Graphics( HWNDKey& key )
 	}
 
 	// allocate memory for sysbuffer (16-byte aligned for faster access)
-	pSysBuffer = reinterpret_cast<Color*>( 
-		_aligned_malloc( sizeof( Color ) * Graphics::ScreenWidth * Graphics::ScreenHeight,16u ) );
+	pSysBuffer = reinterpret_cast<Color*>(_aligned_malloc( sizeof( Color ) * Graphics::ScreenWidth * Graphics::ScreenHeight,16u ) );
+
+    // there is only 1 vertex struct so we initalize once
+    pImmediateContext->IASetInputLayout(pInputLayout.Get());
+    pImmediateContext->VSSetShader(pVertexShader.Get(), nullptr, 0u);
+    pImmediateContext->PSSetShader(pPixelShader.Get(), nullptr, 0u);
+    pImmediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+    const UINT stride = sizeof(FSQVertex);
+    const UINT offset = 0u;
+    pImmediateContext->IASetVertexBuffers(0u, 1u, pVertexBuffer.GetAddressOf(), &stride, &offset);
+    pImmediateContext->PSSetShaderResources(0u, 1u, pSysBufferTextureView.GetAddressOf());
+    pImmediateContext->PSSetSamplers(0u, 1u, pSamplerState.GetAddressOf());
 }
 
 Graphics::~Graphics()
@@ -276,15 +286,6 @@ void Graphics::EndFrame()
 	pImmediateContext->Unmap( pSysBufferTexture.Get(),0u );
 
 	// render offscreen scene texture to back buffer
-	pImmediateContext->IASetInputLayout( pInputLayout.Get() );
-	pImmediateContext->VSSetShader( pVertexShader.Get(),nullptr,0u );
-	pImmediateContext->PSSetShader( pPixelShader.Get(),nullptr,0u );
-	pImmediateContext->IASetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST );
-	const UINT stride = sizeof( FSQVertex );
-	const UINT offset = 0u;
-	pImmediateContext->IASetVertexBuffers( 0u,1u,pVertexBuffer.GetAddressOf(),&stride,&offset );
-	pImmediateContext->PSSetShaderResources( 0u,1u,pSysBufferTextureView.GetAddressOf() );
-	pImmediateContext->PSSetSamplers( 0u,1u,pSamplerState.GetAddressOf() );
 	pImmediateContext->Draw( 6u,0u );
 
 	// flip back/front buffers

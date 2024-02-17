@@ -17,7 +17,7 @@ public:
 
 
 private:
-    static constexpr float zoomFactor = 1.05f;
+    static constexpr float zoomFactor = 1.02f;
 	static constexpr float rotationSpeed = std::numbers::pi_v<float> / 6.0f;
 	
     Camera& camera;

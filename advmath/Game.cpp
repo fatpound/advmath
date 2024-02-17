@@ -33,7 +33,7 @@ Game::Game( MainWindow& wnd )
     camera( coordinateTransformer ),
     cameraCtrl( wnd.mouse, wnd.kbd, camera )
 {
-    std::default_random_engine drng(std::random_device{}());
+    std::minstd_rand mrng(std::random_device{}());
 
     const std::array<Color, 6> colors = { color::Red, color::Green, color::Blue, color::Cyan, color::Yellow, color::Magenta };
     std::uniform_int_distribution<size_t> colorDist(0ui64, 5ui64);
@@ -52,9 +52,9 @@ Game::Game( MainWindow& wnd )
 
     while (stars.size() < starCount)
     {
-        const Vef2 position = { xDist(drng), yDist(drng) };
-        const float radius = std::clamp(radiusDist(drng), minStarRadius, maxStarRadius);
-		const float radiusAmplitude = std::clamp(radiusAmplitudeDist(drng), minRadiusAmplitude, maxRadiusAmplitude);
+        const Vef2 position = { xDist(mrng), yDist(mrng) };
+        const float radius = std::clamp(radiusDist(mrng), minStarRadius, maxStarRadius);
+		const float radiusAmplitude = std::clamp(radiusAmplitudeDist(mrng), minRadiusAmplitude, maxRadiusAmplitude);
 
 		const float maxRadius = radius * (1.0f + radiusAmplitude);
 
@@ -63,14 +63,14 @@ Game::Game( MainWindow& wnd )
 			continue;
 		}
 
-        const Color color = colors[colorDist(drng)];
-        const size_t flareCount = std::clamp(static_cast<size_t>(flareCountDist(drng)), minFlareCount, maxFlareCount);
-        const float ratio = std::clamp(ratioDist(drng), minStarInnerRatio, maxStarInnerRatio);
-        const float rotationSpeed = rotationSpeedDist(drng);
-		const float colorFrequency = std::clamp(colorFrequencyDist(drng), minColorFrequency, maxColorFrequency);
-		const float colorPhase = phaseDist(drng);
-		const float radiusFrequency = radiusFrequencyDist(drng);
-		const float radiusPhase = phaseDist(drng);
+        const Color color = colors[colorDist(mrng)];
+        const size_t flareCount = std::clamp(static_cast<size_t>(flareCountDist(mrng)), minFlareCount, maxFlareCount);
+        const float ratio = std::clamp(ratioDist(mrng), minStarInnerRatio, maxStarInnerRatio);
+        const float rotationSpeed = rotationSpeedDist(mrng);
+		const float colorFrequency = std::clamp(colorFrequencyDist(mrng), minColorFrequency, maxColorFrequency);
+		const float colorPhase = phaseDist(mrng);
+		const float radiusFrequency = radiusFrequencyDist(mrng);
+		const float radiusPhase = phaseDist(mrng);
 
         stars.emplace_back(position, radius, ratio, flareCount, color, rotationSpeed, colorFrequency, colorPhase, radiusAmplitude, radiusFrequency, radiusPhase);
     }
@@ -111,6 +111,13 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+    if (wnd.kbd.KeyIsPressed(VK_ESCAPE))
+    {
+        wnd.Kill();
+
+        return;
+    }
+
     const float deltaTime = frameTimer.Mark();
 
     totalTime += deltaTime;
