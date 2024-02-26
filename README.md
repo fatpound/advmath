@@ -4,7 +4,7 @@ advanced math : Tests built on Chili's framework
 
 **Starfield**
 
-![image](https://github.com/fatpound/advmath/assets/84704675/e01f139c-f635-4d4d-b2a8-b024c55f67ed)
+![image](https://github.com/fatpound/advmath/assets/84704675/462a08cf-e561-4d93-ad47-e82c5a39f451)
 
 > A view of a space with full of randomly generated hollow stars
 - Stars rotate around their centres clockwise or counter-clockwise
